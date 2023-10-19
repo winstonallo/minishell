@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/19 17:11:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:11:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	read_input(t_shell *data)
 	while (1)
 	{
 		data->raw_input = readline("$ ");
+		if (!data->raw_input)
+			return ;
 		status = parse_line(data);
 		if (status == COMMAND_NOT_FOUND)
 		{

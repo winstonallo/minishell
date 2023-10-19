@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 18:26:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/19 19:02:07 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:56:02 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	pathadd_back(t_path **lst, t_path *new)
 {
 	t_path	*current;
 
-	current = *lst;
 	if (*lst == NULL)
 	{
 		*lst = new;
 		return ;
 	}
+	current = *lst;
 	while (current->next != NULL)
 		current = current->next;
 	current->next = new;
