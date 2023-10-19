@@ -1,25 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 15:17:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/19 18:25:52 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/10/19 18:26:04 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/10/19 19:02:07 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/minishell.h"
 
-t_list	*ft_lstnew(char *content)
+t_path	*pathnew(char *content)
 {
-	t_list	*new;
+	t_path	*new;
 
 	new = malloc(sizeof(*new));
 	if (!new)
 		return (NULL);
-	new->content = content;
+	new->path = content;
 	new->next = NULL;
 	return (new);
+}
+
+void	pathadd_back(t_path **lst, t_path *new)
+{
+	t_path	*current;
+
+	current = *lst;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	while (current->next != NULL)
+		current = current->next;
+	current->next = new;
+}
+
+void	free_paths(t_path **stack_a)
+{
+	t_path	*temp;
+	t_path	*current;
+
+	current = *stack_a;
+	while (current)
+	{
+		temp = current->next;
+		free(current);
+		current = temp;
+	}
 }

@@ -6,6 +6,8 @@ SRC_DIR = src
 
 SRCS = 	${SRC_DIR}/minishell.c \
 		${SRC_DIR}/loop.c \
+		${SRC_DIR}/list_utils.c \
+
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
