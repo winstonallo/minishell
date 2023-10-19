@@ -16,7 +16,7 @@ a 'quoted' status for all characters until the next quote of the same type.
 ```
 "..."
 ```
-All special characters lose their meaning except for **$**, **"**, **`**, and \.
+All special characters lose their meaning except for **$**, **"**, **`**, and **\\**.
 ```
 '...'
 ```
