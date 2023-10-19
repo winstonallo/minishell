@@ -1,4 +1,4 @@
-NAME = fdf
+NAME = minishell
 
 OBJ_DIR = obj
 
@@ -12,7 +12,7 @@ CC = clang-12
 
 CFLAGS = -Wall -Wextra -Werror -Iincludes
 
-LDFLAGS = -Lminilibx-linux -L ./libft -lmlx -lXext -lX11 -lm -lft
+LDFLAGS = -Lminilibx-linux -L ./libft -lmlx -lXext -lX11 -lm -lft -lreadline
 
 RM = rm -rf
 
