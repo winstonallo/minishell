@@ -9,11 +9,11 @@ SRCS = 	${SRC_DIR}/minishell.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
-CC = clang-12
+CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -Iincludes
 
-LDFLAGS = -Lminilibx-linux -L ./libft -lmlx -lXext -lX11 -lm -lft -lreadline
+LDFLAGS = -L ./libft -lm -lft -lreadline
 
 RM = rm -rf
 
