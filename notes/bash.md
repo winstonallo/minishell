@@ -21,6 +21,49 @@ All special characters lose their meaning except for **$**, **"**, **`**, **back
 '...'
 ```
 All special characters lose their meaning except for **'**.
+```
+INPUT
+$ echo 'Back\Slash $dollar "Quote"'
+OUTPUT
+Back\Slash $dollar "Quote"
+```
+Since the backslash loses its ability to cancel special characters, this will prompt you
+for the next line:
+```
+INPUT
+$ echo 'Bad\'Idea'
+GET PROMT BACK
+>
+```
+The second quote that we were trying to escape with the backslash actually closed the quoted state,
+and the last one reopened it, which is why we are missing one quote.
+
+
+### Step 3: Parse special operators
+
+Redirection operators are removed from the command line, other operators are replaced by their result.
+
+### Step 4: Perform expansions
+
+Most common expansion is $PARAMETER.
+```
+INPUT
+echo "$PWD has these files that match *.txt :" *.txt
+OUTPUT
+/home/abied-ch/docs has thes files that match *.txt : bar.txt foo.txt
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
