@@ -53,6 +53,10 @@ OUTPUT
 /home/abied-ch/docs has thes files that match *.txt : bar.txt foo.txt
 ```
 
+### Step 5: Split the command into command name and arguments
+
+The name of the command Bash has to execute is **always** the first word in the command line.
+
 
 
 
