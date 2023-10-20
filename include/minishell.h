@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/19 18:39:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:44:26 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 # include "../libft/include/libft.h"
 
 # define EXIT 1789
-# define COMMAND_NOT_FOUND 404 
+# define COMMAND_NOT_FOUND 404
+# define IN_DOUBLE_QUOTES 22
+# define IN_SINGLE_QUOTES 11
 
 typedef struct s_path
 {
