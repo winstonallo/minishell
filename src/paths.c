@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:12:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 12:16:58 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 18:23:14 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,19 @@ static int	store_paths(t_path **paths, char *path)
 	return (0);
 }
 
-int	get_paths(t_shell *data, t_path **paths)
+int	get_paths(t_path **paths, char **env)
 {
 	char	**temp;
 	char	**path_array;
 	int		i;
 
 	i = -1;
-	path_array = data->environment;
+	path_array = env;
 	while (*++path_array)
 	{
 		if (ft_strnstr(*path_array, "PATH", 4))
 		{
-			*path_array += 5;
-			temp = ft_split(*path_array, ':');
+			temp = ft_split(*path_array + 5, ':');
 			if (!temp)
 				return (-1);
 			while (temp[++i])
