@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lists.h                                            :+:      :+:    :+:   */
+/*   cleanup_quoted_sequences.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 12:54:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 15:41:02 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/10/20 15:43:50 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/10/20 15:45:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LISTS_H
-# define LISTS_H
+#include "../include/minishell.h"
 
-typedef struct s_path
+void	free_quoted_sequences(t_quotes **quoted_sequences)
 {
-	char				*path;
-	struct s_path		*next;
-}	t_path;
+	t_quotes	*temp;
+	t_quotes	*current;
 
-typedef struct s_quotes
-{
-	char				*sequence;
-	int					status;
-	struct s_quotes		*next;
-}	t_quotes;
-
-#endif
+	current = *quoted_sequences;
+	while (current)
+	{
+		temp = current->next;
+		free(current->sequence);
+		free(current);
+		current = temp;
+	}
+}

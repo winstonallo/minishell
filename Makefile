@@ -6,10 +6,12 @@ SRC_DIR = src
 
 SRCS = 	${SRC_DIR}/minishell.c \
 		${SRC_DIR}/loop.c \
-		${SRC_DIR}/cleanup.c \
+		${SRC_DIR}/cleanup_paths.c \
+		${SRC_DIR}/cleanup_quoted_sequences.c \
 		${SRC_DIR}/paths.c \
-		${SRC_DIR}/parse_command_line.c \
+		${SRC_DIR}/parse_for_quotes.c \
 		${SRC_DIR}/parsing_utils.c \
+		${SRC_DIR}/store_quoted_sequences.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
