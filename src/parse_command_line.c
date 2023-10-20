@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parse_command_line.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 13:02:55 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/10/20 13:23:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../include/minishell.h"
 
-# include "macros.h"
-# include "structs.h"
-# include "lists.h"
-# include "memory_management.h"
-# include "input_parsing.h"
-# include "input_reading.h"
-# include "paths.h"
-# include "../libft/include/libft.h"
-
-int		main(int argc, char **argv, char **env);
-
-#endif
+void	parse_command_line(t_shell *data)
+{
+	int	indq;
+	int insq;
+	int	i;
+	
+	i = -1;
+	indq = 0;
+	insq = 0;
+	while (data->raw_input[++i])
+	{
+		isquote(data->raw_input[i], &insq, &indq);
+		if (indq == IN_DOUBLE_QUOTES)
+			printf("currently in double quotes, ignoring special characters\n");
+	}
+}

@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   input_parsing.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 13:02:55 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/10/20 13:00:29 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/10/20 13:15:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef INPUT_PARSING_H
+# define INPUT_PARSING_H
 
-# include "macros.h"
 # include "structs.h"
-# include "lists.h"
-# include "memory_management.h"
-# include "input_parsing.h"
-# include "input_reading.h"
-# include "paths.h"
-# include "../libft/include/libft.h"
 
-int		main(int argc, char **argv, char **env);
+void	isquote(char pos, int *insq, int *indq);
+void	parse_command_line(t_shell *data);
 
 #endif

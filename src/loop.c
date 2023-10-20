@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 12:10:55 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 13:20:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <readline/readline.h>
 #include <stdlib.h>
 
 int	parse_line(t_shell *data)
@@ -38,6 +39,7 @@ void	read_input(t_shell *data)
 		data->raw_input = readline("$ ");
 		if (!data->raw_input)
 			return ;
+		parse_command_line(data);
 		status = parse_line(data);
 		if (status == COMMAND_NOT_FOUND)
 		{
