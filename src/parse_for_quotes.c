@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 21:21:31 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 21:28:54 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	handle_unquoted(char *unquoted_sequence, t_shell *data)
 
 	i = 0;
 	status = 0;
-	while (!isquote(unquoted_sequence[i], &status))
+	while (!isquote(unquoted_sequence[i], &status) && unquoted_sequence[i])
 		i++;
 	if (i == 0)
 		return (0);
