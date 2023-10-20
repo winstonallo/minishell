@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 15:13:26 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:36:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ int	parse_line(t_shell *data)
 	return (COMMAND_NOT_FOUND);
 }
 
-void	read_input(t_shell *data)
+int	read_input(t_shell *data)
 {
-	int	status;
+	int			status;
 
 	while (1)
 	{
 		data->raw_input = readline("\033[0;35m\033[1mminishell \033[0;30m");
 		if (!data->raw_input)
-			return ;
-		parse_command_line(data);
+			return (-1);
+		parse_for_quotes(data);
 		status = parse_line(data);
 		if (status == COMMAND_NOT_FOUND)
 		{
@@ -48,6 +48,7 @@ void	read_input(t_shell *data)
 			free(data->raw_input);
 		}
 		else if (status == EXIT)
-			exit (EXIT_SUCCESS);
+			return (EXIT);
 	}
+	return (0);
 }

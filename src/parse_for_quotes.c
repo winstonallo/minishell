@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 16:16:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:30:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	handle_double_quotes(char *quoted_sequence, t_quotes **quoted_sequences)
 	return (i);
 }
 
-int	parse_command_line(t_shell *data)
+int	parse_for_quotes(t_shell *data)
 {
 	int			indq;
 	int 		insq;
@@ -51,5 +51,6 @@ int	parse_command_line(t_shell *data)
 		if (indq == IN_DOUBLE_QUOTES)
 			i += handle_double_quotes(temp + 1, quoted_sequences);
 	}
+	free_quoted_sequences(quoted_sequences);
 	return (0);
 }

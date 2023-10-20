@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   cleanup_paths.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:14:42 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 12:14:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:34:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	free_paths(t_path **stack_a)
+int	free_paths(t_path **stack_a)
 {
 	t_path	*temp;
 	t_path	*current;
@@ -22,6 +22,8 @@ void	free_paths(t_path **stack_a)
 	{
 		temp = current->next;
 		free(current);
+		free(current->path);
 		current = temp;
 	}
+	return (0);
 }

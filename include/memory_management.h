@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:01:08 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 13:01:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:32:22 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 #include "lists.h"
 
-void	free_paths(t_path **stack_a);
+int	free_paths(t_path **stack_a);
 
 #endif

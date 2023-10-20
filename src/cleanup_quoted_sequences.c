@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:43:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 15:45:24 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:30:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ void	free_quoted_sequences(t_quotes **quoted_sequences)
 		free(current);
 		current = temp;
 	}
+	free(quoted_sequences);
 }

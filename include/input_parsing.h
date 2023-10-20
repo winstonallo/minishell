@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:00:29 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 16:01:41 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:26:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "lists.h"
 
 void		isquote(char pos, int *insq, int *indq);
-int			parse_command_line(t_shell *data);
+int			parse_for_quotes(t_shell *data);
 void		free_quoted_sequences(t_quotes **quoted_sequences);
 t_quotes	*quotenew(char *content, int status, unsigned long len);
 void		quoteadd_back(t_quotes **lst, t_quotes *new_node);
