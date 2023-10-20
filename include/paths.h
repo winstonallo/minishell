@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:02:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 18:30:00 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 21:31:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PATHS_H
 
 # include "lists.h"
-#include "memory_management.h"
 # include "structs.h"
 
 int		get_paths(t_path **paths, char **env);
