@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 18:13:23 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 20:01:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,29 @@ static int	handle_single_quotes(char *quoted_sequence, t_quotes **quoted_sequenc
 	quoteadd_back(quoted_sequences, new);
 	return (i);
 }
+
+// static int	handle_unquoted(char *unquoted_sequence, t_shell *data)
+// {
+// 	size_t		i;
+// 	t_quotes	*new;
+// 	int			insq;
+// 	int			indq;
+
+// 	i = 0;
+// 	insq = 0;
+// 	indq = 0;
+
+// 	while (!isquote(unquoted_sequence[i], &insq, &indq))
+// 		i++;
+// 	if (i == 0)
+// 		return (0);
+// 	new = quotenew(unquoted_sequence, UNQUOTED, i);
+// 	if (!new)
+// 		return (-1);
+// 	ft_printf("unquoted sequence: %s\n", new->sequence);
+// 	quoteadd_back(data->sequences,  new);
+// 	return (i - 1);
+// }
 
 int	parse_for_quotes(t_shell *data)
 {
