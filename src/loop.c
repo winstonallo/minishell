@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 13:20:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 15:13:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	read_input(t_shell *data)
 
 	while (1)
 	{
-		data->raw_input = readline("$ ");
+		data->raw_input = readline("\033[0;35m\033[1mminishell \033[0;30m");
 		if (!data->raw_input)
 			return ;
 		parse_command_line(data);
