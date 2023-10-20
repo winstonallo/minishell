@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:18:44 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 16:07:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:16:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_quotes	*quotenew(char *content, int status, unsigned long len)
 		return (NULL);
 	new->sequence = ft_strndup(content, len);
 	if (!new->sequence)
-		return (NULL);
+		return (free(new), NULL);
 	ft_printf("%s\n", new->sequence);
 	new->status = status;
 	new->next = NULL;
