@@ -6,13 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 20:01:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 21:21:31 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	handle_double_quotes(char *quoted_sequence, t_quotes **quoted_sequences)
+static int	handle_double_quotes(char *quoted_sequence, t_shell *data)
 {
 	size_t		i;
 	t_quotes	*new;
@@ -25,12 +25,12 @@ static int	handle_double_quotes(char *quoted_sequence, t_quotes **quoted_sequenc
 	new = quotenew(quoted_sequence, IN_DOUBLE_QUOTES, i);
 	if (!new)
 		return (-1);
-	ft_printf("double quoted sequence: %s\n", new->sequence);
-	quoteadd_back(quoted_sequences, new);
+	printf("double quoted sequence: %s\n", new->sequence);
+	quoteadd_back(data->sequences, new);
 	return (i);
 }
 
-static int	handle_single_quotes(char *quoted_sequence, t_quotes **quoted_sequences)
+static int	handle_single_quotes(char *quoted_sequence, t_shell *data)
 {
 	size_t		i;
 	t_quotes	*new;
@@ -43,58 +43,54 @@ static int	handle_single_quotes(char *quoted_sequence, t_quotes **quoted_sequenc
 	new = quotenew(quoted_sequence, IN_SINGLE_QUOTES, i);
 	if (!new)
 		return (-1);
-	ft_printf("single quoted sequence: %s\n", new->sequence);
-	quoteadd_back(quoted_sequences, new);
+	printf("single quoted sequence: %s\n", new->sequence);
+	quoteadd_back(data->sequences, new);
 	return (i);
 }
 
-// static int	handle_unquoted(char *unquoted_sequence, t_shell *data)
-// {
-// 	size_t		i;
-// 	t_quotes	*new;
-// 	int			insq;
-// 	int			indq;
+static int	handle_unquoted(char *unquoted_sequence, t_shell *data)
+{
+	size_t		i;
+	t_quotes	*new;
+	int			status;
 
-// 	i = 0;
-// 	insq = 0;
-// 	indq = 0;
-
-// 	while (!isquote(unquoted_sequence[i], &insq, &indq))
-// 		i++;
-// 	if (i == 0)
-// 		return (0);
-// 	new = quotenew(unquoted_sequence, UNQUOTED, i);
-// 	if (!new)
-// 		return (-1);
-// 	ft_printf("unquoted sequence: %s\n", new->sequence);
-// 	quoteadd_back(data->sequences,  new);
-// 	return (i - 1);
-// }
+	i = 0;
+	status = 0;
+	while (!isquote(unquoted_sequence[i], &status))
+		i++;
+	if (i == 0)
+		return (0);
+	new = quotenew(unquoted_sequence, UNQUOTED, i);
+	if (!new)
+		return (-1);
+	printf("unquoted sequence: %s\n", new->sequence);
+	quoteadd_back(data->sequences,  new);
+	return (i);
+}
 
 int	parse_for_quotes(t_shell *data)
 {
-	int			indq;
-	int			insq;
+	int			quote_status;
 	int			i;
 	char		*temp;
-	t_quotes	**quoted_sequences;
 
-	quoted_sequences = malloc(sizeof(t_quotes **));
-	if (!quoted_sequences)
+	data->sequences = malloc(sizeof(t_quotes **));
+	if (!data->sequences)
 		return (-1);
-	*quoted_sequences = NULL;
+	*data->sequences = NULL;
 	i = -1;
-	indq = 0;
-	insq = 0;
+	quote_status = 0;
 	while (data->raw_input[++i])
 	{
 		temp = &data->raw_input[i];
-		isquote(data->raw_input[i], &insq, &indq);
-		if (indq == IN_DOUBLE_QUOTES)
-			i += handle_double_quotes(temp + 1, quoted_sequences);
-		else if (insq == IN_SINGLE_QUOTES)
-			i += handle_single_quotes(temp + 1, quoted_sequences);
+		isquote(data->raw_input[i], &quote_status);
+		if (quote_status == IN_DOUBLE_QUOTES)
+			i += handle_double_quotes(temp + 1, data);
+		else if (quote_status == IN_SINGLE_QUOTES)
+			i += handle_single_quotes(temp + 1, data);
+		else
+			i += handle_unquoted(temp, data);
 	}
-	free_quoted_sequences(quoted_sequences);
+	free_quoted_sequences(data->sequences);
 	return (0);
 }
