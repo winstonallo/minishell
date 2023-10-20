@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 18:20:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 21:33:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <readline/history.h>
 
 int	parse_line(t_shell *data)
 {
@@ -65,6 +66,7 @@ int	first_read(t_shell *data)
 	data->raw_input = readline("\033[0;35m\033[1mminishell \033[0;30m");
 	if (!data->raw_input)
 		return (-1);
+	add_history(data->raw_input);
 	parse_for_quotes(data);
 	status = parse_line(data);
 	if (status == COMMAND_NOT_FOUND)
@@ -89,6 +91,7 @@ int	read_input(t_shell *data)
 		data->raw_input = readline("\033[0;35m\033[1mminishell \033[0;30m");
 		if (!data->raw_input)
 			return (-1);
+		add_history(data->raw_input);
 		parse_for_quotes(data);
 		status = parse_line(data);
 		if (status == COMMAND_NOT_FOUND)
