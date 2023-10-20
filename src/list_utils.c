@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 18:26:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/19 19:56:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 10:11:32 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ t_path	*pathnew(char *content)
 	return (new);
 }
 
-void	pathadd_back(t_path **lst, t_path *new)
+void	pathadd_back(t_path **lst, t_path *new_node)
 {
 	t_path	*current;
 
 	if (*lst == NULL)
 	{
-		*lst = new;
+		*lst = new_node;
 		return ;
 	}
 	current = *lst;
 	while (current->next != NULL)
 		current = current->next;
-	current->next = new;
+	current->next = new_node;
 }
 
 void	free_paths(t_path **stack_a)

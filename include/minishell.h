@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/19 20:44:26 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/20 10:11:08 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_shell
 int		main(int argc, char **argv, char **env);
 void	read_input(t_shell *data);
 t_path	*pathnew(char *content);
-void	pathadd_back(t_path **lst, t_path *new);
+void	pathadd_back(t_path **lst, t_path *new_node);
 void	free_paths(t_path **stack_a);
 
 #endif
