@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 17:10:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:18:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,15 @@ void	clear_terminal(char **env)
 {
 	pid_t	pid;
 	char	*args[2];
+
 	args[0] = malloc(strlen("clear") + 1);
+	if (!args[0])
+	{
+		perror("unable to clear the terminal history");
+		return ;
+	}
 	strcpy(args[0], "clear");
 	args[1] = NULL;
-
 	pid = fork();
 	if (pid == -1)
 		perror("fork");
@@ -47,19 +52,19 @@ void	clear_terminal(char **env)
 	}
 	else
 	{
-	 	waitpid(0, NULL, 0);
+		waitpid(0, NULL, 0);
 		free(args[0]);
 	}
 }
 
-int	read_input(t_shell *data)
+int	first_read(t_shell *data)
 {
-	int			status;
+	int	status;
 
 	clear_terminal(data->environment);
 	data->raw_input = readline("\033[0;35m\033[1mminishell \033[0;30m");
 	if (!data->raw_input)
-			return (-1);
+		return (-1);
 	parse_for_quotes(data);
 	status = parse_line(data);
 	if (status == COMMAND_NOT_FOUND)
@@ -69,6 +74,15 @@ int	read_input(t_shell *data)
 		free(data->raw_input);
 	}
 	else if (status == EXIT)
+		return (EXIT);
+	return (0);
+}
+
+int	read_input(t_shell *data)
+{
+	int			status;
+
+	if (first_read(data) == EXIT)
 		return (EXIT);
 	while (1)
 	{

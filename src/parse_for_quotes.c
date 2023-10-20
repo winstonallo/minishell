@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 16:30:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:17:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	handle_double_quotes(char *quoted_sequence, t_quotes **quoted_sequences)
 	while (quoted_sequence[i] != '\"')
 	{
 		i++;
-	}	
+	}
 	new = quotenew(quoted_sequence, IN_DOUBLE_QUOTES, i);
 	if (!new)
-		return (-1);	
+		return (-1);
 	quoteadd_back(quoted_sequences, new);
 	return (i);
 }
@@ -32,7 +32,7 @@ int	handle_double_quotes(char *quoted_sequence, t_quotes **quoted_sequences)
 int	parse_for_quotes(t_shell *data)
 {
 	int			indq;
-	int 		insq;
+	int			insq;
 	int			i;
 	char		*temp;
 	t_quotes	**quoted_sequences;
