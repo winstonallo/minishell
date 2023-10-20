@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 17:18:52 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:21:49 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	clear_terminal(char **env)
 		perror("fork");
 	if (pid == 0)
 	{
-		execve("/bin/clear", args, env);
+		execve("/usr/bin/clear", args, env);
 		perror("execve");
 		exit(0);
 	}
