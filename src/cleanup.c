@@ -1,43 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_utils.c                                       :+:      :+:    :+:   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/19 18:26:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 12:08:01 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/10/20 12:14:42 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/10/20 12:14:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-t_path	*pathnew(char *content)
-{
-	t_path	*new;
-
-	new = malloc(sizeof(*new));
-	if (!new)
-		return (NULL);
-	new->path = content;
-	new->next = NULL;
-	return (new);
-}
-
-void	pathadd_back(t_path **lst, t_path *new)
-{
-	t_path	*current;
-
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	current = *lst;
-	while (current->next != NULL)
-		current = current->next;
-	current->next = new;
-}
 
 void	free_paths(t_path **stack_a)
 {
