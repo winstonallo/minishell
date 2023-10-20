@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/19 18:39:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/20 12:09:32 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 typedef struct s_path
 {
-	char 			*path;
-	struct s_path	*next;
+	char				*path;
+	struct s_path		*next;
 }	t_path;
 
 typedef struct s_shell
