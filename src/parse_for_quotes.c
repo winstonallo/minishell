@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 18:47:21 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:03:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int	parse_for_quotes(t_shell *data)
 		else
 			i += handle_unquoted(temp, data);
 	}
+	print_quote_list(data->sequences);
 	free_sequences(data->sequences);
 	return (0);
 }
