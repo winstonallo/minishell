@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_reading.h                                    :+:      :+:    :+:   */
+/*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 12:58:28 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 20:32:16 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/10/21 20:32:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUT_READING_H
-# define INPUT_READING_H
+#include "../include/minishell.h"
 
-# include "structs.h"
+void	env(t_shell *data)
+{
+	int	i;
 
-int		read_input(t_shell *data);
-int		find_command(char *command, t_shell *data);
+	i = -1;
+	while (data->environment[++i])
+		printf("%s\n", data->environment[i]);
+}
 
-#endif
+int	find_command(char *command, t_shell *data)
+{
+	if (ft_strncmp(command, "env", 4) == 0)
+		return (env(data), 0);
+	else if (ft_strncmp(command, "exit", 5) == 0)
+		return (EXIT);
+	return (COMMAND_NOT_FOUND);
+}

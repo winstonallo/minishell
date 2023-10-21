@@ -6,27 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 19:43:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/21 20:35:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	parse_line(t_shell *data)
-{
-	int	i;
-
-	i = -1;
-	if (ft_strncmp(data->raw_input, "env", 4) == 0)
-	{
-		while (data->environment[++i])
-			ft_printf("%s\n", data->environment[i]);
-		return (free(data->raw_input), 0);
-	}
-	else if (ft_strncmp(data->raw_input, "exit", 5) == 0)
-		return (free(data->raw_input), EXIT);
-	return (COMMAND_NOT_FOUND);
-}
 
 void	clear_terminal(char **env)
 {
@@ -36,7 +20,7 @@ void	clear_terminal(char **env)
 	args[0] = malloc(strlen("clear") + 1);
 	if (!args[0])
 	{
-		perror("unable to clear the terminal history");
+		perror("minishell: unable to clear the terminal history");
 		return ;
 	}
 	ft_strlcpy(args[0], "clear", 5);
@@ -47,7 +31,7 @@ void	clear_terminal(char **env)
 	if (pid == 0)
 	{
 		execve("/usr/bin/clear", args, env);
-		perror("execve");
+		perror("minishell: unable to clear the terminal history");
 		exit(0);
 	}
 	else
@@ -67,7 +51,7 @@ int	first_read(t_shell *data)
 		return (-1);
 	add_history(data->raw_input);
 	parse_for_quotes(data);
-	status = parse_line(data);
+	status = find_command(data->raw_input, data);
 	if (status == COMMAND_NOT_FOUND)
 	{
 		ft_putstr_fd("minishell: command not found: ", 2);
@@ -92,13 +76,13 @@ int	read_input(t_shell *data)
 			return (-1);
 		add_history(data->raw_input);
 		parse_for_quotes(data);
-		status = parse_line(data);
+		status = find_command(data->raw_input, data);
 		if (status == COMMAND_NOT_FOUND)
 		{
 			ft_putstr_fd("minishell: command not found: ", 2);
 			ft_putendl_fd(data->raw_input, 2);
-			free(data->raw_input);
 		}
+		free(data->raw_input);
 		if (status == EXIT)
 			return (EXIT);
 	}
