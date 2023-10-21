@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:01:08 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 18:45:17 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:20:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 # define MEMORY_MANAGEMENT_H
 
 # include "lists.h"
+# include "structs.h"
 
-int			free_paths(t_path **stack_a);
+void		free_paths(t_path **stack_a);
 void		free_sequences(t_quotes **sequences);
-char		**free_array(char **arr);
+void		free_array(char **arr);
+void		wipe(t_shell *data);
 
 #endif

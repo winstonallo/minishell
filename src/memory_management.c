@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup_sequences.c                         :+:      :+:    :+:   */
+/*   memory_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 15:43:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 18:34:02 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/10/21 19:19:50 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/10/21 19:33:31 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_sequences(t_quotes **sequences)
 	free(sequences);
 }
 
-char	**free_array(char **arr)
+void	free_array(char **arr)
 {
 	size_t	i;
 
@@ -36,5 +36,26 @@ char	**free_array(char **arr)
 	while (arr[i])
 		free(arr[i++]);
 	free(arr);
-	return (NULL);
+}
+
+void	free_paths(t_path **stack_a)
+{
+	t_path	*temp;
+	t_path	*current;
+
+	current = *stack_a;
+	while (current)
+	{
+		temp = current->next;
+		free(current->path);
+		free(current);
+		current = temp;
+	}
+	free(stack_a);
+}
+
+void	wipe(t_shell *data)
+{
+	free_paths(data->paths);
+	free_sequences(data->sequences);
 }

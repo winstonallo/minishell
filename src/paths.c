@@ -6,27 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:12:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 18:28:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:18:22 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	free_paths(t_path **stack_a)
-{
-	t_path	*temp;
-	t_path	*current;
-
-	current = *stack_a;
-	while (current)
-	{
-		temp = current->next;
-		free(current->path);
-		free(current);
-		current = temp;
-	}
-	return (0);
-}
 
 static t_path	*pathnew(char *content)
 {
