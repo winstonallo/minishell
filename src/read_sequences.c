@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_sequences.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 23:10:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/22 00:32:43 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ char *expand_dquotes(t_quotes *current)
     return new;
 }
 
-
+/*TODO: try splitting the unquoted sequences,
+replacing strings inside of the array, and strjoining
+them back together*/
 void	expand_sequences(t_shell *data)
 {
 	t_quotes	*head;
