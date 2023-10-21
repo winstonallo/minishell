@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 21:34:55 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:07:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ int	read_input(t_shell *data)
 			ft_putendl_fd(data->raw_input, 2);
 			free(data->raw_input);
 		}
-		else if (status == EXIT)
+		free_sequences(data->sequences);
+		if (status == EXIT)
 			return (EXIT);
 	}
 	return (0);
