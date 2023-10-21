@@ -6,13 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 19:48:09 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/21 20:40:21 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	handle_double_quotes(char *quoted_sequence, t_shell *data)
+static int	dquotes(char *quoted_sequence, t_shell *data)
 {
 	size_t		i;
 	t_quotes	*new;
@@ -27,7 +27,7 @@ static int	handle_double_quotes(char *quoted_sequence, t_shell *data)
 	return (i);
 }
 
-static int	handle_single_quotes(char *quoted_sequence, t_shell *data)
+static int	squote(char *quoted_sequence, t_shell *data)
 {
 	size_t		i;
 	t_quotes	*new;
@@ -62,7 +62,7 @@ static int	split_args(char **unquoted_array, t_shell *data)
 	return (0);
 }
 
-static int	handle_unquoted(char *unquoted_sequence, t_shell *data)
+static int	uquote(char *unquoted_sequence, t_shell *data)
 {
 	size_t		i;
 	int			status;
@@ -100,11 +100,11 @@ int	parse_for_quotes(t_shell *data)
 		temp = &data->raw_input[i];
 		isquote(data->raw_input[i], &quote_status);
 		if (quote_status == IN_DOUBLE_QUOTES)
-			i += handle_double_quotes(temp + 1, data);
+			i += dquotes(temp + 1, data);
 		else if (quote_status == IN_SINGLE_QUOTES)
-			i += handle_single_quotes(temp + 1, data);
+			i += squote(temp + 1, data);
 		else
-			i += handle_unquoted(temp, data);
+			i += uquote(temp, data);
 	}
 	return (0);
 }

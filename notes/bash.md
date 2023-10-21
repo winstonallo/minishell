@@ -32,7 +32,7 @@ for the next line:
 ```
 INPUT
 $ echo 'Bad\'Idea'
-GET PROMT BACK
+GET PROMPT BACK
 >
 ```
 The second quote that we were trying to escape with the backslash actually closed the quoted state,
@@ -50,7 +50,7 @@ Most common expansion is $PARAMETER.
 INPUT
 echo "$PWD has these files that match *.txt :" *.txt
 OUTPUT
-/home/abied-ch/docs has thes files that match *.txt : bar.txt foo.txt
+/home/abied-ch/docs has these files that match *.txt : bar.txt foo.txt
 ```
 
 ### Step 5: Split the command into command name and arguments
