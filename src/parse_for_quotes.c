@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 18:06:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/21 18:47:21 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,32 @@ static int	handle_single_quotes(char *quoted_sequence, t_shell *data)
 	return (i);
 }
 
+static int	split_args(char **unquoted_array, t_shell *data)
+{
+	int			i;
+	int			j;
+	t_quotes	*new;
+
+	i = -1;
+	while (unquoted_array[++i])
+	{
+		j = 0;
+		while (!myisspace(unquoted_array[i][j]) && unquoted_array[i][j])
+			j++;
+		new = quotenew(unquoted_array[i], UNQUOTED, j);
+		if (!new)
+			return (-1);
+		quoteadd_back(data->sequences, new);
+	}
+	return (0);
+}
+
 static int	handle_unquoted(char *unquoted_sequence, t_shell *data)
 {
 	size_t		i;
-	t_quotes	*new;
 	int			status;
+	char		**unquoted_array;
+	char		*temp;
 
 	i = 0;
 	status = 0;
@@ -54,11 +75,16 @@ static int	handle_unquoted(char *unquoted_sequence, t_shell *data)
 		i++;
 	if (i == 0)
 		return (0);
-	new = quotenew(unquoted_sequence, UNQUOTED, i);
-	if (!new)
+	temp = ft_strndup(unquoted_sequence, i);
+	if (!temp)
 		return (-1);
-	quoteadd_back(data->sequences, new);
-	return (i - 1);
+	unquoted_array = ft_split(temp, ' ');
+	if (!unquoted_array)
+		return (-1);
+	free(temp);
+	if (split_args(unquoted_array, data) == -1)
+		return (-1);	
+	return (free_array(unquoted_array), i - 1);
 }
 
 int	parse_for_quotes(t_shell *data)
@@ -84,6 +110,6 @@ int	parse_for_quotes(t_shell *data)
 		else
 			i += handle_unquoted(temp, data);
 	}
-	free_quoted_sequences(data->sequences);
+	free_sequences(data->sequences);
 	return (0);
 }

@@ -6,7 +6,7 @@ SRC_DIR = src
 
 SRCS = 	${SRC_DIR}/minishell.c \
 		${SRC_DIR}/loop.c \
-		${SRC_DIR}/cleanup_quoted_sequences.c \
+		${SRC_DIR}/cleanup_sequences.c \
 		${SRC_DIR}/paths.c \
 		${SRC_DIR}/parse_for_quotes.c \
 		${SRC_DIR}/parsing_utils.c \
