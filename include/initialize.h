@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   initialize.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 21:42:39 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/10/21 21:41:58 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/10/21 21:42:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef INITIALIZE_H
+# define INITIALIZE_H
 
-# include "macros.h"
 # include "structs.h"
-# include "lists.h"
-# include "memory_management.h"
-# include "input_parsing.h"
-# include "input_reading.h"
-# include "paths.h"
-# include "testing_utils.h"
-# include "initialize.h"
-# include "../libft/include/libft.h"
 
-int		main(int argc, char **argv, char **env);
+int	initialize_lists(t_shell *data);
 
 #endif

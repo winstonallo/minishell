@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 21:42:39 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/10/21 21:41:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../include/minishell.h"
 
-# include "macros.h"
-# include "structs.h"
-# include "lists.h"
-# include "memory_management.h"
-# include "input_parsing.h"
-# include "input_reading.h"
-# include "paths.h"
-# include "testing_utils.h"
-# include "initialize.h"
-# include "../libft/include/libft.h"
-
-int		main(int argc, char **argv, char **env);
-
-#endif
+int	initialize_lists(t_shell *data)
+{
+	data->paths = (t_path **)malloc(sizeof(t_path));
+	if (!data->paths)
+		return (-1);
+	*data->paths = NULL;
+	data->sequences = malloc(sizeof(t_quotes **));
+	if (!data->sequences)
+		return (free(data->paths), -1);
+	*data->sequences = NULL;
+	return (0);
+}
