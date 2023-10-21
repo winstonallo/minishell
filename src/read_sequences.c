@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/22 00:32:43 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/22 00:35:30 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ char *expand_dquotes(t_quotes *current)
     return new;
 }
 
-/*TODO: try splitting the unquoted sequences,
-replacing strings inside of the array, and strjoining
-them back together*/
+/*TODO: idea for different expanding approach, see github issues*/
 void	expand_sequences(t_shell *data)
 {
 	t_quotes	*head;
