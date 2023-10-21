@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 19:14:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:43:05 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	clear_terminal(char **env)
 		perror("unable to clear the terminal history");
 		return ;
 	}
-	strcpy(args[0], "clear");
+	ft_strlcpy(args[0], "clear", 5);
 	args[1] = NULL;
 	pid = fork();
 	if (pid == -1)

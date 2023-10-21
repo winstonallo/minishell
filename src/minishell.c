@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:00:40 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 19:19:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:47:41 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ static int	initialize_lists(t_shell *data)
 	return (0);
 }
 
-
-
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	data;
@@ -35,7 +33,7 @@ int	main(int argc, char **argv, char **env)
 		return (-1);
 	data.environment = env;
 	get_paths(data.paths, env);
-	if (read_input(&data) == EXIT)	
+	if (read_input(&data) == EXIT)
 		return (wipe(&data), 0);
 	if (argc || argv)
 		return (0);
