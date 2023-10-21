@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:19:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 19:47:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/21 21:46:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	free_paths(t_path **stack_a)
 
 void	wipe(t_shell *data)
 {
+	if (data->raw_input)
+		free(data->raw_input);
 	free_paths(data->paths);
 	free_sequences(data->sequences);
 }

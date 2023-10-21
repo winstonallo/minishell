@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:47:35 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 18:39:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/21 22:48:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	isquote(char pos, int *status)
 
 int	myisspace(char c)
 {
-	if (c < 9 || c > 13)
-		return (0);
-	return (1);
+	if ((c >= 9 && c <= 13) || c == ' ')
+		return (1);
+	return (0);
 }
