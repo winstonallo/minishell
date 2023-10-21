@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 21:35:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/21 18:06:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,10 @@ static int	handle_double_quotes(char *quoted_sequence, t_shell *data)
 
 	i = 0;
 	while (quoted_sequence[i] != '\"')
-	{
 		i++;
-	}
 	new = quotenew(quoted_sequence, IN_DOUBLE_QUOTES, i);
 	if (!new)
 		return (-1);
-	printf("double quoted sequence: %s\n", new->sequence);
 	quoteadd_back(data->sequences, new);
 	return (i);
 }
@@ -37,13 +34,10 @@ static int	handle_single_quotes(char *quoted_sequence, t_shell *data)
 
 	i = 0;
 	while (quoted_sequence[i] != '\'')
-	{
 		i++;
-	}
 	new = quotenew(quoted_sequence, IN_SINGLE_QUOTES, i);
 	if (!new)
 		return (-1);
-	printf("single quoted sequence: %s\n", new->sequence);
 	quoteadd_back(data->sequences, new);
 	return (i);
 }
@@ -63,7 +57,6 @@ static int	handle_unquoted(char *unquoted_sequence, t_shell *data)
 	new = quotenew(unquoted_sequence, UNQUOTED, i);
 	if (!new)
 		return (-1);
-	printf("unquoted sequence: %s\n", new->sequence);
 	quoteadd_back(data->sequences, new);
 	return (i - 1);
 }
