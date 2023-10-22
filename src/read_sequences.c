@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/22 09:27:00 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/22 10:53:18 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int count_words(char *seq)
         if (seq[i] == '$')
         {
             ret++;
+            i++;
             while (seq[i] && seq[i] != '$' && !myisspace(seq[i]))
                 i++;
         }
@@ -92,7 +93,6 @@ int count_words(char *seq)
             while (seq[i] && seq[i] != '$')
                 i++;
         }
-        i++;
     }
     return (ret);  
 }
