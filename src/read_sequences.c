@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/22 12:09:32 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/22 17:16:48 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ static char    *get_next_word(char *seq, size_t *pos)
 	{
 		if ((myisspace(seq[i]) && in_arg) || (seq[i] == '$' && !in_arg))
 		{
-			ret = ft_strndup(&seq[i], i - *pos);
+			ret = ft_strndup(&seq[*pos], i - *pos);
+			printf("ret: %s\n", ret);
 			if (!ret)
 				return (NULL);
 			return (*pos = i, ret);
