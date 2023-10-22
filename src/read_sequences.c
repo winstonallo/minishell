@@ -6,11 +6,12 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/22 10:53:18 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/22 12:09:32 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <stddef.h>
 
 // char *replace(char *current, size_t *i)
 // {
@@ -71,7 +72,7 @@
 //     return new;
 // }
 
-int count_words(char *seq)
+static size_t count_words(char *seq)
 {
     int i;
     int ret;
@@ -97,12 +98,50 @@ int count_words(char *seq)
     return (ret);  
 }
 
+static char    *get_next_word(char *seq, size_t *pos)
+{
+    size_t  i;
+	int		in_arg;
+	char	*ret;
+    
+    i = *pos;
+	in_arg = 0;
+	if (seq[i] == '$')
+		in_arg = 1;
+    while (seq[i])
+	{
+		if ((myisspace(seq[i]) && in_arg) || (seq[i] == '$' && !in_arg))
+		{
+			ret = ft_strndup(&seq[i], i - *pos);
+			if (!ret)
+				return (NULL);
+			return (*pos = i, ret);
+		}
+		i++;
+	}
+	return (seq);
+}
+
 char    *expand_dquotes(char *sequence)
 {
-    int arr_size;
+    size_t		arr_size;
+    char		**arr;
+    size_t		i;
+    size_t		pos;
     
+    i = -1;
+    pos = 0;
     arr_size = count_words(sequence);
-    printf("word count: %d\n", arr_size);
+    arr = malloc((arr_size + 1) * sizeof(char *));
+    if (!arr)
+        return (NULL);
+    while (++i < arr_size)
+    {
+        arr[i] = get_next_word(sequence, &pos);
+		printf("array index %zu: %s\n", i, arr[i]);
+		if (!arr[i])
+			return(free_array(arr), NULL);
+    }
     return (NULL);
 }
 
