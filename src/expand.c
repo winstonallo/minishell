@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_sequences.c                                   :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/22 17:16:48 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/23 11:43:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,30 +98,34 @@ static size_t count_words(char *seq)
     return (ret);  
 }
 
-static char    *get_next_word(char *seq, size_t *pos)
+static char *get_next_word(char *seq, size_t *pos)
 {
-    size_t  i;
-	int		in_arg;
-	char	*ret;
-    
-    i = *pos;
-	in_arg = 0;
-	if (seq[i] == '$')
+    size_t  i = *pos;
+    int     in_arg = 0;
+    char    *ret;
+
+    if (seq[i] == '$')
+    {
 		in_arg = 1;
-    while (seq[i])
-	{
-		if ((myisspace(seq[i]) && in_arg) || (seq[i] == '$' && !in_arg))
-		{
-			ret = ft_strndup(&seq[*pos], i - *pos);
-			printf("ret: %s\n", ret);
-			if (!ret)
-				return (NULL);
-			return (*pos = i, ret);
-		}
 		i++;
-	}
-	return (seq);
+	}    
+    while (seq[i])
+    {
+        if ((myisspace(seq[i]) && in_arg) || (seq[i] == '$') || !seq[i + 1])
+        {
+            if (!seq[i + 1])
+                i++;
+            ret = ft_strndup(&seq[*pos], i - *pos);
+            if (!ret)
+                return (NULL);
+            *pos = i;
+            return ret;
+        }
+        i++;
+    }
+    return NULL;
 }
+
 
 char    *expand_dquotes(char *sequence)
 {
@@ -138,6 +142,7 @@ char    *expand_dquotes(char *sequence)
         return (NULL);
     while (++i < arr_size)
     {
+		printf("i = %zu\n", i);
         arr[i] = get_next_word(sequence, &pos);
 		printf("array index %zu: %s\n", i, arr[i]);
 		if (!arr[i])
