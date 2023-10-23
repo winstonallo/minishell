@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 16:46:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:43:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ char	*find_path(t_shell *data, char *command)
 		if (!temp)
 			return (NULL);
 		if (access(temp, X_OK) == 0)
-			return (temp);
+			return (free(command), temp);
 		free(temp);
 		head = head->next;
 	}
+	free(command);
 	return (NULL);
 }
 
@@ -59,5 +60,7 @@ int	execute_command(t_shell *data)
 	if (!data->command)
 		return (free_array(data->command_args), -1);
 	child_process(data);
+	free(data->command);
+	free_array(data->command_args);
 	return (0);
 }

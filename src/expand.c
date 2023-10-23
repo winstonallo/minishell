@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 14:21:10 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:07:34 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,7 @@ static char *get_next_word(char *seq, size_t *pos)
 	i = *pos;
 	in_arg = 0;
     if (seq[i++] == '$' && (ft_isalnum(seq[i + 1])))
-    {
-		printf("hello");
 		in_arg = 1;
-	}
     while (seq[i])
     {
 		if (seq[i] == '$' && !ft_isalnum(seq[i + 1]))
@@ -145,16 +142,14 @@ char    *expand_dquotes(char *sequence)
         return (NULL);
     while (++i < arr_size)
     {
-		printf("i = %zu\n", i);
         arr[i] = get_next_word(sequence, &pos);
-        printf("array index %zu: %s\n", i, arr[i]);
+		free(arr[i]);
         if (!arr[i])
-            return free_array(arr), NULL; // Return NULL only when an error occurs
+            return (free(arr), NULL);
     }
-    return (arr[arr_size - 1]); // Return the array containing strings
+	return (free(arr), NULL);
 }
-
-/*TODO: idea for different expanding approach, see github issues*/
+/*🚧 NICHT WUNDERN WENN NIX FUNKTIONIEREN*/
 void	expand_sequences(t_shell *data)
 {
 	t_quotes	*head;

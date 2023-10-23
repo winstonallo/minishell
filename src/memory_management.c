@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:19:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 16:36:49 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:01:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 void	free_sequences(t_quotes **sequences)
 {
-	t_quotes	*temp;
 	t_quotes	*current;
+	t_quotes	*next;
 
 	current = *sequences;
+	printf("%s\n", current->sequence);
 	while (current)
 	{
-		temp = current->next;
+		next = current->next;
 		free(current->sequence);
 		free(current);
-		current = temp;
+		current = next;
 	}
 	free(sequences);
 }
@@ -33,9 +34,12 @@ void	free_array(char **arr)
 	size_t	i;
 
 	i = 0;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
+	if (arr)
+	{
+		while (arr[i])
+			free(arr[i++]);
+		free(arr);
+	}	
 }
 
 void	free_paths(t_path **stack_a)

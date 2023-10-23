@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 16:45:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:07:21 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	first_read(t_shell *data)
 	add_history(data->raw_input);
 	parse_for_quotes(data);
 	status = find_command(data->raw_input, data);
-	expand_sequences(data);
+	//expand_sequences(data);//🚧
+	printf("in first read: %s\n", (*data->sequences)->sequence);
 	if (status == COMMAND_NOT_FOUND)
 	{
 		ft_putstr_fd("minishell: command not found: ", 2);
