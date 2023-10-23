@@ -6,12 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 11:59:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 12:05:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <stddef.h>
 
 // char *replace(char *current, size_t *i)
 // {
@@ -71,6 +70,7 @@
 //     free(current->sequence);
 //     return new;
 // }
+adfadfasdassdssaddsaddas
 
 static size_t count_words(char *seq)
 {
