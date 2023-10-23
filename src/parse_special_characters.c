@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 18:35:55 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 20:51:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 22:09:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <stddef.h>
 
 int	isop(char c)
 {
@@ -23,36 +24,51 @@ int	isop(char c)
 	return (0);
 }
 
+// static size_t	get_word_len(char *s)
+// {
+// 	size_t	i;
+
+// 	i = 0;
+// 	while (!isop(s[i]))
+// 		i++;
+// 	return (i);
+// }
+
 /*🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 memory management if fail after first iteration*/
 int split_curr_sequence(char *seq, t_shell *data)
 {
 	size_t	i;
+	size_t	j;
 	t_op	*new;
 	
 	i = -1;
+	j = 0;
 	data->operators = malloc(sizeof(data->operators));
 	if (!data->operators)
 		return (-1);
 	*data->operators = NULL;
 	while(seq[++i])
 	{
-		if(isop(seq[i]) || !seq[i])
+		i = j;
+		while (!isop(seq[j]) && seq[j])
 		{
-			if (i > 0)
+			j++;	
+			if (isop(seq[j]) || !seq[j])
 			{
-				new = opnew(seq, UNQUOTED, 0, i);
+				new = opnew(&seq[i], UNQUOTED, 0, j - i);
 				if (!new)
 					return (-1);
-				opadd_back(data->operators, new);				
+				opadd_back(data->operators, new);
 			}
-			if (isop(seq[i]))
-			{
-				new = opnew(&seq[i], SPECIAL_CHAR, isop(seq[i]), 1);
-				if (!new)
-					return (-1);
-				opadd_back(data->operators, new);		
-			}
+		}
+		if (isop(seq[j]))
+		{
+			new = opnew(NULL, SPECIAL_CHAR, isop(seq[j]), 0);
+			if (!new)
+				return (-1);
+			opadd_back(data->operators, new);
+			j++;
 		}
 	}
 	return (0);
