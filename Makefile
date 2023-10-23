@@ -16,6 +16,7 @@ SRCS = 	${SRC_DIR}/minishell.c \
 		${SRC_DIR}/expand.c \
 		${SRC_DIR}/initialize.c \
 		${SRC_DIR}/execute.c \
+		${SRC_DIR}/parse_special_characters.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 

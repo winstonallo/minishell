@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 17:53:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 20:41:31 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	dquotes(char *quoted_sequence, t_shell *data)
 	i = 0;
 	while (quoted_sequence[i] != '\"')
 		i++;
-	new = quotenew(quoted_sequence, IN_DOUBLE_QUOTES, i);
+	new = quotenew(quoted_sequence, IN_DOUBLE_QUOTES, 0, i);
 	if (!new)
 		return (-1);
 	quoteadd_back(data->sequences, new);
@@ -35,7 +35,7 @@ static int	squote(char *quoted_sequence, t_shell *data)
 	i = 0;
 	while (quoted_sequence[i] != '\'')
 		i++;
-	new = quotenew(quoted_sequence, IN_SINGLE_QUOTES, i);
+	new = quotenew(quoted_sequence, IN_SINGLE_QUOTES, 0, i);
 	if (!new)
 		return (-1);
 	quoteadd_back(data->sequences, new);
@@ -54,7 +54,7 @@ static int	split_args(char **unquoted_array, t_shell *data)
 		j = 0;
 		while (!myisspace(unquoted_array[i][j]) && unquoted_array[i][j])
 			j++;
-		new = quotenew(unquoted_array[i], UNQUOTED, j);
+		new = quotenew(unquoted_array[i], 0, UNQUOTED, j);
 		if (!new)
 			return (-1);
 		quoteadd_back(data->sequences, new);

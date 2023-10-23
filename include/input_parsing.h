@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:00:29 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 12:43:29 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 20:33:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int			myisspacealnum(char c);
 int			isquote(char pos, int *status);
 int			parse_for_quotes(t_shell *data);
 void		free_quoted_sequences(t_quotes **quoted_sequences);
-t_quotes	*quotenew(char *content, int status, unsigned long len);
+t_quotes	*quotenew(char *content, int status, int op, unsigned long len);
+void		opadd_back(t_op **lst, t_op *new_node);
+t_op		*opnew(char *content, int status, int op, unsigned long len);
 void		quoteadd_back(t_quotes **lst, t_quotes *new_node);
+int			parse_special_char(t_shell *data);
 
 #endif
