@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:00:40 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 16:27:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:37:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **env)
 	data.environment = env;
 	get_paths(data.paths, env);
 	if (read_input(&data) == EXIT)
-		return (0);
+		return (free_paths(data.paths), 0);
 	if (argc || argv)
 		return (0);
 	return (0);

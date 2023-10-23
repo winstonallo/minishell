@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 16:30:09 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:45:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	read_input(t_shell *data)
 		return (EXIT);
 	while (1)
 	{
-		if (initialize_lists(data) == -1)
+		if (initialize_sequences(data) == -1)
 			return (-1);
 		data->raw_input = readline("\033[0;35m\033[1mminishell \033[0;30m");
 		if (!data->raw_input)

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 16:20:41 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:34:17 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int	find_command(char *command, t_shell *data)
 	else if (ft_strncmp(command, "exit", 5) == 0)
 		return (EXIT);
 	else
-		execute_command(data);
+		return (execute_command(data), 0);
 	return (COMMAND_NOT_FOUND);
 }
