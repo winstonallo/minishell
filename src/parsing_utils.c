@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:47:35 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 22:48:47 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 12:43:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ int	isquote(char pos, int *status)
 	isquote_double(pos, status);
 	isquote_single(pos, status);
 	if (*status == IN_DOUBLE_QUOTES || *status == IN_SINGLE_QUOTES)
+		return (1);
+	return (0);
+}
+
+int	myisspacealnum(char c)
+{
+	if ((c >= 9 && c <= 13) || c == ' ' || !ft_isalnum(c))
 		return (1);
 	return (0);
 }

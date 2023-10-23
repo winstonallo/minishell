@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 12:07:23 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/23 12:52:21 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@
 //     free(current->sequence);
 //     return new;
 // }
-adfadfasdassdssaddsaddas
 
 static size_t count_words(char *seq)
 {
@@ -85,7 +84,7 @@ static size_t count_words(char *seq)
         {
             ret++;
             i++;
-            while (seq[i] && seq[i] != '$' && !myisspace(seq[i]))
+            while (seq[i] && seq[i] != '$' && !myisspacealnum(seq[i]))
                 i++;
         }
         else
@@ -104,31 +103,14 @@ static char *get_next_word(char *seq, size_t *pos)
     int     in_arg = 0;
     char    *ret;
 
-    if (seq[i] == '$')
+    if (seq[i] == '$' && (ft_isalnum(seq[i + 1])))
     {
 		in_arg = 1;
-<<<<<<< HEAD:src/read_sequences.c
-    while (seq[i])
-	{
-		if ((myisspace(seq[i]) && in_arg) || (seq[i] == '$' && !in_arg))
-		{
-			ret = ft_strndup(&seq[*pos], i - *pos);
-			printf("ret: %s\n", ret);
-			if (!ret)
-				return (NULL);
-			*pos = i;
-			return (ret);
-		}
-		i++;
-	}
-	ret = ft_strndup(&seq[*pos], i - *pos);
-	return (seq);
-=======
 		i++;
 	}    
     while (seq[i])
     {
-        if ((myisspace(seq[i]) && in_arg) || (seq[i] == '$') || !seq[i + 1])
+        if ((myisspacealnum(seq[i]) && in_arg) || (seq[i] == '$') || !seq[i + 1])
         {
             if (!seq[i + 1])
                 i++;
@@ -141,7 +123,6 @@ static char *get_next_word(char *seq, size_t *pos)
         i++;
     }
     return (NULL);
->>>>>>> refs/remotes/origin/arthur:src/expand.c
 }
 
 
@@ -168,9 +149,6 @@ char    *expand_dquotes(char *sequence)
     }
     return (arr[arr_size - 1]); // Return the array containing strings
 }
-
-a_Slöjcbyx,jbckasncbas kcasljncasklcjbaslck lyasc
-
 
 /*TODO: idea for different expanding approach, see github issues*/
 void	expand_sequences(t_shell *data)
