@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 11:43:55 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 11:59:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ static char *get_next_word(char *seq, size_t *pos)
         }
         i++;
     }
-    return NULL;
+    return (NULL);
 }
 
 
