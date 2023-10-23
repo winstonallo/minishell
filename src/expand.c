@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 12:52:21 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:21:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,21 +99,25 @@ static size_t count_words(char *seq)
 
 static char *get_next_word(char *seq, size_t *pos)
 {
-    size_t  i = *pos;
-    int     in_arg = 0;
+    size_t  i;
+    int     in_arg;
     char    *ret;
 
-    if (seq[i] == '$' && (ft_isalnum(seq[i + 1])))
+	i = *pos;
+	in_arg = 0;
+    if (seq[i++] == '$' && (ft_isalnum(seq[i + 1])))
     {
+		printf("hello");
 		in_arg = 1;
-		i++;
-	}    
+	}
     while (seq[i])
     {
-        if ((myisspacealnum(seq[i]) && in_arg) || (seq[i] == '$') || !seq[i + 1])
+		if (seq[i] == '$' && !ft_isalnum(seq[i + 1]))
+			i++;
+        if ((myisspace(seq[i]) && in_arg) || (seq[i] == '$') || !seq[i + 1])
         {
-            if (!seq[i + 1])
-                i++;
+			if (!seq[i + 1])
+				i++;
             ret = ft_strndup(&seq[*pos], i - *pos);
             if (!ret)
                 return (NULL);
