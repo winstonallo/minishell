@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:53:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/21 19:10:40 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:07:32 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct s_shell
 	char				*raw_input;
 	char				**input_array;
 	char				**environment;
+	char				*command;
+	char				**command_args;
 	struct s_quotes		**sequences;
 	struct s_path		**paths;
 }	t_shell;
