@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/22 17:16:48 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/23 12:05:12 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,19 +116,21 @@ static char    *get_next_word(char *seq, size_t *pos)
 			printf("ret: %s\n", ret);
 			if (!ret)
 				return (NULL);
-			return (*pos = i, ret);
+			*pos = i;
+			return (ret);
 		}
 		i++;
 	}
+	ret = ft_strndup(&seq[*pos], i - *pos);
 	return (seq);
 }
 
 char    *expand_dquotes(char *sequence)
 {
-    size_t		arr_size;
-    char		**arr;
-    size_t		i;
-    size_t		pos;
+    size_t      arr_size;
+    char        **arr;
+    size_t      i;
+    size_t      pos;
     
     i = -1;
     pos = 0;
@@ -139,12 +141,15 @@ char    *expand_dquotes(char *sequence)
     while (++i < arr_size)
     {
         arr[i] = get_next_word(sequence, &pos);
-		printf("array index %zu: %s\n", i, arr[i]);
-		if (!arr[i])
-			return(free_array(arr), NULL);
+        printf("array index %zu: %s\n", i, arr[i]);
+        if (!arr[i])
+            return free_array(arr), NULL; // Return NULL only when an error occurs
     }
-    return (NULL);
+    return (arr[arr_size - 1]); // Return the array containing strings
 }
+
+a_Slöjcbyx,jbckasncbas kcasljncasklcjbaslck lyasc
+
 
 /*TODO: idea for different expanding approach, see github issues*/
 void	expand_sequences(t_shell *data)
