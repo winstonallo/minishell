@@ -13,7 +13,7 @@ SRCS = 	${SRC_DIR}/minishell.c \
 		${SRC_DIR}/testing_utils.c \
 		${SRC_DIR}/memory_management.c \
 		${SRC_DIR}/commands.c \
-		${SRC_DIR}/read_sequences.c \
+		${SRC_DIR}/expand.c \
 		${SRC_DIR}/initialize.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
