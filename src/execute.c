@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 17:43:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 23:02:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*find_path(t_shell *data, char *command)
 void	child_process(t_shell *data)
 {
 	pid_t	pid;
-	
+
 	pid = fork();
 	if (pid == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 18:35:55 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 22:15:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 23:03:57 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,67 +24,56 @@ int	isop(char c)
 	return (0);
 }
 
-// static size_t	get_word_len(char *s)
-// {
-// 	size_t	i;
+int	add_node_special_char(char *seq, size_t len, t_shell *data, int status)
+{
+	t_op	*new;
 
-// 	i = 0;
-// 	while (!isop(s[i]))
-// 		i++;
-// 	return (i);
-// }
+	new = opnew(seq, UNQUOTED, status, len);
+	if (!new)
+		return (-1);
+	opadd_back(data->operators, new);
+	return (0);
+}
 
-/*🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
-memory management if fail after first iteration*/
-int split_curr_sequence(char *seq, t_shell *data)
+int	split_curr_sequence(char *seq, t_shell *data)
 {
 	size_t	i;
 	size_t	j;
-	t_op	*new;
-	
+
 	i = -1;
 	j = 0;
-	data->operators = malloc(sizeof(data->operators));
-	if (!data->operators)
-		return (-1);
-	*data->operators = NULL;
-	while(seq[++i])
+	while (seq[++i] && seq[j])
 	{
 		i = j;
 		while (!isop(seq[j]) && seq[j])
 		{
-			j++;	
+			j++;
 			if (isop(seq[j]) || !seq[j])
 			{
-				new = opnew(&seq[i], UNQUOTED, 0, j - i);
-				if (!new)
-					return (-1);
-				opadd_back(data->operators, new);
+				if (add_node_special_char(&seq[i], j - i, data, 0) == -1)
+					return (free_opps(data->operators), -1);
 			}
 		}
 		if (isop(seq[j]))
 		{
-			new = opnew(NULL, SPECIAL_CHAR, isop(seq[j]), 0);
-			if (!new)
-				return (-1);
-			opadd_back(data->operators, new);
+			if (add_node_special_char(NULL, 0, data, isop(seq[j])) == -1)
+				return (free_opps(data->operators), -1);
 			j++;
 		}
 	}
 	return (0);
 }
 
-
-int parse_special_char(t_shell *data)
+int	parse_special_char(t_shell *data)
 {
 	t_quotes	*temp;
-	
+
 	temp = *data->sequences;
-	while(temp)
+	while (temp)
 	{
 		if (split_curr_sequence(temp->sequence, data) == -1)
 			return (-1);
-		temp = temp->next;	
+		temp = temp->next;
 	}
-	return(0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:18:44 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 21:43:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/23 23:04:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,3 @@ t_op	*opnew(char *content, int status, int op, unsigned long len)
 	new->next = NULL;
 	return (new);
 }
-
