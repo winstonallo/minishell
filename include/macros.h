@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:52:49 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 20:26:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 21:05:09 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@
 # define INPUT_REDIRECTION 0x3c
 # define OUTPUT_REDIRECTION 0x3e
 # define SPECIAL_CHAR 999999
+# define NO_FD -666
 
 #endif

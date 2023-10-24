@@ -6,20 +6,23 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 20:04:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 21:36:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	**get_command_array(t_shell *data)
+/*🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧*/
+
+char	**get_command_array(t_op *data)
 {
 	t_op	*head;
 	int		i;
 	char	**arr;
 	
 	i = 0;
-	head = *data->operators;
+	head = data;
+
 	while (head && !head->special_character)
 	{
 		i++;
@@ -28,48 +31,73 @@ char	**get_command_array(t_shell *data)
 	arr = malloc((i + 1) * sizeof(char *));
 	if (!arr)
 		return (NULL);
-	head = *data->operators;
 	i = -1;
-	while (head && head->special_character != PIPE)
+	while (data && data->special_character != PIPE)
 	{
-		arr[++i] = ft_strdup(head->sequence);
+		arr[++i] = ft_strdup(data->sequence);
 		if (!arr[i])
 			return (free_array(arr), NULL);
-		head = head->next;
+		data = data->next;
 	}
 	arr[++i] = NULL;
 	return (arr);
 }
 
-int	get_command_table_list(t_shell *data)
+int	initialize_redirections(t_shell *data, t_cmd_table **cmd_table)
 {
+	t_op		*h;
 	t_cmd_table	*new;
-	t_op		*head;
-	char		*infile;
-	char		*outfile;
+	int			in;
+	int			out;
 
+	h = *data->operators;
+	in = NO_FD;
+	out = NO_FD;
+
+	while (h && h->special_character != PIPE)
+	{
+		if (h->special_character == OUTPUT_REDIRECTION)
+			out = open(h->next->sequence, O_CREAT | O_TRUNC | O_RDWR, 0000644);
+		else if (h->special_character == INPUT_REDIRECTION)
+			in = open(h->next->sequence, O_RDONLY);
+		h = h->next;
+	}
+	new = cmdnew(out, in, 0);
+	if (!new)
+		return (close(in), close(out), -1);
+	cmdadd_back(cmd_table, new);
+	return (0);
+}
+
+int	get_command_table(t_shell *data)
+{
+	t_cmd_table	*cmd_table;
+	t_op		*head;
+	t_cmd_table	*new;
+	
 	data->cmd_table = malloc(sizeof(data->cmd_table));
 	if (!data->cmd_table)
 		return (-1);
 	*data->cmd_table = NULL;
 	head = *data->operators;
-	while (head->special_character != PIPE && head)
+	cmd_table = *data->cmd_table;
+	while (head)
 	{
-		if (head->special_character == OUTPUT_REDIRECTION)
-			outfile = head->next->sequence;
-		else if (head->special_character == INPUT_REDIRECTION)
-			infile = head->next->sequence;
+		if (initialize_redirections(data, data->cmd_table) == -1)
+			return (-1);
+		cmd_table->args = get_command_array(head);
+		if (!cmd_table->args)
+			return (-1);
+		for (int i = 0; cmd_table->args[i]; i++)
+			printf("arg nr%d: %s\n", i, cmd_table->args[i]);
+		if (head && head->special_character == PIPE)
+		{
+			new = cmdnew(NO_FD, NO_FD, PIPE);
+			if (!new)
+				return (-1);
+			cmdadd_back(data->cmd_table, new);
+			head = head->next;
+		}
 	}
-	
-}
-
-int	get_command_table(t_shell *data)
-{
-
-	if (!arr)
-		return (-1);
-	
-	for (int i = 0; arr[i]; i++)
-		printf("cmd arg nr.%d: %s\n", i, arr[i]);
 	return (0);	
 }

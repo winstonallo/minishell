@@ -20,8 +20,8 @@ SRCS = 	${SRC_DIR}/minishell.c \
 		${SRC_DIR}/execute.c \
 		${SRC_DIR}/parse_special_characters.c \
 		${SRC_DIR}/escape.c \
-		# ${SRC_DIR}/get_command_table.c \
-		# ${SRC_DIR}/store_command_table.c \
+		${SRC_DIR}/get_command_table.c \
+		${SRC_DIR}/store_cmd_tables.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
