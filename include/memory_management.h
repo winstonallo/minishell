@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:01:08 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 22:14:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 13:32:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ void		free_sequences(t_quotes **sequences);
 void		free_array(char **arr);
 void		free_opps(t_op **opps);
 void		wipe(t_shell *data);
+void		free_array_arrsize(char **arr, int arr_size);
 
 #endif

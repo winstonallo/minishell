@@ -6,13 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 13:22:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 13:45:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <ctype.h>
-#include <stddef.h>
 
 static size_t count_words(char *seq)
 {
@@ -80,7 +78,6 @@ char	*replace(char *str, t_shell *data)
 	{
 		if (ft_strncmp(str, "$arg", 4) == 0)
 			return (free(str), arg);	
-		printf("---%s\n", str);
 	}
 	return (NULL);
 }
@@ -93,7 +90,7 @@ char    *expand_dquotes(char *sequence, t_shell *data)
     size_t      pos;
 	char		*temp;
 	
-    temp = "";
+	temp = NULL;
     i = -1;
     pos = 0;
     arr_size = count_words(sequence);
@@ -109,13 +106,16 @@ char    *expand_dquotes(char *sequence, t_shell *data)
 			arr[i] = replace(arr[i], data);
     }
 	i = -1;
-	while (arr[++i])
+	while (++i < arr_size)
 	{
-		temp = ft_strjoin(temp, arr[i]);
+		if (!temp)
+			temp = ft_strndup(arr[i], ft_strlen(arr[i]));
+		else
+		 	temp = ft_strjoin(temp, arr[i]);
 		if (!temp)
 			return (free_array(arr), NULL);
 	}
-	return (free_array(arr), temp);
+	return (free_array_arrsize(arr, arr_size), free(sequence), temp);
 }
 /*🚧 NICHT WUNDERN WENN NIX FUNKTIONIEREN*/
 void	expand_sequences(t_shell *data)

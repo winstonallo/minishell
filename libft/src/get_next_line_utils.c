@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:25:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/09/19 17:08:04 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/24 13:37:09 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ char	*ft_strjoin(char *st_sto, char *buf)
 	while (buf[j])
 		dest[i++] = buf[j++];
 	dest[ft_strlen(st_sto) + ft_strlen(buf)] = '\0';
-	free(st_sto);
 	return (dest);
 }
 
