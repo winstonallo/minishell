@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 12:57:58 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:15:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ int	first_read(t_shell *data)
 		return (-1);
 	add_history(data->raw_input);
 	parse_for_quotes(data);
-	parse_special_char(data);
 	expand_sequences(data);
+	parse_special_char(data);
+	remove_escape(data);
 	status = find_command(data->raw_input, data);
 	if (status == COMMAND_NOT_FOUND)
 	{
@@ -80,8 +81,9 @@ int	read_input(t_shell *data)
 			return (-1);
 		add_history(data->raw_input);
 		parse_for_quotes(data);
-		parse_special_char(data);
 		expand_sequences(data);
+		remove_escape(data);
+		parse_special_char(data);
 		status = find_command(data->raw_input, data);
 		if (status == COMMAND_NOT_FOUND)
 		{
