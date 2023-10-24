@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 21:36:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 21:50:41 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,22 @@ int	get_command_table(t_shell *data)
 		return (-1);
 	*data->cmd_table = NULL;
 	head = *data->operators;
-	cmd_table = *data->cmd_table;
 	while (head)
 	{
 		if (initialize_redirections(data, data->cmd_table) == -1)
 			return (-1);
+		cmd_table = *data->cmd_table;
 		cmd_table->args = get_command_array(head);
 		if (!cmd_table->args)
 			return (-1);
-		for (int i = 0; cmd_table->args[i]; i++)
-			printf("arg nr%d: %s\n", i, cmd_table->args[i]);
 		if (head && head->special_character == PIPE)
 		{
 			new = cmdnew(NO_FD, NO_FD, PIPE);
 			if (!new)
 				return (-1);
 			cmdadd_back(data->cmd_table, new);
-			head = head->next;
 		}
+		head = head->next;
 	}
 	return (0);	
 }
