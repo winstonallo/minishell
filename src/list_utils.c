@@ -6,13 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:18:44 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 23:04:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 11:40:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_quotes	*quotenew(char *content, int status, int op, unsigned long len)
+t_quotes	*quotenew(char *content, int status, unsigned long len)
 {
 	t_quotes	*new;
 
@@ -23,7 +23,6 @@ t_quotes	*quotenew(char *content, int status, int op, unsigned long len)
 	if (!new->sequence)
 		return (free(new), NULL);
 	new->status = status;
-	new->special_character = op;
 	new->next = NULL;
 	return (new);
 }

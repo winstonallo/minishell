@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:54:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 18:56:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 11:45:33 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct s_path
 typedef struct s_quotes
 {
 	char				*sequence;
-	int					special_character;
 	int					status;
 	struct s_quotes		*next;
 }	t_quotes;

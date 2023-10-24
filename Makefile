@@ -9,7 +9,7 @@ SRCS = 	${SRC_DIR}/minishell.c \
 		${SRC_DIR}/paths.c \
 		${SRC_DIR}/parse_for_quotes.c \
 		${SRC_DIR}/parsing_utils.c \
-		${SRC_DIR}/store_quoted_sequences.c \
+		${SRC_DIR}/list_utils.c \
 		${SRC_DIR}/testing_utils.c \
 		${SRC_DIR}/memory_management.c \
 		${SRC_DIR}/commands.c \

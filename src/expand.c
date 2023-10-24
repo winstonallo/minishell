@@ -6,70 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 21:17:17 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 13:22:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-// char *replace(char *current, size_t *i)
-// {
-//     char *temp;
-//     char *new;
-//     char *expanded_content;
-	
-// 	expanded_content = "EXPANSION CONTENT";
-//     size_t index;
-// 	index = *i;
-//     temp = ft_strndup(current, index);
-//     if (!temp)
-//         return NULL;
-//     while (current[index] && !myisspace(current[index]))
-//         index++;
-//     *i = index;
-//     new = ft_strjoin(temp, expanded_content);
-//     if (!new)
-// 		return (free(temp), NULL);
-// 	free(temp);
-//     return new;
-// }
-
-// char *expand_dquotes(t_quotes *current)
-// {
-//     size_t i = 0;
-//     char *new;
-//     char *temp;
-
-// 	new = NULL;
-//     while (current->sequence[i])
-//     {
-//         if (current->sequence[i] == '$')
-//         {
-//             temp = replace(current->sequence, &i);
-//             if (!temp)
-//                 return NULL;
-//             if (!new)
-//                 new = temp;
-//             else
-//             {
-//                 char *old_new = new;
-//                 new = ft_strjoin(old_new, temp);
-// 				if (!new)
-// 					return (free(old_new), free(temp), NULL);
-// 				printf("new after joining: %s\n i : %zu\n", new, i);
-
-//                 free(old_new);
-//                 free(temp);
-//             }
-//         }
-//         else
-//             i++;
-//     }
-//     if (!new)
-//         return ft_strdup(current->sequence);
-//     free(current->sequence);
-//     return new;
-// }
+#include <ctype.h>
+#include <stddef.h>
 
 static size_t count_words(char *seq)
 {
@@ -126,28 +69,53 @@ static char *get_next_word(char *seq, size_t *pos)
     return (NULL);
 }
 
+char	*replace(char *str, t_shell *data)
+{
+	char	*arg;
 
-char    *expand_dquotes(char *sequence)
+	arg = ft_strndup("Hello", 6);
+	if (!arg)
+		return (NULL);
+	if (data)
+	{
+		if (ft_strncmp(str, "$arg", 4) == 0)
+			return (free(str), arg);	
+		printf("---%s\n", str);
+	}
+	return (NULL);
+}
+
+char    *expand_dquotes(char *sequence, t_shell *data)
 {
     size_t      arr_size;
     char        **arr;
     size_t      i;
     size_t      pos;
-    
+	char		*temp;
+	
+    temp = "";
     i = -1;
     pos = 0;
     arr_size = count_words(sequence);
     arr = malloc((arr_size + 1) * sizeof(char *));
     if (!arr)
-        return (NULL);
+		return (NULL);
     while (++i < arr_size)
     {
         arr[i] = get_next_word(sequence, &pos);
-		free(arr[i]);
         if (!arr[i])
             return (free(arr), NULL);
+		if (arr[i][0] == '$' && isalnum(arr[i][1]))
+			arr[i] = replace(arr[i], data);
     }
-	return (free(arr), NULL);
+	i = -1;
+	while (arr[++i])
+	{
+		temp = ft_strjoin(temp, arr[i]);
+		if (!temp)
+			return (free_array(arr), NULL);
+	}
+	return (free_array(arr), temp);
 }
 /*🚧 NICHT WUNDERN WENN NIX FUNKTIONIEREN*/
 void	expand_sequences(t_shell *data)
@@ -158,7 +126,8 @@ void	expand_sequences(t_shell *data)
 	while (head)
 	{
 		if (head->status == IN_DOUBLE_QUOTES)
-			head->sequence = expand_dquotes(head->sequence);
+			head->sequence = expand_dquotes(head->sequence, data);
+		printf("%s\n", head->sequence);
 		head = head->next;
 	}
 }
