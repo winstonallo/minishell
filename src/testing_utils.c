@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:16:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 22:11:33 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 22:34:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	print_cmd_tables(t_cmd_table **cmd_tables)
 				printf("\nOUTFILE FD = %d\n", head->outfile);	
 		}
 		else if (head->pipe == PIPE)
-			printf("\nTHIS NODE IS A PIPE DELIMITER\n");
+			printf("\nTHIS NODE IS A PIPE DELIMITER\n\n");
 		head = head->next;
 	}
 }

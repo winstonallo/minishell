@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 22:32:29 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 22:38:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ char	**get_command_array(t_op *data)
 	return (arr);
 }
 
-int	initialize_redirections(t_shell *data, t_cmd_table **cmd_table)
+int	initialize_redirections(t_op *data, t_cmd_table **cmd_table)
 {
 	t_op		*h;
 	t_cmd_table	*new;
 	int			in;
 	int			out;
 
-	h = *data->operators;
+	h = data;
 	in = NO_FD;
 	out = NO_FD;
 
@@ -86,7 +86,7 @@ int	get_command_table(t_shell *data)
 	head = *data->operators;
 	while (head)
 	{
-		if (initialize_redirections(data, data->cmd_table) == -1)
+		if (initialize_redirections(head, data->cmd_table) == -1)
 			return (-1);
 		cmd_table = *data->cmd_table;
 		while (cmd_table->args || cmd_table->pipe == PIPE)
