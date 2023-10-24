@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 12:54:00 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:16:30 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ void	child_process(t_shell *data)
 	if (pid == 0)
 	{
 		execve(data->command, data->command_args, data->environment);
+		wipe(data);
 		perror("failed to execute command");
+		exit (0);
 	}
 	else
 		waitpid(pid, NULL, 0);

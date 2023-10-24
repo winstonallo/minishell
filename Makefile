@@ -20,7 +20,8 @@ SRCS = 	${SRC_DIR}/minishell.c \
 		${SRC_DIR}/execute.c \
 		${SRC_DIR}/parse_special_characters.c \
 		${SRC_DIR}/escape.c \
-		${SRC_DIR}/get_command_table.c \
+		# ${SRC_DIR}/get_command_table.c \
+		# ${SRC_DIR}/store_command_table.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
@@ -60,5 +61,11 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+generate_test:
+	valgrind --leak-check=full --show-reachable=yes --error-limit=no --gen-suppressions=all --log-file=$(NAME).log ./$(NAME)
+
+test:
+	clear; valgrind --leak-check=full --track-origins=yes --track-fds=yes --show-reachable=yes --show-leak-kinds=all --error-limit=no --suppressions=./$(NAME).supp ./$(NAME)
 
 .PHONY: all clean fclean re
