@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:54:51 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 15:23:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:28:32 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*remove_backslash(char *seq, int size)
 	char	*new;
 	int		i;
 	int		j;
-		
+
 	new = malloc((size + 2) * sizeof(char));
 	if (!new)
 		return (NULL);
@@ -35,7 +35,7 @@ static char	*remove_backslash(char *seq, int size)
 	return (free(seq), new);
 }
 
-static char	*escape_uquote(char *seq)
+static char	*escape(char *seq)
 {
 	int		size;
 	int		i;
@@ -50,7 +50,7 @@ static char	*escape_uquote(char *seq)
 			i++;
 			if (!seq[i])
 				break ;
-		}	
+		}
 		size++;
 		i++;
 	}
@@ -60,11 +60,6 @@ static char	*escape_uquote(char *seq)
 	return (new);
 }
 
-// static char	*escape_dquote(char *seq)
-// {
-	
-// }
-
 int	remove_escape(t_shell *data)
 {
 	t_quotes	*head;
@@ -72,15 +67,13 @@ int	remove_escape(t_shell *data)
 	head = *data->sequences;
 	while (head)
 	{
-		if (head->status == UNQUOTED)
+		if (head->status == UNQUOTED || head->status == IN_DOUBLE_QUOTES)
 		{
-			head->sequence = escape_uquote(head->sequence);
-				if (!head->sequence)
-					return (-1);
-		}	
+			head->sequence = escape(head->sequence);
+			if (!head->sequence)
+				return (-1);
+		}
 		printf("%s\n", head->sequence);
-		// else if (head->status == IN_DOUBLE_QUOTES)
-		// 	head->sequence = escape_dquotes(head->sequence);
 		head = head->next;
 	}
 	return (0);
