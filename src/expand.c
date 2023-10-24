@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 13:45:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 13:47:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ void	expand_sequences(t_shell *data)
 	{
 		if (head->status == IN_DOUBLE_QUOTES)
 			head->sequence = expand_dquotes(head->sequence, data);
-		printf("%s\n", head->sequence);
 		head = head->next;
 	}
 }
