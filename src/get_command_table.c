@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 21:50:41 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 22:19:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,16 @@ char	**get_command_array(t_op *data)
 	arr = malloc((i + 1) * sizeof(char *));
 	if (!arr)
 		return (NULL);
-	i = -1;
+	i = 0;
 	while (data && data->special_character != PIPE)
 	{
-		arr[++i] = ft_strdup(data->sequence);
+		if ((data->special_character == OUTPUT_REDIRECTION || data->special_character == INPUT_REDIRECTION))
+			data = data->next;
+		arr[i] = ft_strdup(data->sequence);
 		if (!arr[i])
 			return (free_array(arr), NULL);
 		data = data->next;
+		i++;
 	}
 	arr[++i] = NULL;
 	return (arr);
@@ -95,7 +98,16 @@ int	get_command_table(t_shell *data)
 				return (-1);
 			cmdadd_back(data->cmd_table, new);
 		}
-		head = head->next;
+		while (head && head->special_character != PIPE)
+			head = head->next;
+		if (head && head->special_character == PIPE)
+		{
+			new = cmdnew(NO_FD, NO_FD, PIPE);
+			if (!new)
+				return (-1);
+			cmdadd_back(data->cmd_table, new);
+			head = head->next;
+		}
 	}
 	return (0);	
 }

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 20:16:30 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 22:06:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	child_process(t_shell *data)
 	pid = fork();
 	if (pid == 0)
 	{
-		execve(data->command, data->command_args, data->environment);
+		execve(data->command, (*data->cmd_table)->args, data->environment);
 		wipe(data);
 		perror("failed to execute command");
 		exit (0);
@@ -55,14 +55,10 @@ void	child_process(t_shell *data)
 
 int	execute_command(t_shell *data)
 {
-	data->command_args = ft_split(data->raw_input, ' ');
-	if (!data->command_args)
-		return (-1);
-	data->command = find_path(data, data->command_args[0]);
+	data->command = find_path(data, (*data->cmd_table)->args[0]);
 	if (!data->command)
-		return (free_array(data->command_args), -1);
+		return (-1);
 	child_process(data);
 	free(data->command);
-	free_array(data->command_args);
 	return (0);
 }
