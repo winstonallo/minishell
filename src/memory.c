@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commands.c                                         :+:      :+:    :+:   */
+/*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 14:09:52 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/10/24 14:11:17 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/10/24 14:11:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	env(t_shell *data)
+void	wipe(t_shell *data)
 {
-	int	i;
-
-	i = -1;
-	while (data->environment[++i])
-		printf("%s\n", data->environment[i]);
-}
-
-int	find_command(char *command, t_shell *data)
-{
-	if (ft_strncmp(command, "env", 4) == 0)
-		return (env(data), 0);
-	else if (ft_strncmp(command, "exit", 5) == 0)
-		return (EXIT);
-	else if (execute_command(data) == 0)
-		return (0);
-	return (COMMAND_NOT_FOUND);
+	if (data->raw_input)
+		free(data->raw_input);
+	free_opps(data->operators);
+	free_sequences(data->sequences);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memory_management.c                                :+:      :+:    :+:   */
+/*   memory_management_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:19:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 13:36:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:12:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,4 @@ void	free_paths(t_path **stack_a)
 		current = temp;
 	}
 	free(stack_a);
-}
-
-void	wipe(t_shell *data)
-{
-	if (data->raw_input)
-		free(data->raw_input);
-	free_opps(data->operators);
-	free_sequences(data->sequences);
 }

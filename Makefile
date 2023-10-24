@@ -11,8 +11,10 @@ SRCS = 	${SRC_DIR}/minishell.c \
 		${SRC_DIR}/parsing_utils.c \
 		${SRC_DIR}/list_utils.c \
 		${SRC_DIR}/testing_utils.c \
-		${SRC_DIR}/memory_management.c \
+		${SRC_DIR}/memory_management_utils.c \
+		${SRC_DIR}/memory.c \
 		${SRC_DIR}/commands.c \
+		${SRC_DIR}/expand_dquotes.c \
 		${SRC_DIR}/expand.c \
 		${SRC_DIR}/initialize.c \
 		${SRC_DIR}/execute.c \

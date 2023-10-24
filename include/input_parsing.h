@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:00:29 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 11:40:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:09:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void		opadd_back(t_op **lst, t_op *new_node);
 t_op		*opnew(char *content, int status, int op, unsigned long len);
 void		quoteadd_back(t_quotes **lst, t_quotes *new_node);
 int			parse_special_char(t_shell *data);
+char		*expand_dquotes(char *sequence, t_shell *data);
 
 #endif
