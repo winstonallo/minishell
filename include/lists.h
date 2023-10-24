@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:54:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 11:45:33 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:20:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,14 @@ typedef struct s_op
 	int					status;
 	struct s_op			*next;
 }	t_op;
+
+typedef struct s_cmd_table
+{
+	char				**args;
+	int					output_fd;
+	int					input_fd;
+	int					pipe;
+	struct s_cmd_table	*next;
+}	t_cmd_table;
+
 #endif

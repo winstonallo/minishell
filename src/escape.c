@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:54:51 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 15:28:32 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:39:32 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	remove_escape(t_shell *data)
 			if (!head->sequence)
 				return (-1);
 		}
-		printf("%s\n", head->sequence);
 		head = head->next;
 	}
 	return (0);
