@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 22:19:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/24 22:32:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,15 @@ int	get_command_table(t_shell *data)
 	if (!data->cmd_table)
 		return (-1);
 	*data->cmd_table = NULL;
+	cmd_table = NULL;
 	head = *data->operators;
 	while (head)
 	{
 		if (initialize_redirections(data, data->cmd_table) == -1)
 			return (-1);
 		cmd_table = *data->cmd_table;
+		while (cmd_table->args || cmd_table->pipe == PIPE)
+			cmd_table = cmd_table->next;
 		cmd_table->args = get_command_array(head);
 		if (!cmd_table->args)
 			return (-1);
@@ -108,6 +111,8 @@ int	get_command_table(t_shell *data)
 			cmdadd_back(data->cmd_table, new);
 			head = head->next;
 		}
+		while (cmd_table)
+			cmd_table = cmd_table->next;
 	}
 	return (0);	
 }
