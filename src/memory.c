@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:11:17 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 14:46:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/25 16:33:41 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void	free_cmd_tables(t_cmd_table **cmd_tables)
 		temp = head;
 		if (head->args)
 			free_array(head->args);
+		if (head->infile != NO_FD)
+			close(head->infile);
+		if (head->outfile != NO_FD)
+			close(head->outfile);
 		head = head->next;
 		free(temp);
 	}

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 14:15:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/25 16:53:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,8 @@ char	**get_command_array(t_op *data)
 	
 	i = 0;
 	head = data;
-
-	while (head && !head->special_character)
-	{
-		i++;
+	while (++i && head && head->special_character != PIPE)
 		head = head->next;
-	}
 	arr = malloc((i + 1) * sizeof(char *));
 	if (!arr)
 		return (NULL);
@@ -71,18 +67,33 @@ int	initialize_redirections(t_op *data, t_cmd_table **cmd_table)
 	cmdadd_back(cmd_table, new);
 	return (0);
 }
+int	initialize_command_table(t_shell *data)
+{
+	data->cmd_table = malloc(sizeof(data->cmd_table));
+	if (!data->cmd_table)
+		return (-1);
+	*data->cmd_table = NULL;
+	return (0);
+}
+
+int	add_delimiter(t_shell *data)
+{
+	t_cmd_table	*new;
+	
+	new = cmdnew(NO_FD, NO_FD, PIPE);
+	if (!new)
+		return (-1);
+	cmdadd_back(data->cmd_table, new);
+	return (0);
+}
 
 int	get_command_table(t_shell *data)
 {
 	t_cmd_table	*cmd_table;
 	t_op		*head;
-	t_cmd_table	*new;
 	
-	data->cmd_table = malloc(sizeof(data->cmd_table));
-	if (!data->cmd_table)
+	if (initialize_command_table(data) == -1)
 		return (-1);
-	*data->cmd_table = NULL;
-	cmd_table = NULL;
 	head = *data->operators;
 	while (head)
 	{
@@ -98,10 +109,8 @@ int	get_command_table(t_shell *data)
 			head = head->next;
 		if (head && head->special_character == PIPE)
 		{
-			new = cmdnew(NO_FD, NO_FD, PIPE);
-			if (!new)
+			if (add_delimiter(data) == -1)
 				return (-1);
-			cmdadd_back(data->cmd_table, new);
 			head = head->next;
 		}
 		while (cmd_table)

@@ -1,3 +1,6 @@
 .vscode
 .nfs*
 compile_flags.txt
+.gitignore
+*.o
+obj

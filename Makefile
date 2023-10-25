@@ -65,7 +65,7 @@ re: fclean all
 generate_test:
 	valgrind --leak-check=full --show-reachable=yes --error-limit=no --gen-suppressions=all --log-file=$(NAME).log ./$(NAME)
 
-test:
+test: all
 	clear; valgrind --leak-check=full --track-origins=yes --track-fds=yes --show-reachable=yes --show-leak-kinds=all --error-limit=no --suppressions=./$(NAME).supp ./$(NAME)
 
 .PHONY: all clean fclean re
