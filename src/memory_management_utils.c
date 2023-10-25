@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:19:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 14:48:22 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/25 23:15:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,16 @@ void	free_opps(t_op **opps)
 	t_op	*current;
 	t_op	*next;
 
-	current = *opps;
-	while (current)
+	if (*opps)
 	{
-		next = current->next;
-		free(current->sequence);
-		free(current);
-		current = next;
+		current = *opps;
+		while (current)
+		{
+			next = current->next;
+			free(current->sequence);
+			free(current);
+			current = next;
+		}
 	}
 	free(opps);
 }
