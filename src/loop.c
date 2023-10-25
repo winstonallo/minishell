@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 16:43:16 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/25 21:22:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <unistd.h>
 
 void	clear_terminal(char **env)
 {
@@ -41,6 +42,35 @@ void	clear_terminal(char **env)
 	}
 }
 
+int	read_input(t_shell *data, int *status)
+{
+	add_history(data->raw_input);
+	if (parse_for_quotes(data) == -1)
+		return (-1);
+	if (expand_sequences(data) == -1)
+		return (-1);
+	if (remove_escape(data) == -1)
+		return (-1);
+	if (parse_special_char(data) == -1)
+		return (-1);
+	if (get_command_table(data) == -1)
+		return (-1);
+	*status = find_command(data->raw_input, data);
+	return (0);
+}
+
+int	check_status(int status, t_shell *data)
+{
+	if (status == COMMAND_NOT_FOUND)
+	{
+		ft_putstr_fd("minishell: command not found: ", 2);
+		ft_putendl_fd(data->raw_input, 2);
+	}
+	else if (status == EXIT)
+		return (EXIT);
+	return (0);
+}
+
 int	first_read(t_shell *data)
 {
 	int	status;
@@ -49,29 +79,19 @@ int	first_read(t_shell *data)
 	data->raw_input = readline("\033[0;35m\033[1mminishell \033[0;30m");
 	if (!data->raw_input)
 		return (-1);
-	add_history(data->raw_input);
-	parse_for_quotes(data);
-	expand_sequences(data);
-	remove_escape(data);
-	parse_special_char(data);
-	get_command_table(data);
-	status = find_command(data->raw_input, data);
-	if (status == COMMAND_NOT_FOUND)
-	{
-		ft_putstr_fd("minishell: command not found: ", 2);
-		ft_putendl_fd(data->raw_input, 2);
-	}
+	if (read_input(data, &status) == -1)
+		return (-1);
+	if (check_status(status, data) == EXIT)
+		return (-1);
 	wipe(data);
-	if (status == EXIT)
-		return (EXIT);
 	return (0);
 }
 
-int	read_input(t_shell *data)
+int	loop(t_shell *data)
 {
 	int			status;
 
-	if (first_read(data) == EXIT)
+	if (first_read(data) == -1)
 		return (EXIT);
 	while (1)
 	{
@@ -80,21 +100,10 @@ int	read_input(t_shell *data)
 		data->raw_input = readline("\033[0;35m\033[1mminishell \033[0;30m");
 		if (!data->raw_input)
 			return (-1);
-		add_history(data->raw_input);
-		parse_for_quotes(data);
-		expand_sequences(data);
-		remove_escape(data);
-		parse_special_char(data);
-		get_command_table(data);
-		status = find_command(data->raw_input, data);
-		if (status == COMMAND_NOT_FOUND)
-		{
-			ft_putstr_fd("minishell: command not found: ", 2);
-			ft_putendl_fd(data->raw_input, 2);
-		}
-		wipe(data);
-		if (status == EXIT)
+		read_input(data, &status);
+		if (check_status(status, data) == EXIT)
 			return (EXIT);
+		wipe(data);
 	}
 	return (0);
 }
