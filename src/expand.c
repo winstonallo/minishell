@@ -6,26 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:08:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 21:54:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/25 23:08:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-// char	*replace(char *str, t_shell *data)
-// {
-// 	char	*arg;
-
-// 	arg = ft_strndup("Hello", 6);
-// 	if (!arg)
-// 		return (NULL);
-// 	if (data)
-// 	{
-// 		if (ft_strncmp(str, "$arg", 4) == 0)
-// 			return (free(str), arg);
-// 	}
-// 	return (NULL);
-// }
 
 char	*replace(char *str, t_shell *data)
 {
@@ -45,7 +30,7 @@ char	*replace(char *str, t_shell *data)
 		}
 		env++;
 	}
-	return (NULL);
+	return (free(--str), ft_strdup(""));
 }
 
 int	expand_sequences(t_shell *data)

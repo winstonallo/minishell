@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 22:05:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/25 22:30:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ int	loop(t_shell *data)
 		data->raw_input = readline("\033[0;35m\033[1mminishell \033[0;30m");
 		if (!data->raw_input)
 			return (-1);
-		read_input(data, &status);
+		if (read_input(data, &status) == -1)
+			return (-1);
 		if (check_status(status, data) == EXIT)
 			return (EXIT);
 		wipe(data);
