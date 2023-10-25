@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:16:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 22:34:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/25 14:14:09 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	print_cmd_tables(t_cmd_table **cmd_tables)
 	head = *cmd_tables;
 	while (head)
 	{
-		if (head->args)
+		if (!head->pipe && head->args)
 		{
 			for (int i = 0; head->args[i]; i++)
 				printf("head->args[%d]: %s\n", i, head->args[i]);
