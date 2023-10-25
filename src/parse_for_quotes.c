@@ -6,12 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 11:40:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/25 22:03:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <stddef.h>
 
 static int	dquotes(char *quoted_sequence, t_shell *data)
 {

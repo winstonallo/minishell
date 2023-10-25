@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:08:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 21:51:52 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/25 21:54:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ char	*replace(char *str, t_shell *data)
 			ret = ft_strdup(*env + (ft_strlen(str) + 1));
 			if (!ret)
 				return (NULL);
-			str--;
-			return (free(str), ret);
+			return (free(--str), ret);
 		}
 		env++;
 	}
