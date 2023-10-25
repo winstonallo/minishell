@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 22:06:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/25 14:55:09 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ int	execute_command(t_shell *data)
 	if (!data->command)
 		return (-1);
 	child_process(data);
-	free(data->command);
+	//free(data->command);
 	return (0);
 }
