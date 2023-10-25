@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 22:22:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:41:39 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ int	initialize_sequences(t_shell *data)
 	if (!data->operators)
 		return (-1);
 	*data->operators = NULL;
+	data->cmd_table = malloc(sizeof(data->cmd_table));
+	if (!data->cmd_table)
+		return (-1);
+	*data->cmd_table = NULL;
 	return (0);
 }
 
@@ -39,5 +43,9 @@ int	initialize_lists(t_shell *data)
 	if (!data->operators)
 		return (-1);
 	*data->operators = NULL;
+	data->cmd_table = malloc(sizeof(data->cmd_table));
+	if (!data->cmd_table)
+		return (-1);
+	*data->cmd_table = NULL;
 	return (0);
 }

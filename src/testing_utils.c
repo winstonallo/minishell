@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:16:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 14:14:09 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:42:58 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,21 @@ void	print_op_list(t_op **opps)
 void	print_cmd_tables(t_cmd_table **cmd_tables)
 {
 	t_cmd_table	*head;
+	int			i;
 
+	i = 0;
 	head = *cmd_tables;
 	while (head)
 	{
 		if (!head->pipe && head->args)
 		{
-			for (int i = 0; head->args[i]; i++)
+			i = -1;
+			while (head->args[++i])
 				printf("head->args[%d]: %s\n", i, head->args[i]);
 			if (head->infile != NO_FD)
 				printf("\nINFILE FD = %d\n", head->infile);
 			if (head->outfile != NO_FD)
-				printf("\nOUTFILE FD = %d\n", head->outfile);	
+				printf("\nOUTFILE FD = %d\n", head->outfile);
 		}
 		else if (head->pipe == PIPE)
 			printf("\nTHIS NODE IS A PIPE DELIMITER\n\n");

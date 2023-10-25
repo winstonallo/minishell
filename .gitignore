@@ -4,3 +4,4 @@ compile_flags.txt
 .gitignore
 *.o
 obj
+minishell
