@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 22:30:25 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/26 10:09:54 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <unistd.h>
 
+/*This is the main loop, it gets the input from readline, parses it and executes
+it, frees everything, reinitializes the needed data and gives the prompt back.
+We have one extra function for the first read, because we want to clear the
+terminal on startup, but besides that it is the same as the main loop.*/
 void	clear_terminal(char **env)
 {
 	pid_t	pid;

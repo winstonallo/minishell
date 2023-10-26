@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dquotes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 23:07:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/26 10:21:58 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <stddef.h>
 
+/*This is the part where we look for expandable arguments in double quoted
+sequences.
+We split the sequence into an array of words based on '$' characters, replace
+the $args by their value and strjoin them back into one string. Note that the
+spaces are NOT removed in the process, they are seen as a character just like
+any other.*/
 static size_t	count_words(char *seq)
 {
 	int	i;

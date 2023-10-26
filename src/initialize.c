@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 17:41:39 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/26 10:07:13 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*reinitialize all lists at every new loop only exception is the paths list, 
+since we want to keep that during the whole runtime of the program to be able 
+to change it durably
+NOTE: the paths list only contains the paths, we probably need to make 
+one with the whole environment*/
 int	initialize_sequences(t_shell *data)
 {
 	data->sequences = malloc(sizeof(t_quotes **));

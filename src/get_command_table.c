@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   get_command_table.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 21:23:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/26 10:33:32 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*Here we rearrange the list one (hopefully last) time, we look for PIPE 
+characters or the end of the list as command table delimiters 
+(one command table is either until the end of the line or until the next pipe),
+and put them into char **arrays in order to be able to pass them to execve.
+We also look for input/output redirections, open the files into the list's
+file descriptor and remove them from the list.*/
 char	**get_command_array(t_op *data)
 {
 	t_op	*head;
