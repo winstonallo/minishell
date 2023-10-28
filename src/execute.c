@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/28 13:14:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/28 13:51:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,18 @@ void	child_process(t_shell *data)
 	pid_t	pid;
 
 	pid = fork();
-	if (!pid && (*data->cmd_table)->outfile != NO_FD)
-	{
-		if (dup2((*data->cmd_table)->outfile, STDOUT_FILENO) == -1)
-		{
-			perror("could not open output file");
-			exit (1);
-		}
-	}
 	if (!pid)
 	{
+		if (!pid && (*data->cmd_table)->outfile != NO_FD)
+			if (redirect_output((*data->cmd_table)->outfile) == -1)
+				exit (1);
+		if (!pid && (*data->cmd_table)->infile != NO_FD)
+			if (redirect_input((*data->cmd_table)->infile) == -1)
+				exit (1);
 		execve(data->command, (*data->cmd_table)->args, data->environment);
+		ft_putstr_fd(data->command, 2);
+		perror(": failed to execute command");
 		wipe(data);
-		perror("failed to execute command");
 		exit (0);
 	}
 	waitpid(pid, NULL, 0);

@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executing.h                                        :+:      :+:    :+:   */
+/*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 16:18:53 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/28 13:52:41 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/10/28 13:52:03 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/10/28 13:52:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTING_H
-# define EXECUTING_H
+#include "../include/minishell.h"
 
-# include "structs.h"
+int	redirect_input(int input_fd)
+{
+	if (dup2(input_fd, STDIN_FILENO) == -1)
+		return (perror("could not redirect input"), -1);
+	return (0);
+}
 
-int		execute_command(t_shell *data);
-int		redirect_input(int input_fd);
-int		redirect_output(int output_fd);
-
-#endif
+int	redirect_output(int output_fd)
+{
+	if (dup2(output_fd, STDOUT_FILENO) == -1)
+		return (perror("could not redirect output"), -1);
+	return (0);
+}

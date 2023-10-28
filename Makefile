@@ -23,6 +23,7 @@ SRCS = 	${SRC_DIR}/minishell.c \
 		${SRC_DIR}/get_command_table.c \
 		${SRC_DIR}/store_cmd_tables.c \
 		${SRC_DIR}/expand_uquotes.c \
+		${SRC_DIR}/pipe_utils.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
