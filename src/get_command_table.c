@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 21:23:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:38:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	initialize_redirections(t_op *data, t_cmd_table **cmd_table)
 			in = open(h->next->sequence, O_RDONLY);
 		h = h->next;
 	}
+	printf("FD= %d\n", out);
 	new = cmdnew(out, in, 0);
 	if (!new)
 		return (close(in), close(out), -1);
