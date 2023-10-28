@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/28 13:15:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/28 13:27:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,37 +18,32 @@ characters or the end of the list as command table delimiters
 and put them into char **arrays in order to be able to pass them to execve.
 We also look for input/output redirections, open the files into the list's
 file descriptor and remove them from the list.*/
-char	**get_command_array(t_op *data)
+char	**get_command_array(t_op *data, int i, int j)
 {
 	t_op	*head;
-	int		i;
 	char	**arr;
 
-	i = 0;
 	head = data;
 	while (++i && head && head->special_character != PIPE)
 		head = head->next;
 	arr = malloc((i + 1) * sizeof(char *));
 	if (!arr)
 		return (NULL);
-	i = 0;
 	while (data && data->special_character != PIPE)
 	{
 		if ((data->special_character == OUTPUT_REDIRECTION
 				|| data->special_character == INPUT_REDIRECTION))
 		{
-			if (data->next->next)
-				data = data->next->next;
-			else
+			if (!data->next->next)
 				break ;
+			data = data->next->next;
 		}
-		arr[i] = ft_strdup(data->sequence);
-		if (!arr[i])
+		arr[++j] = ft_strdup(data->sequence);
+		if (!arr[j])
 			return (free_array(arr), NULL);
 		data = data->next;
-		i++;
 	}
-	arr[i] = NULL;
+	arr[++j] = NULL;
 	return (arr);
 }
 
@@ -100,7 +95,7 @@ int	get_command_table(t_shell *data)
 		data->cmd_head = *data->cmd_table;
 		while (data->cmd_head->args || data->cmd_head->pipe == PIPE)
 			data->cmd_head = data->cmd_head->next;
-		data->cmd_head->args = get_command_array(op_head);
+		data->cmd_head->args = get_command_array(op_head, 0, -1);
 		if (!data->cmd_head->args)
 			return (-1);
 		while (op_head && op_head->special_character != PIPE)
