@@ -4,4 +4,7 @@ compile_flags.txt
 .gitignore
 *.o
 obj
+libft/obj
+libft/obj/*.o
+libft/libft.a
 minishell

@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parse_special_characters.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 18:35:55 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 23:03:57 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/26 10:28:12 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <stddef.h>
 
+/*Here we go through the whole list again and look for special characters like
+PIPE('|'), OUTPUT REDIRECTION('>') and INPUT REDIRECTION('<').
+This is tricky because they do not have to be separated by spaces from other
+command line arguments.
+We re-split the sequences, make extra nodes in the list for special
+characters and set the flags accordingly*/
 int	isop(char c)
 {
 	if (c == '|')

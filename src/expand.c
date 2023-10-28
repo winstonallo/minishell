@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:08:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 23:08:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/26 10:19:21 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*This is the second step of the parsing process.
+We go through the whole list of sequences and look for '$' in 
+double- and unquoted sequences (the single quotes escape it).
+If we find a '$', we look for it in the environment, and if we find it, we
+replace it with its value, otherwise, we remove the argument
+(echo $nonexistingargument prints only a newline)*/
 char	*replace(char *str, t_shell *data)
 {
 	char	**env;
