@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/26 10:36:29 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/28 12:24:22 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <unistd.h>
 
 /*🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 Here is where we actually execute the commands. A lot of things are missing,
@@ -46,15 +47,23 @@ void	child_process(t_shell *data)
 	pid_t	pid;
 
 	pid = fork();
-	if (pid == 0)
+	if (!pid && (*data->cmd_table)->outfile != NO_FD)
+	{
+		if (dup2((*data->cmd_table)->outfile, STDOUT_FILENO) == -1)
+		{
+			perror("could not open output file");
+			exit (1);
+		}
+	}
+	if (!pid)
 	{
 		execve(data->command, (*data->cmd_table)->args, data->environment);
 		wipe(data);
 		perror("failed to execute command");
 		exit (0);
 	}
-	else
-		waitpid(pid, NULL, 0);
+	waitpid(pid, NULL, 0);
+	printf("hello?\n");
 }
 
 int	execute_command(t_shell *data)
