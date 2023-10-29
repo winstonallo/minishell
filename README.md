@@ -11,8 +11,11 @@ The base principle is:
 3. Give the prompt to user
 4. Read user input
 5. Process user input
+    
     a.Check valdidity/parse (both part of the same process)
+    
     b.Execute
+
 6. Free allocated memory (except for environment data)
 7. Go back to nr.2
 

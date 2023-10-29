@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:53:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 17:43:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/29 15:04:27 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_shell
 	char				*raw_input;
 	char				**input_array;
 	char				**environment;
-	char				*command;
+	char				*command_path;
 	char				**command_args;
 	struct s_quotes		**sequences;
 	struct s_path		**paths;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/28 13:51:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/29 15:05:28 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ char	*find_path(t_shell *data, char *command)
 	return (NULL);
 }
 
+/*Child process used to execute the commands (because execve kills the current
+process so we sacrifice a child to keep the parent running).
+Check for input/output redirection and redirect in/out accordingly (pipes
+yet to be implemented but should slide right in)*/
 void	child_process(t_shell *data)
 {
 	pid_t	pid;
@@ -55,8 +59,8 @@ void	child_process(t_shell *data)
 		if (!pid && (*data->cmd_table)->infile != NO_FD)
 			if (redirect_input((*data->cmd_table)->infile) == -1)
 				exit (1);
-		execve(data->command, (*data->cmd_table)->args, data->environment);
-		ft_putstr_fd(data->command, 2);
+		execve(data->command_path, (*data->cmd_table)->args, data->environment);
+		ft_putstr_fd(data->command_path, 2);
 		perror(": failed to execute command");
 		wipe(data);
 		exit (0);
@@ -64,12 +68,15 @@ void	child_process(t_shell *data)
 	waitpid(pid, NULL, 0);
 }
 
+/*Find command path using the first index of the command table (which will
+always be the command)
+Pass everything to child and free allocated command path*/
 int	execute_command(t_shell *data)
 {
-	data->command = find_path(data, (*data->cmd_table)->args[0]);
-	if (!data->command)
+	data->command_path = find_path(data, (*data->cmd_table)->args[0]);
+	if (!data->command_path)
 		return (-1);
 	child_process(data);
-	free(data->command);
+	free(data->command_path);
 	return (0);
 }
