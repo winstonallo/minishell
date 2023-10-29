@@ -6,13 +6,13 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/26 10:07:13 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/29 22:50:40 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*reinitialize all lists at every new loop only exception is the paths list, 
+/*Reinitialize all lists at every new loop only exception is the paths list, 
 since we want to keep that during the whole runtime of the program to be able 
 to change it durably
 NOTE: the paths list only contains the paths, we probably need to make 

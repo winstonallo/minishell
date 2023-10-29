@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:12:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 16:27:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/29 22:04:36 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*List utils functions, just need different ones based on list name & content*/
 static t_path	*pathnew(char *content)
 {
 	t_path	*new;

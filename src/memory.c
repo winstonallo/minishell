@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:11:17 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 23:15:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/29 22:50:16 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*Memory management utils*/
 void	free_cmd_tables(t_cmd_table **cmd_tables)
 {
 	t_cmd_table	*head;

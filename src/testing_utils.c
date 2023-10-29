@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   testing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:16:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 17:42:58 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/29 22:04:31 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*List printing functions to check if the parsing works properly*/
 void	print_quote_list(t_quotes **sequences)
 {
 	t_quotes	*head;

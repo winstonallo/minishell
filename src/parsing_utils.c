@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:47:35 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/23 12:43:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/29 22:08:20 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	isquote_single(char pos, int *status)
+/*Check for single quote and set status accordingly based on the previous status
+*/
+void	issquote(char pos, int *status)
 {
 	if (pos == '\'' && *status != IN_SINGLE_QUOTES)
 		*status = IN_SINGLE_QUOTES;
@@ -20,7 +22,9 @@ void	isquote_single(char pos, int *status)
 		*status = UNQUOTED;
 }
 
-void	isquote_double(char pos, int *status)
+/*Check for double quotes and set status accordingly based on previous
+status*/
+void	isdquote(char pos, int *status)
 {
 	if (pos == '\"' && *status != IN_DOUBLE_QUOTES)
 		*status = IN_DOUBLE_QUOTES;
@@ -28,15 +32,19 @@ void	isquote_double(char pos, int *status)
 		*status = UNQUOTED;
 }
 
+/*Call both isquote functions, set status accordingly and return 1 if 
+currently in quotes*/
 int	isquote(char pos, int *status)
 {
-	isquote_double(pos, status);
-	isquote_single(pos, status);
+	isdquote(pos, status);
+	issquote(pos, status);
 	if (*status == IN_DOUBLE_QUOTES || *status == IN_SINGLE_QUOTES)
 		return (1);
 	return (0);
 }
 
+/*Check for space or alphanumeric characters, needed for argument
+expansion*/
 int	myisspacealnum(char c)
 {
 	if ((c >= 9 && c <= 13) || c == ' ' || !ft_isalnum(c))
@@ -44,6 +52,7 @@ int	myisspacealnum(char c)
 	return (0);
 }
 
+/*Check for spaces*/
 int	myisspace(char c)
 {
 	if ((c >= 9 && c <= 13) || c == ' ')

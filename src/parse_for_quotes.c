@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/26 10:16:24 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/29 22:42:54 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ tokens based on their quote status.
 The outcome of this file is a list of strings with flags for their
 quote status (double quoted, single quoted, unquoted)
 The quotes are also removed in the process*/
+/*Create new sequence of double quoted input, remove the quotes and
+set the node's flag accordingly*/
 static int	dquotes(char *quoted_sequence, t_shell *data)
 {
 	size_t		i;
@@ -36,7 +38,9 @@ static int	dquotes(char *quoted_sequence, t_shell *data)
 	return (i);
 }
 
-static int	squote(char *quoted_sequence, t_shell *data)
+/*Create new sequence of single quoted input, remove the quotes and
+set the node's flag accordingly*/
+static int	squotes(char *quoted_sequence, t_shell *data)
 {
 	size_t		i;
 	t_quotes	*new;
@@ -71,6 +75,11 @@ static int	split_args(char **unquoted_array, t_shell *data)
 	return (0);
 }
 
+/*Find out the length of the unquoted sequence (until next quote or
+end of line), split it by spaces and create a node for each index of
+the array (in 'split_args')
+Note that arguments do not have to be space separated, this is the 
+first parsing step, there are a lot more to come:)).*/
 static int	uquote(char *unquoted_sequence, t_shell *data)
 {
 	size_t		i;
@@ -96,6 +105,7 @@ static int	uquote(char *unquoted_sequence, t_shell *data)
 	return (free_array(unquoted_array), i - 1);
 }
 
+/*Split user input in sequences based on the quotes.*/
 int	parse_for_quotes(t_shell *data)
 {
 	int			quote_status;
@@ -111,7 +121,7 @@ int	parse_for_quotes(t_shell *data)
 		if (quote_status == IN_DOUBLE_QUOTES)
 			i += dquotes(temp + 1, data);
 		else if (quote_status == IN_SINGLE_QUOTES)
-			i += squote(temp + 1, data);
+			i += squotes(temp + 1, data);
 		else
 			i += uquote(temp, data);
 	}
