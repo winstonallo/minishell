@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:08:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/26 10:19:21 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/31 21:50:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@ replace it with its value, otherwise, we remove the argument
 (echo $nonexistingargument prints only a newline)*/
 char	*replace(char *str, t_shell *data)
 {
-	char	**env;
 	char	*ret;
+	t_env	*head;
 
-	env = data->environment;
+	head = *data->env_list;
 	str++;
-	while (*env)
+	while (head)
 	{
-		if (ft_strncmp(str, *env, ft_strlen(str)) == 0)
+		if (ft_strncmp(str, head->name, ft_strlen(str)) == 0)
 		{
-			ret = ft_strdup(*env + (ft_strlen(str) + 1));
+			ret = ft_strdup(head->line);
 			if (!ret)
 				return (NULL);
 			return (free(--str), ret);
 		}
-		env++;
+		head = head->next;
 	}
 	return (free(--str), ft_strdup(""));
 }

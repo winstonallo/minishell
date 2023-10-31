@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:12:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/29 22:04:36 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/31 21:59:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,17 @@ static int	store_paths(t_path **paths, char *path)
 	return (0);
 }
 
-int	get_paths(t_path **paths, char **env)
+int	get_paths(t_path **paths, t_shell *data)
 {
+	t_env	*head;
 	char	**temp;
-	char	**path_array;
 	int		i;
 
 	i = -1;
-	path_array = env;
-	while (*++path_array)
+	head = *data->env_list;
+	while (head)
 	{
-		if (ft_strnstr(*path_array, "PATH", 4))
+		if (!ft_strncmp(head->name, "PATH", 4))
 		{
 			temp = ft_split(*path_array + 5, ':');
 			if (!temp)
