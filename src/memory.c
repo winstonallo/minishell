@@ -6,12 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:11:17 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/31 21:29:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/31 21:34:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*Memory management utils*/
 void	free_cmd_tables(t_cmd_table **cmd_tables)
 {
 	t_cmd_table	*head;

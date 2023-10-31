@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:00:40 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/31 21:31:54 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/31 21:34:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void	wipe4real(t_shell *data)
 	wipe(data);
 }
 
+/*This is only a wrapper function, loop.c is where the real shit happens
+Here we initialize the lists for the first time, get the environment and
+the paths (all of the one-time things)*/
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	data;

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   store_cmd_tables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:51:30 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 17:43:08 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/29 22:43:12 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*List utils functions, just need different ones based on list name & content*/
 t_cmd_table	*cmdnew(int outfile, int infile, int pepi)
 {
 	t_cmd_table	*new;

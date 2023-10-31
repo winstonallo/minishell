@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/31 21:11:08 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/31 21:34:02 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	clear_terminal(char **env)
 	}
 }
 
+/*This gets called in every loop.
+Add the line from 'readline' to the command history*/
 int	read_input(t_shell *data, int *status)
 {
 	add_history(data->raw_input);

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   memory_management_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:19:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 23:15:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/29 22:50:27 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*Memory management utils*/
 void	free_sequences(t_quotes **sequences)
 {
 	t_quotes	*current;

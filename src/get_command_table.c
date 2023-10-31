@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command_table.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/28 13:27:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/29 22:56:49 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	**get_command_array(t_op *data, int i, int j)
 	return (arr);
 }
 
+/*Look for redirections, open the according files, store FDs to the command
+table*/
 int	initialize_redirections(t_op *data, t_cmd_table **cmd_table)
 {
 	t_op		*h;
@@ -72,6 +74,8 @@ int	initialize_redirections(t_op *data, t_cmd_table **cmd_table)
 	return (0);
 }
 
+/*Lines saving util function, creates a new delimiter node and
+adds it to the list*/
 int	add_delimiter(t_shell *data)
 {
 	t_cmd_table	*new;
@@ -82,6 +86,19 @@ int	add_delimiter(t_shell *data)
 	cmdadd_back(data->cmd_table, new);
 	return (0);
 }
+
+/*
+1. Look for redirection characters, open the files and skip them so
+they are not stored in the arguments array
+2. Move the head of the list until we find either:
+EITHER a pipe (which signalizes the start of another command table)
+OR the end of the list, which means we are either done or we need to
+get the next command table
+3. Make a new node out of the arguments that we found until the next
+delimiter
+4. If we found a pipe, add a delimiter to the command table list
+5. Repeat until the end of the list
+*/
 
 int	get_command_table(t_shell *data)
 {

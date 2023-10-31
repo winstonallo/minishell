@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 18:35:55 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/26 10:28:12 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/29 22:45:12 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	add_node_special_char(char *seq, size_t len, t_shell *data, int status)
 	return (0);
 }
 
+/*Look for special characters in the string, and split it
+accordingly, setting the special character flag.*/
 int	split_curr_sequence(char *seq, t_shell *data)
 {
 	size_t	i;
@@ -69,6 +71,7 @@ int	split_curr_sequence(char *seq, t_shell *data)
 	return (0);
 }
 
+/*Go through the list and look for special characters in each sequence*/
 int	parse_special_char(t_shell *data)
 {
 	t_quotes	*temp;

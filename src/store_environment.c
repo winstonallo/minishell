@@ -6,12 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:53:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/31 21:32:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/31 21:34:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <stddef.h>
 
 t_env	*envnew(char *name, char *content, unsigned long len)
 {
