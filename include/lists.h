@@ -6,12 +6,19 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:54:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/24 20:08:52 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/31 20:56:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LISTS_H
 # define LISTS_H
+
+typedef struct s_env
+{
+	char			*name;
+	char			*line;
+	struct s_env	*next;
+}	t_env;
 
 typedef struct s_path
 {

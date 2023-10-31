@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:00:40 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/26 10:03:44 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/31 21:31:54 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	wipe4real(t_shell *data)
+{
+	free_paths(data->paths);
+	free_environment(data->env_list);
+	wipe(data);
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -20,8 +27,9 @@ int	main(int argc, char **argv, char **env)
 		return (-1);
 	data.environment = env;
 	get_paths(data.paths, env);
+	data.environment = env;
 	if (loop(&data) == EXIT)
-		return (free_paths(data.paths), wipe(&data), 0);
+		return (wipe4real(&data), 0);
 	if (argc || argv)
 		return (0);
 	return (0);

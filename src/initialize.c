@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/26 10:07:13 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/31 21:20:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,15 @@ int	initialize_sequences(t_shell *data)
 
 int	initialize_lists(t_shell *data)
 {
-	data->paths = (t_path **)malloc(sizeof(t_path));
+	data->env_list = malloc(sizeof(data->env_list));
+	if (!data->env_list)
+		return (-1);
+	*data->env_list = NULL;
+	data->paths = malloc(sizeof(data->paths));
 	if (!data->paths)
 		return (-1);
 	*data->paths = NULL;
-	data->sequences = malloc(sizeof(t_quotes **));
+	data->sequences = malloc(sizeof(data->sequences));
 	if (!data->sequences)
 		return (free(data->paths), -1);
 	*data->sequences = NULL;

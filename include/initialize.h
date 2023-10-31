@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:58 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 17:24:37 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/31 21:06:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 int	initialize_lists(t_shell *data);
 int	initialize_sequences(t_shell *data);
 int	initialize_command_table(t_shell *data);
+int	get_environment(t_shell *data);
 
 #endif

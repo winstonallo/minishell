@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:53:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 17:43:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/31 21:00:40 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_shell
 	struct s_op			**operators;
 	struct s_cmd_table	**cmd_table;
 	struct s_cmd_table	*cmd_head;
+	struct s_env		**env_list;
 }	t_shell;
 
 #endif

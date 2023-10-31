@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:11:17 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/25 23:15:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/31 21:29:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,25 @@ void	free_cmd_tables(t_cmd_table **cmd_tables)
 		free(temp);
 	}
 	free(cmd_tables);
+}
+
+void	free_environment(t_env **env)
+{
+	t_env	*head;
+	t_env	*temp;
+
+	head = *env;
+	while (head)
+	{
+		temp = head;
+		if (temp->line)
+			free(temp->line);
+		if (temp->name)
+			free(temp->name);
+		head = head->next;
+		free(temp);
+	}
+	free(env);
 }
 
 void	wipe(t_shell *data)

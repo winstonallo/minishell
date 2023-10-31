@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/27 21:47:14 by arthur           ###   ########.fr       */
+/*   Updated: 2023/10/31 21:11:08 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	read_input(t_shell *data, int *status)
 		return (-1);
 	if (get_command_table(data) == -1)
 		return (-1);
+	get_environment(data);
 	*status = find_command(data->raw_input, data);
 	return (0);
 }
