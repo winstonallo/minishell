@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/01 14:05:16 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:15:05 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft/include/libft.h"
+# include "lists.h"
 # include "macros.h"
 # include "structs.h"
-# include "lists.h"
-# include "../libft/include/libft.h"
 
-int		main(int argc, char **argv, char **env);
+int			main(int argc, char **argv, char **env);
 
 /*Command execution*/
-int		execute_command(t_shell *data);
-int		redirect_input(int input_fd);
-int		redirect_output(int output_fd);
+int			execute_command(t_shell *data);
+int			redirect_input(int input_fd);
+int			redirect_output(int output_fd);
 
 /*Initialization*/
 int			initialize_lists(t_shell *data);
 int			initialize_sequences(t_shell *data);
 int			initialize_command_table(t_shell *data);
-int			get_environment(t_shell *data);
+int			get_environment(t_shell *data, size_t i, size_t j);
 int			get_paths(t_path **paths, t_shell *data);
 
 /*Parsing*/
@@ -47,7 +47,8 @@ int			myisspace(char c);
 int			myisspacealnum(char c);
 int			isquote(char pos, int *status);
 
-/*List utils, need different ones for each list because of different name/content*/
+/*List utils,
+	need different ones for each list because of different name/content*/
 t_quotes	*quotenew(char *content, int status, unsigned long len);
 void		opadd_back(t_op **lst, t_op *new_node);
 t_op		*opnew(char *content, int status, int op, unsigned long len);

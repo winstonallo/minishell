@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/31 21:34:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:38:23 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	read_input(t_shell *data, int *status)
 		return (-1);
 	if (get_command_table(data) == -1)
 		return (-1);
-	get_environment(data);
 	*status = find_command(data->raw_input, data);
 	return (0);
 }
@@ -96,7 +95,7 @@ int	first_read(t_shell *data)
 
 int	loop(t_shell *data)
 {
-	int			status;
+	int	status;
 
 	if (first_read(data) == -1)
 		return (EXIT);

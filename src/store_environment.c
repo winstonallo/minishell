@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_environment.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:53:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/31 21:34:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:38:14 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,30 +56,28 @@ void	print_env(t_shell *data)
 	}
 }
 
-int	get_environment(t_shell *data)
+int	get_environment(t_shell *data, size_t i, size_t j)
 {
 	char	**t;
-	size_t	i;
 	t_env	*new;
 
-	i = 0;
 	t = data->environment;
-	while (*t)
+	while (t[i])
 	{
-		i = 0;
-		while (**t != '=')
+		j = 0;
+		while (t[i][j] != '=')
 		{
-			*t += 1;
-			i++;
-			if (**t == '=')
+			j++;
+			if (t[i][j] == '=')
 			{
-				new = envnew(ft_strndup(*t - i, i), *t + 1, ft_strlen(*t + 1));
+				new = envnew(ft_strndup(t[i], i), &t[i][j + 1],
+						ft_strlen(&t[i][j + 1]));
 				if (!new)
 					return (-1);
 				envadd_back(data->env_list, new);
 			}
 		}
-		t++;
+		i++;
 	}
 	return (0);
 }

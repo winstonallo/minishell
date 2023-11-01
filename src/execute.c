@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/29 15:05:28 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/01 14:38:00 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,15 @@ void	child_process(t_shell *data)
 	{
 		if (!pid && (*data->cmd_table)->outfile != NO_FD)
 			if (redirect_output((*data->cmd_table)->outfile) == -1)
-				exit (1);
+				exit(1);
 		if (!pid && (*data->cmd_table)->infile != NO_FD)
 			if (redirect_input((*data->cmd_table)->infile) == -1)
-				exit (1);
+				exit(1);
 		execve(data->command_path, (*data->cmd_table)->args, data->environment);
 		ft_putstr_fd(data->command_path, 2);
 		perror(": failed to execute command");
 		wipe(data);
-		exit (0);
+		exit(0);
 	}
 	waitpid(pid, NULL, 0);
 }

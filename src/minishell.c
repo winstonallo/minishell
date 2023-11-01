@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:00:40 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/31 21:58:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:36:51 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ int	main(int argc, char **argv, char **env)
 	if (initialize_lists(&data) == -1)
 		return (-1);
 	data.environment = env;
+	get_environment(&data, 0, 0);
 	get_paths(data.paths, &data);
-	data.environment = env;
-	get_environment(&data);
-	data.environment = env;
 	if (loop(&data) == EXIT)
 		return (wipe4real(&data), 0);
 	if (argc || argv)
