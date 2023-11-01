@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:12:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/31 21:59:29 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/01 13:51:13 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	get_paths(t_path **paths, t_shell *data)
 	{
 		if (!ft_strncmp(head->name, "PATH", 4))
 		{
-			temp = ft_split(*path_array + 5, ':');
+			temp = ft_split(head->line, ':');
 			if (!temp)
 				return (-1);
 			while (temp[++i])
