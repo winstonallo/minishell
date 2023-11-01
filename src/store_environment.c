@@ -6,7 +6,7 @@
 /*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:53:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/01 14:38:14 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:39:07 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	get_environment(t_shell *data, size_t i, size_t j)
 	while (t[i])
 	{
 		j = 0;
-		while (t[i][j] != '=')
+		while (t[i][j] != '=' && t[i][j])
 		{
 			j++;
 			if (t[i][j] == '=')
