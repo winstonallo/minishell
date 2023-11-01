@@ -2,29 +2,37 @@ NAME = minishell
 
 OBJ_DIR = obj
 
-SRC_DIR = src
+SRC_DIR = src/
 
-SRCS = 	${SRC_DIR}/minishell.c \
-		${SRC_DIR}/loop.c \
-		${SRC_DIR}/paths.c \
-		${SRC_DIR}/parse_for_quotes.c \
-		${SRC_DIR}/parsing_utils.c \
-		${SRC_DIR}/list_utils.c \
-		${SRC_DIR}/testing_utils.c \
-		${SRC_DIR}/memory_management_utils.c \
-		${SRC_DIR}/memory.c \
-		${SRC_DIR}/commands.c \
-		${SRC_DIR}/expand_dquotes.c \
-		${SRC_DIR}/expand.c \
-		${SRC_DIR}/initialize.c \
-		${SRC_DIR}/execute.c \
-		${SRC_DIR}/parse_special_characters.c \
-		${SRC_DIR}/escape.c \
-		${SRC_DIR}/get_command_table.c \
-		${SRC_DIR}/store_cmd_tables.c \
-		${SRC_DIR}/expand_uquotes.c \
-		${SRC_DIR}/pipe_utils.c \
-		${SRC_DIR}/store_environment.c \
+MAIN_DIR = main/
+
+PARSER_DIR = parser/
+
+UTILS_DIR = utils/
+
+EXEC_DIR = executer/
+
+SRCS = 	${SRC_DIR}${MAIN_DIR}/minishell.c \
+		${SRC_DIR}${MAIN_DIR}/loop.c \
+		${SRC_DIR}${PARSER_DIR}/paths.c \
+		${SRC_DIR}${PARSER_DIR}/parse_for_quotes.c \
+		${SRC_DIR}${PARSER_DIR}/parsing_utils.c \
+		${SRC_DIR}${UTILS_DIR}/list_utils.c \
+		${SRC_DIR}${UTILS_DIR}/testing_utils.c \
+		${SRC_DIR}${UTILS_DIR}/memory_management_utils.c \
+		${SRC_DIR}${UTILS_DIR}/memory.c \
+		${SRC_DIR}${EXEC_DIR}/commands.c \
+		${SRC_DIR}${PARSER_DIR}/expand_dquotes.c \
+		${SRC_DIR}${PARSER_DIR}/expand.c \
+		${SRC_DIR}${UTILS_DIR}/initialize.c \
+		${SRC_DIR}${EXEC_DIR}/execute.c \
+		${SRC_DIR}${PARSER_DIR}/parse_special_characters.c \
+		${SRC_DIR}${PARSER_DIR}/escape.c \
+		${SRC_DIR}${PARSER_DIR}/get_command_table.c \
+		${SRC_DIR}${UTILS_DIR}/store_cmd_tables.c \
+		${SRC_DIR}${PARSER_DIR}/expand_uquotes.c \
+		${SRC_DIR}${EXEC_DIR}/pipe_utils.c \
+		${SRC_DIR}${UTILS_DIR}/store_environment.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 

@@ -1,40 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   store_cmd_tables.c                                 :+:      :+:    :+:   */
+/*   store_sequences.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 19:51:30 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/29 22:43:12 by arthur           ###   ########.fr       */
+/*   Created: 2023/10/20 15:18:44 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/11/01 17:04:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 /*List utils functions, just need different ones based on list name & content*/
-t_cmd_table	*cmdnew(int outfile, int infile, int pepi)
+t_quotes	*quotenew(char *content, int status, unsigned long len)
 {
-	t_cmd_table	*new;
+	t_quotes	*new;
 
 	new = malloc(sizeof(*new));
 	if (!new)
 		return (NULL);
-	new->args = NULL;
-	new->outfile = outfile;
-	if (new->outfile == -1)
-		return (NULL);
-	new->infile = infile;
-	if (new->infile == -1)
-		return (close(new->outfile), NULL);
-	new->pipe = pepi;
+	new->sequence = ft_strndup(content, len);
+	if (!new->sequence)
+		return (free(new), NULL);
+	new->status = status;
 	new->next = NULL;
 	return (new);
 }
 
-void	cmdadd_back(t_cmd_table **lst, t_cmd_table *new_node)
+void	quoteadd_back(t_quotes **lst, t_quotes *new_node)
 {
-	t_cmd_table	*current;
+	t_quotes	*current;
 
 	if (*lst == NULL)
 	{

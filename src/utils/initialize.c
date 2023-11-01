@@ -6,11 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/31 21:33:52 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:04:09 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 /*Reinitialize all lists at every new loop only exception is the paths list, 
 since we want to keep that during the whole runtime of the program to be able 

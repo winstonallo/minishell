@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_special_characters.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 18:35:55 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/29 22:45:12 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/01 17:04:00 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 /*Here we go through the whole list again and look for special characters like
 PIPE('|'), OUTPUT REDIRECTION('>') and INPUT REDIRECTION('<').

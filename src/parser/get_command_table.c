@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_command_table.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/29 22:56:49 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/01 17:03:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 /*Here we rearrange the list one (hopefully last) time, we look for PIPE 
 characters or the end of the list as command table delimiters 
