@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/01 17:01:22 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:40:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,13 @@ always be the command)
 Pass everything to child and free allocated command path*/
 int	execute_command(t_shell *data)
 {
-	data->command_path = find_path(data, (*data->cmd_table)->args[0]);
-	if (!data->command_path)
-		return (-1);
-	child_process(data);
-	free(data->command_path);
+	if (*data->cmd_table)
+	{
+		data->command_path = find_path(data, (*data->cmd_table)->args[0]);
+		if (!data->command_path)
+			return (-1);
+		child_process(data);
+		free(data->command_path);
+	}
 	return (0);
 }

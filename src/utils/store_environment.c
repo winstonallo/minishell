@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:53:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/01 17:04:23 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:25:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	get_environment(t_shell *data, size_t i, size_t j)
 	while (t[i])
 	{
 		j = 0;
-		while (t[i][j] != '=')
+		while (t[i][j] != '=' && t[i][j])
 		{
 			j++;
 			if (t[i][j] == '=')
