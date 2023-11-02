@@ -6,7 +6,11 @@
 /*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/11/02 14:27:54 by sstanfel         ###   ########.fr       */
+=======
+/*   Updated: 2023/11/02 15:02:32 by abied-ch         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +32,7 @@ int			export(t_shell *data);
 
 /*Built-Ins*/
 int			cd(t_shell *data);
+int			pwd(t_shell *data);
 
 /*Initialization*/
 int			initialize_lists(t_shell *data);
@@ -37,6 +42,7 @@ t_env		*envnew(char *name, char *content, unsigned long len);
 void		envadd_back(t_env **lst, t_env *new_node);
 int			get_environment(t_shell *data, size_t i, size_t j);
 int			get_paths(t_path **paths, t_shell *data);
+int			get_prompt(t_shell *data);
 
 /*Parsing*/
 int			parse_for_quotes(t_shell *data);

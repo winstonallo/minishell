@@ -6,7 +6,7 @@
 /*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 11:22:46 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/02 15:06:36 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:29:29 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	export(t_shell *data)
 		return (-1);
 	return (0);
 }
+#include <unistd.h>
 
 int	cd(t_shell *data)
 {
@@ -57,5 +58,15 @@ int	cd(t_shell *data)
 		perror("minishell: cd");
 		return (-1);
 	}
+	get_prompt(data);
+	return (0);
+}
+
+int	pwd(t_shell *data)
+{
+	data->cwd = getcwd(NULL, 0);
+	if (!data->cwd)
+		return (-1);
+	printf("%s\n", data->cwd);
 	return (0);
 }
