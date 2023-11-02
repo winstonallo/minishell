@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 15:02:32 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:00:12 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,27 @@ int			main(int argc, char **argv, char **env);
 int			execute_command(t_shell *data);
 int			redirect_input(int input_fd);
 int			redirect_output(int output_fd);
-int			built_ins(t_shell *data);
+int			export(t_shell *data);
 
-/*Built-Ins*/
+/* ******************************************************************** */
+/*								BUILT INS								*/
+/* **********************************************************************/
+
+//built_ins.c
 int			cd(t_shell *data);
 int			pwd(t_shell *data);
+//export_utils.c
+int			update_env_list(t_shell *data);
 
+/* ******************************************************************** */
+/*								UTILS									*/
+/* **********************************************************************/
 /*Initialization*/
 int			initialize_lists(t_shell *data);
 int			initialize_sequences(t_shell *data);
 int			initialize_command_table(t_shell *data);
+t_env		*envnew(char *name, char *content, unsigned long len);
+void		envadd_back(t_env **lst, t_env *new_node);
 int			get_environment(t_shell *data, size_t i, size_t j);
 int			get_paths(t_path **paths, t_shell *data);
 int			get_prompt(t_shell *data);

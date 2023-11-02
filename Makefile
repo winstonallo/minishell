@@ -12,28 +12,31 @@ UTILS_DIR = utils/
 
 EXEC_DIR = executer/
 
+BUILT_INS = built_ins/
+
 SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${MAIN_DIR}loop.c \
 		${SRC_DIR}${PARSER_DIR}paths.c \
 		${SRC_DIR}${PARSER_DIR}parse_for_quotes.c \
 		${SRC_DIR}${PARSER_DIR}parsing_utils.c \
+		${SRC_DIR}${PARSER_DIR}expand_dquotes.c \
+		${SRC_DIR}${PARSER_DIR}expand.c \
+		${SRC_DIR}${PARSER_DIR}parse_special_characters.c \
+		${SRC_DIR}${PARSER_DIR}escape.c \
+		${SRC_DIR}${PARSER_DIR}get_command_table.c \
+		${SRC_DIR}${PARSER_DIR}expand_uquotes.c \
 		${SRC_DIR}${UTILS_DIR}list_utils.c \
 		${SRC_DIR}${UTILS_DIR}testing_utils.c \
 		${SRC_DIR}${UTILS_DIR}memory_management_utils.c \
 		${SRC_DIR}${UTILS_DIR}memory.c \
-		${SRC_DIR}${EXEC_DIR}commands.c \
-		${SRC_DIR}${PARSER_DIR}expand_dquotes.c \
-		${SRC_DIR}${PARSER_DIR}expand.c \
 		${SRC_DIR}${UTILS_DIR}initialize.c \
-		${SRC_DIR}${EXEC_DIR}execute.c \
-		${SRC_DIR}${PARSER_DIR}parse_special_characters.c \
-		${SRC_DIR}${PARSER_DIR}escape.c \
-		${SRC_DIR}${PARSER_DIR}get_command_table.c \
-		${SRC_DIR}${UTILS_DIR}store_cmd_tables.c \
-		${SRC_DIR}${PARSER_DIR}expand_uquotes.c \
-		${SRC_DIR}${EXEC_DIR}pipe_utils.c \
 		${SRC_DIR}${UTILS_DIR}store_environment.c \
-		${SRC_DIR}${EXEC_DIR}built_ins.c \
+		${SRC_DIR}${UTILS_DIR}store_cmd_tables.c \
+		${SRC_DIR}${EXEC_DIR}commands.c \
+		${SRC_DIR}${EXEC_DIR}execute.c \
+		${SRC_DIR}${EXEC_DIR}pipe_utils.c \
+		${SRC_DIR}${BUILT_INS}built_ins.c \
+		${SRC_DIR}${BUILT_INS}export_utils.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
