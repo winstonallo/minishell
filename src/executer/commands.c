@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 12:59:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/02 13:09:01 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	find_command(t_shell *data)
 	else if (ft_strncmp((*data->cmd_table)->args[0], "exit", 5) == 0)
 		return (EXIT);
 	else if (ft_strncmp((*data->cmd_table)->args[0], "export", 6) == 0)
-		return (built_ins(data), 0);
+		return (export(data), 0);
 	else if (ft_strncmp((*data->cmd_table)->args[0], "cd", 3) == 0)
 		return (cd(data));	
 	else if (execute_command(data) == 0)
