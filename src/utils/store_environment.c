@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_environment.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:53:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 14:45:24 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:31:34 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ void	envadd_back(t_env **lst, t_env *new_node)
 	current->next = new_node;
 }
 
-// void	print_env(t_shell *data)
-// {
-// 	t_env	*head;
+void	print_env(t_shell *data)
+{
+	t_env	*head;
 
-// 	head = *data->env_list;
-// 	while (head)
-// 	{
-// 		printf("NAME: %s\nLINE: %s\n------\n", head->name, head->line);
-// 		head = head->next;
-// 	}
-// }
+	head = *data->env_list;
+	while (head)
+	{
+		printf("NAME: %s\nLINE: %s\n------\n", head->name, head->line);
+		head = head->next;
+	}
+}
 
 int	get_environment(t_shell *data, size_t i, size_t j)
 {

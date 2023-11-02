@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 16:00:12 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:42:57 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int			main(int argc, char **argv, char **env);
 int			execute_command(t_shell *data);
 int			redirect_input(int input_fd);
 int			redirect_output(int output_fd);
-int			export(t_shell *data);
 
 /* ******************************************************************** */
 /*								BUILT INS								*/
@@ -33,6 +32,8 @@ int			export(t_shell *data);
 //built_ins.c
 int			cd(t_shell *data);
 int			pwd(t_shell *data);
+int			echo(t_shell *data, int newline);
+int			export(t_shell *data);
 //export_utils.c
 int			update_env_list(t_shell *data);
 

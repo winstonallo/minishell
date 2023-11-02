@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 15:35:22 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:14:32 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	get_prompt(t_shell *data)
 		{
 			data->prompt = ft_strdup(&cwd[i + 1]);
 			free(cwd);
-			temp = ft_strjoin("\033[0;35m\033[1m", data->prompt);
+			temp = ft_strjoin("\033[0;36m\033[1m", data->prompt);
 			free(data->prompt);
-			data->prompt = ft_strjoin(temp, " \x1b[0m✗ ");
+			data->prompt = ft_strjoin(temp, " \x1b[0m🏩 ");
 			free(temp);
 			return (0);
 		}
@@ -69,6 +69,8 @@ int	find_command(t_shell *data)
 		return (cd(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "pwd", 4) == 0)
 		return (pwd(data));
+	else if (ft_strncmp((*data->cmd_table)->args[0], "echo", 5) == 0)
+		return (echo(data, 0));
 	else if (execute_command(data) == 0)
 		return (0);
 	return (COMMAND_NOT_FOUND);

@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built_ins.c                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 11:22:46 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/02 16:28:30 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/11/02 17:44:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	export(t_shell *data)
+int	echo(t_shell *data, int newline)
 {
-	if (ft_strncmp((*data->cmd_table)->args[1], "=", 1) == 0)
-		return (-1);
-	else if (update_env_list(data) != 0)
-		return (-1);
-	return (0);
-}
+	int	i;
 
-int	cd(t_shell *data)
-{
-	if (chdir((*data->cmd_table)->args[1]) == -1)
+	i = 0;
+	if ((*data->cmd_table)->args[1]
+		&& ft_strncmp((*data->cmd_table)->args[1], "-n", 3) == 0)
 	{
-		perror("minishell: cd");
-		return (-1);
+		newline = 1;
+		i++;
 	}
-	get_prompt(data);
-	return (0);
-}
-
-int	pwd(t_shell *data)
-{
-	data->cwd = getcwd(NULL, 0);
-	if (!data->cwd)
-		return (-1);
-	printf("%s\n", data->cwd);
+	while ((*data->cmd_table)->args[++i])
+		printf("%s", (*data->cmd_table)->args[i]);
+	if (!newline)
+		printf("\n");
 	return (0);
 }
