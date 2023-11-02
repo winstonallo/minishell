@@ -6,7 +6,7 @@
 /*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 15:34:44 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:00:12 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,19 @@ int			redirect_input(int input_fd);
 int			redirect_output(int output_fd);
 int			export(t_shell *data);
 
-/*Built-Ins*/
+/* ******************************************************************** */
+/*								BUILT INS								*/
+/* **********************************************************************/
+
+//built_ins.c
 int			cd(t_shell *data);
 int			pwd(t_shell *data);
+//export_utils.c
+int			update_env_list(t_shell *data);
 
+/* ******************************************************************** */
+/*								UTILS									*/
+/* **********************************************************************/
 /*Initialization*/
 int			initialize_lists(t_shell *data);
 int			initialize_sequences(t_shell *data);
