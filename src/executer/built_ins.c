@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 11:22:46 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/02 13:03:14 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:02:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <unistd.h>
 
 int	cd(t_shell *data)
 {
@@ -19,5 +20,15 @@ int	cd(t_shell *data)
 		perror("minishell: cd");
 		return (-1);
 	}
+	get_prompt(data);
+	return (0);
+}
+
+int	pwd(t_shell *data)
+{
+	data->cwd = getcwd(NULL, 0);
+	if (!data->cwd)
+		return (-1);
+	printf("%s\n", data->cwd);
 	return (0);
 }

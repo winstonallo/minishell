@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 13:01:09 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:02:32 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int			built_ins(t_shell *data);
 
 /*Built-Ins*/
 int			cd(t_shell *data);
+int			pwd(t_shell *data);
 
 /*Initialization*/
 int			initialize_lists(t_shell *data);
@@ -35,6 +36,7 @@ int			initialize_sequences(t_shell *data);
 int			initialize_command_table(t_shell *data);
 int			get_environment(t_shell *data, size_t i, size_t j);
 int			get_paths(t_path **paths, t_shell *data);
+int			get_prompt(t_shell *data);
 
 /*Parsing*/
 int			parse_for_quotes(t_shell *data);
