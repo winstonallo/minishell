@@ -12,6 +12,8 @@ UTILS_DIR = utils/
 
 EXEC_DIR = executer/
 
+BUILT_INS = built_ins/
+
 SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${MAIN_DIR}loop.c \
 		${SRC_DIR}${PARSER_DIR}paths.c \
@@ -33,6 +35,7 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${PARSER_DIR}expand_uquotes.c \
 		${SRC_DIR}${EXEC_DIR}pipe_utils.c \
 		${SRC_DIR}${UTILS_DIR}store_environment.c \
+		${SRC_DIR}${BUILT_INS}built_ins.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
