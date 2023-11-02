@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 16:42:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:09:49 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	get_prompt(t_shell *data)
 		{
 			data->prompt = ft_strdup(&cwd[i + 1]);
 			free(cwd);
-			temp = ft_strjoin("\033[0;35m\033[1m", data->prompt);
+			temp = ft_strjoin("\033[0;36m\033[1m", data->prompt);
 			free(data->prompt);
-			data->prompt = ft_strjoin(temp, " \x1b[0m✗ ");
+			data->prompt = ft_strjoin(temp, " \x1b[0m🏩 ");
 			free(temp);
 			return (0);
 		}
