@@ -6,11 +6,7 @@
 /*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/11/02 13:09:01 by sstanfel         ###   ########.fr       */
-=======
-/*   Updated: 2023/11/02 15:02:24 by abied-ch         ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2023/11/02 15:35:22 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +63,8 @@ int	find_command(t_shell *data)
 		return (env(data), 0);
 	else if (ft_strncmp((*data->cmd_table)->args[0], "exit", 5) == 0)
 		return (EXIT);
-<<<<<<< HEAD
 	else if (ft_strncmp((*data->cmd_table)->args[0], "export", 6) == 0)
 		return (export(data), 0);
-=======
->>>>>>> main
 	else if (ft_strncmp((*data->cmd_table)->args[0], "cd", 3) == 0)
 		return (cd(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "pwd", 4) == 0)
