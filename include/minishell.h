@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 12:37:12 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/02 13:01:09 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int			execute_command(t_shell *data);
 int			redirect_input(int input_fd);
 int			redirect_output(int output_fd);
 int			built_ins(t_shell *data);
+
+/*Built-Ins*/
+int			cd(t_shell *data);
 
 /*Initialization*/
 int			initialize_lists(t_shell *data);

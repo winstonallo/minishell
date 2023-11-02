@@ -8,3 +8,4 @@ libft/obj
 libft/obj/*.o
 libft/libft.a
 minishell
+.DS_Store

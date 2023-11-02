@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 12:47:26 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/02 12:59:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ void	env(t_shell *data)
 
 int	find_command(t_shell *data)
 {
-	if (ft_strncmp((data->cmd_table)->args[0], "env", 4) == 0)
+	if (ft_strncmp((*data->cmd_table)->args[0], "env", 4) == 0)
 		return (env(data), 0);
-	else if (ft_strncmp((data->cmd_table)->args[0], "exit", 5) == 0)
+	else if (ft_strncmp((*data->cmd_table)->args[0], "exit", 5) == 0)
 		return (EXIT);
-	else if (ft_strncmp((data->cmd_table)->args[0], "export", 6) == 0)
+	else if (ft_strncmp((*data->cmd_table)->args[0], "export", 6) == 0)
 		return (built_ins(data), 0);
+	else if (ft_strncmp((*data->cmd_table)->args[0], "cd", 3) == 0)
+		return (cd(data));	
 	else if (execute_command(data) == 0)
 		return (0);
 	return (COMMAND_NOT_FOUND);
