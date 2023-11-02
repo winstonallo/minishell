@@ -35,8 +35,8 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${EXEC_DIR}commands.c \
 		${SRC_DIR}${EXEC_DIR}execute.c \
 		${SRC_DIR}${EXEC_DIR}pipe_utils.c \
-		${SRC_DIR}${BULIT_INS}built_ins.c \
-		${SRC_DIR}${BULIT_INS}export_utils.c \
+		${SRC_DIR}${BUILT_INS}built_ins.c \
+		${SRC_DIR}${BUILT_INS}export_utils.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
