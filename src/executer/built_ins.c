@@ -6,12 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 11:22:46 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/02 15:02:06 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:00:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <unistd.h>
 
 int	cd(t_shell *data)
 {
