@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/01 17:01:31 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/02 12:23:31 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	find_command(char *command, t_shell *data)
 		return (env(data), 0);
 	else if (ft_strncmp(command, "exit", 5) == 0)
 		return (EXIT);
+	else if (ft_strncmp(command, "export", 6) == 0)
 	else if (execute_command(data) == 0)
 		return (0);
 	return (COMMAND_NOT_FOUND);

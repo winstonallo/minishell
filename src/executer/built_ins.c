@@ -5,10 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 11:22:46 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/02 11:22:56 by sstanfel         ###   ########.fr       */
+/*   Created: 2023/11/02 11:31:29 by sstanfel          #+#    #+#             */
+/*   Updated: 2023/11/02 11:31:30 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../include/minishell.h"
 
