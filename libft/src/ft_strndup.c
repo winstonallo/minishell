@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:53:35 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/20 17:16:22 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:08:08 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*ft_strndup(const char *s, size_t n)
 	char		*new;
 
 	len = ft_strnlen(s, n);
+	if (len < n)
+		n = len;
 	new = (char *) malloc (len + 1);
 	if (new == NULL)
 		return (NULL);

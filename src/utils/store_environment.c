@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:53:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/01 18:25:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:08:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	get_environment(t_shell *data, size_t i, size_t j)
 			j++;
 			if (t[i][j] == '=')
 			{
-				new = envnew(ft_strndup(t[i], i), &t[i][j + 1],
+				new = envnew(ft_strndup(t[i], j), &t[i][j + 1],
 						ft_strlen(&t[i][j + 1]));
 				if (!new)
 					return (-1);
