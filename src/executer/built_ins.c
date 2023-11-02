@@ -6,7 +6,19 @@
 /*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 11:31:29 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/02 11:31:30 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/02 12:48:43 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../include/minishell.h"
+
+
+int built_ins(t_shell *data)
+{
+	
+	
+	while()
+	
+	return(0);
+}
 
