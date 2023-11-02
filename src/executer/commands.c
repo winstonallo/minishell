@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 15:35:22 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:42:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	find_command(t_shell *data)
 		return (cd(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "pwd", 4) == 0)
 		return (pwd(data));
+	else if (ft_strncmp((*data->cmd_table)->args[0], "echo", 5) == 0)
+		return (echo(data, 0));
 	else if (execute_command(data) == 0)
 		return (0);
 	return (COMMAND_NOT_FOUND);
