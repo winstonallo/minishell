@@ -33,7 +33,7 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${UTILS_DIR}list_utils_cmd_table.c \
 		${SRC_DIR}${UTILS_DIR}list_utils_paths.c \
 		${SRC_DIR}${UTILS_DIR}memory_management_arrays.c \
-		${SRC_DIR}${UTILS_DIR}memory_management_lists.c \
+		${SRC_DIR}${UTILS_DIR}memory_management_cleanup.c \
 		${SRC_DIR}${UTILS_DIR}parsing_utils.c \
 		${SRC_DIR}${UTILS_DIR}testing_utils.c \
 \

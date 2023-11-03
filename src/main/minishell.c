@@ -6,20 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:00:40 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 11:23:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:40:32 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	wipe4real(t_shell *data)
-{
-	free_paths(data->paths);
-	free_environment(data->env_list);
-	if (data->prompt)
-		free(data->prompt);
-	wipe(data);
-}
 
 /*This is only a wrapper function, loop.c is where the real shit happens
 Here we initialize the lists for the first time, get the environment and
