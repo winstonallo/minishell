@@ -19,10 +19,10 @@ INIT_DIR = initialize/
 SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${MAIN_DIR}loop.c \
 \
-		${SRC_DIR}${PARSER_DIR}parse_for_quotes.c \
+		${SRC_DIR}${PARSER_DIR}parse_quotes.c \
+		${SRC_DIR}${PARSER_DIR}parse_special_characters.c \
 		${SRC_DIR}${PARSER_DIR}expand_dquotes.c \
 		${SRC_DIR}${PARSER_DIR}expand.c \
-		${SRC_DIR}${PARSER_DIR}parse_special_characters.c \
 		${SRC_DIR}${PARSER_DIR}escape.c \
 		${SRC_DIR}${PARSER_DIR}get_command_table.c \
 		${SRC_DIR}${PARSER_DIR}expand_uquotes.c \
