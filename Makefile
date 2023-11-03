@@ -27,8 +27,6 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${PARSER_DIR}get_command_table.c \
 		${SRC_DIR}${PARSER_DIR}expand_uquotes.c \
 \
-		${SRC_DIR}${UTILS_DIR}initialize_paths.c \
-		${SRC_DIR}${UTILS_DIR}initialize_lists.c \
 		${SRC_DIR}${UTILS_DIR}list_utils_quote_parsing.c \
 		${SRC_DIR}${UTILS_DIR}list_utils_special_char.c \
 		${SRC_DIR}${UTILS_DIR}list_utils_environment.c \
@@ -49,6 +47,8 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${BUILT_INS}cd.c \
 		${SRC_DIR}${BUILT_INS}export.c \
 \
+		${SRC_DIR}${INIT_DIR}initialize_paths.c \
+		${SRC_DIR}${INIT_DIR}initialize_lists.c \
 		${SRC_DIR}${INIT_DIR}environment.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
