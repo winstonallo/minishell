@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:08:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 11:21:17 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:17:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,18 @@ char	*replace(char *str, t_shell *data)
 int	expand_sequences(t_shell *data)
 {
 	t_quotes	*head;
+	char		*temp;
 
 	head = *data->sequences;
 	while (head)
 	{
 		if (head->status == IN_DOUBLE_QUOTES)
 		{
+			temp = head->sequence;
 			head->sequence = expand_dquotes(head->sequence, data, -1, 0);
 			if (!head->sequence)
 				return (-1);
+			free(temp);
 		}
 		else if (head->status == UNQUOTED)
 		{
