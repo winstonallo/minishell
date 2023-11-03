@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 11:25:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/03 11:29:57 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,13 @@ char *expand_dquotes(char *sequence, t_shell *data, size_t i, size_t pos)
             new_temp = ft_strndup(arr[i], ft_strlen(arr[i]));
         else
             new_temp = ft_strjoin(data->temp, arr[i]);
-        free(jk);
+        //free(jk);
         if (!new_temp)
         {
             free_array(arr);
             return NULL;
         }
+		free(data->temp);
         data->temp = new_temp;
     }
     return (free_array_arrsize(arr, arr_size), data->temp);
