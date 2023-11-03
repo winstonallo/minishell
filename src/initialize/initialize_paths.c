@@ -1,44 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   paths.c                                            :+:      :+:    :+:   */
+/*   initialize_paths.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:12:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/01 17:04:06 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/03 11:00:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-/*List utils functions, just need different ones based on list name & content*/
-static t_path	*pathnew(char *content)
-{
-	t_path	*new;
-
-	new = malloc(sizeof(*new));
-	if (!new)
-		return (NULL);
-	new->path = content;
-	new->next = NULL;
-	return (new);
-}
-
-static void	pathadd_back(t_path **lst, t_path *new_node)
-{
-	t_path	*current;
-
-	if (*lst == NULL)
-	{
-		*lst = new_node;
-		return ;
-	}
-	current = *lst;
-	while (current->next != NULL)
-		current = current->next;
-	current->next = new_node;
-}
 
 static int	store_paths(t_path **paths, char *path)
 {

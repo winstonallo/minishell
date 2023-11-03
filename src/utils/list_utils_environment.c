@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   store_environment.c                                :+:      :+:    :+:   */
+/*   list_utils_environment.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:53:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 16:31:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/03 11:03:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,40 +44,21 @@ void	envadd_back(t_env **lst, t_env *new_node)
 	current->next = new_node;
 }
 
-void	print_env(t_shell *data)
+void	free_environment(t_env **env)
 {
 	t_env	*head;
+	t_env	*temp;
 
-	head = *data->env_list;
+	head = *env;
 	while (head)
 	{
-		printf("NAME: %s\nLINE: %s\n------\n", head->name, head->line);
+		temp = head;
+		if (temp->line)
+			free(temp->line);
+		if (temp->name)
+			free(temp->name);
 		head = head->next;
+		free(temp);
 	}
-}
-
-int	get_environment(t_shell *data, size_t i, size_t j)
-{
-	char	**t;
-	t_env	*new;
-
-	t = data->environment;
-	while (t[i])
-	{
-		j = 0;
-		while (t[i][j] != '=' && t[i][j])
-		{
-			j++;
-			if (t[i][j] == '=')
-			{
-				new = envnew(ft_strndup(t[i], j), &t[i][j + 1],
-						ft_strlen(&t[i][j + 1]));
-				if (!new)
-					return (-1);
-				envadd_back(data->env_list, new);
-			}
-		}
-		i++;
-	}
-	return (0);
+	free(env);
 }

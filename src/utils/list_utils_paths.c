@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   store_sequences.c                                  :+:      :+:    :+:   */
+/*   list_utils_paths.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 15:18:44 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/01 17:04:26 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/11/03 11:00:18 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/11/03 11:02:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*List utils functions, just need different ones based on list name & content*/
-t_quotes	*quotenew(char *content, int status, unsigned long len)
+t_path	*pathnew(char *content)
 {
-	t_quotes	*new;
+	t_path	*new;
 
 	new = malloc(sizeof(*new));
 	if (!new)
 		return (NULL);
-	new->sequence = ft_strndup(content, len);
-	if (!new->sequence)
-		return (free(new), NULL);
-	new->status = status;
+	new->path = content;
 	new->next = NULL;
 	return (new);
 }
 
-void	quoteadd_back(t_quotes **lst, t_quotes *new_node)
+void	pathadd_back(t_path **lst, t_path *new_node)
 {
-	t_quotes	*current;
+	t_path	*current;
 
 	if (*lst == NULL)
 	{
@@ -41,4 +37,20 @@ void	quoteadd_back(t_quotes **lst, t_quotes *new_node)
 	while (current->next != NULL)
 		current = current->next;
 	current->next = new_node;
+}
+
+void	free_paths(t_path **stack_a)
+{
+	t_path	*temp;
+	t_path	*current;
+
+	current = *stack_a;
+	while (current)
+	{
+		temp = current->next;
+		free(current->path);
+		free(current);
+		current = temp;
+	}
+	free(stack_a);
 }
