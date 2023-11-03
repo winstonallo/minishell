@@ -14,30 +14,42 @@ EXEC_DIR = executer/
 
 BUILT_INS = built_ins/
 
+INIT_DIR = initialize/
+
 SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${MAIN_DIR}loop.c \
-		${SRC_DIR}${PARSER_DIR}paths.c \
+\
 		${SRC_DIR}${PARSER_DIR}parse_for_quotes.c \
-		${SRC_DIR}${PARSER_DIR}parsing_utils.c \
 		${SRC_DIR}${PARSER_DIR}expand_dquotes.c \
 		${SRC_DIR}${PARSER_DIR}expand.c \
 		${SRC_DIR}${PARSER_DIR}parse_special_characters.c \
 		${SRC_DIR}${PARSER_DIR}escape.c \
 		${SRC_DIR}${PARSER_DIR}get_command_table.c \
 		${SRC_DIR}${PARSER_DIR}expand_uquotes.c \
-		${SRC_DIR}${UTILS_DIR}list_utils.c \
+\
+		${SRC_DIR}${UTILS_DIR}initialize_paths.c \
+		${SRC_DIR}${UTILS_DIR}initialize_lists.c \
+		${SRC_DIR}${UTILS_DIR}list_utils_quote_parsing.c \
+		${SRC_DIR}${UTILS_DIR}list_utils_special_char.c \
+		${SRC_DIR}${UTILS_DIR}list_utils_environment.c \
+		${SRC_DIR}${UTILS_DIR}list_utils_cmd_table.c \
+		${SRC_DIR}${UTILS_DIR}list_utils_paths.c \
+		${SRC_DIR}${UTILS_DIR}memory_management_arrays.c \
+		${SRC_DIR}${UTILS_DIR}memory_management_lists.c \
+		${SRC_DIR}${UTILS_DIR}parsing_utils.c \
 		${SRC_DIR}${UTILS_DIR}testing_utils.c \
-		${SRC_DIR}${UTILS_DIR}memory_management_utils.c \
-		${SRC_DIR}${UTILS_DIR}memory.c \
-		${SRC_DIR}${UTILS_DIR}initialize.c \
-		${SRC_DIR}${UTILS_DIR}store_environment.c \
-		${SRC_DIR}${UTILS_DIR}store_cmd_tables.c \
+\
 		${SRC_DIR}${EXEC_DIR}commands.c \
 		${SRC_DIR}${EXEC_DIR}execute.c \
 		${SRC_DIR}${EXEC_DIR}pipe_utils.c \
-		${SRC_DIR}${BUILT_INS}built_ins.c \
+\
 		${SRC_DIR}${BUILT_INS}export_utils.c \
 		${SRC_DIR}${BUILT_INS}echo.c \
+		${SRC_DIR}${BUILT_INS}pwd.c \
+		${SRC_DIR}${BUILT_INS}cd.c \
+		${SRC_DIR}${BUILT_INS}export.c \
+\
+		${SRC_DIR}${INIT_DIR}environment.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
