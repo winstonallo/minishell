@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 11:20:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:29:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "lists.h"
 # include "macros.h"
 # include "structs.h"
-#include <stddef.h>
+# include <stddef.h>
 
 int			main(int argc, char **argv, char **env);
 
@@ -39,13 +39,17 @@ int			export(t_shell *data);
 int			update_env_list(t_shell *data);
 
 /* ******************************************************************** */
-/*								UTILS									*/
+/*								INITIALIZATION							*/
 /* **********************************************************************/
-/*Initialization*/
+//
 int			initialize_lists(t_shell *data);
 int			initialize_sequences(t_shell *data);
 int			initialize_command_table(t_shell *data);
-
+//
+/* ******************************************************************** */
+/*								UTILS									*/
+/* **********************************************************************/
+//
 int			get_environment(t_shell *data, size_t i, size_t j);
 int			get_paths(t_path **paths, t_shell *data);
 int			get_prompt(t_shell *data);
@@ -54,7 +58,8 @@ int			get_prompt(t_shell *data);
 int			parse_for_quotes(t_shell *data);
 void		free_quoted_sequences(t_quotes **quoted_sequences);
 int			parse_special_char(t_shell *data);
-char		*expand_dquotes(char *sequence, t_shell *data, size_t i, size_t pos);
+char		*expand_dquotes(char *sequence, t_shell *data, size_t i,
+				size_t pos);
 char		*expand_uquotes(char *sequence, t_shell *data);
 char		*replace(char *str, t_shell *data);
 int			remove_escape(t_shell *data);
@@ -84,12 +89,12 @@ void		quoteadd_back(t_quotes **lst, t_quotes *new_node);
 t_cmd_table	*cmdnew(int outfile, int infile, int pepi);
 void		cmdadd_back(t_cmd_table **lst, t_cmd_table *new_node);
 //
-//Executable paths initialization
+//Executable paths list
 //
 t_path		*pathnew(char *content);
 void		pathadd_back(t_path **lst, t_path *new_node);
 //
-//Environment initialization
+//Environment list
 //
 t_env		*envnew(char *name, char *content, unsigned long len);
 void		envadd_back(t_env **lst, t_env *new_node);

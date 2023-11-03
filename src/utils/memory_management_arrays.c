@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memory_management_utils.c                          :+:      :+:    :+:   */
+/*   memory_management_arrays.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:19:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 11:05:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:28:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	free_array_arrsize(char **arr, int arr_size)
 	{
 		while (i < arr_size)
 			free(arr[i++]);
-		free(arr);	
+		free(arr);
 	}
 }

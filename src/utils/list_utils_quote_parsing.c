@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:18:44 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 10:54:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:28:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	quoteadd_back(t_quotes **lst, t_quotes *new_node)
 		current = current->next;
 	current->next = new_node;
 }
+
 void	free_sequences(t_quotes **sequences)
 {
 	t_quotes	*current;

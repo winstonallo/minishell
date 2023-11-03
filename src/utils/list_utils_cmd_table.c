@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:51:30 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 11:02:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:29:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	cmdadd_back(t_cmd_table **lst, t_cmd_table *new_node)
 		current = current->next;
 	current->next = new_node;
 }
+
 void	free_cmd_tables(t_cmd_table **cmd_tables)
 {
 	t_cmd_table	*head;
