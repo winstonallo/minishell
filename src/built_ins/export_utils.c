@@ -6,7 +6,7 @@
 /*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:43:40 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/05 14:00:00 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/05 14:27:53 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,3 +111,4 @@ int	update_env_list(t_shell *data)
 	}
 	return (0);
 }
+//what
