@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 13:40:10 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 14:42:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	initialize_sequences(t_shell *data)
 	if (!data->cmd_table)
 		return (-1);
 	*data->cmd_table = NULL;
+	data->temp = NULL;
 	return (0);
 }
 

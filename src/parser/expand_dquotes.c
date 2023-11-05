@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 14:28:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 14:45:30 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <stddef.h>
 
 /*This is the part where we look for expandable arguments in double quoted
 sequences.
@@ -90,6 +91,7 @@ char	**fill_array(size_t arr_size, char *seq, size_t *pos, t_shell *data)
 		if (arr[i][0] == '$' && isalnum(arr[i][1]))
 			arr[i] = replace(arr[i], data);
 	}
+	arr[i] = NULL;
 	return (arr);
 }
 
