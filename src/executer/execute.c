@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/01 17:40:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 15:42:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ char	*find_path(t_shell *data, char *command)
 	{
 		temp = ft_strjoin(head->path, command);
 		if (!temp)
-			return (NULL);
+			return (data->exit = FAILURE, NULL);
 		if (access(temp, X_OK) == 0)
-			return (free(command), temp);
+			return (data->exit = SUCCESS, free(command), temp);
 		free(temp);
 		head = head->next;
 	}
 	free(command);
-	return (NULL);
+	return (data->exit = FAILURE, NULL);
 }
 
 /*Child process used to execute the commands (because execve kills the current
@@ -53,10 +53,10 @@ void	child_process(t_shell *data)
 	if (!pid)
 	{
 		if (!pid && (*data->cmd_table)->outfile != NO_FD)
-			if (redirect_output((*data->cmd_table)->outfile) == -1)
+			if (redirect_output(data, (*data->cmd_table)->outfile) == -1)
 				exit(1);
 		if (!pid && (*data->cmd_table)->infile != NO_FD)
-			if (redirect_input((*data->cmd_table)->infile) == -1)
+			if (redirect_input(data, (*data->cmd_table)->infile) == -1)
 				exit(1);
 		execve(data->command_path, (*data->cmd_table)->args, data->environment);
 		ft_putstr_fd(data->command_path, 2);

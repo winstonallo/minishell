@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 14:42:55 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 15:52:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ int	initialize_lists(t_shell *data)
 {
 	data->env_list = malloc(sizeof(data->env_list));
 	if (!data->env_list)
-		return (-1);
+		return (data->exit = FAILURE, -1);
 	*data->env_list = NULL;
 	data->paths = malloc(sizeof(data->paths));
 	if (!data->paths)
-		return (-1);
+		return (data->exit = FAILURE, -1);
 	*data->paths = NULL;
 	data->sequences = malloc(sizeof(data->sequences));
 	if (!data->sequences)
-		return (free(data->paths), -1);
+		return (data->exit = FAILURE, free(data->paths), -1);
 	*data->sequences = NULL;
 	data->operators = malloc(sizeof(data->operators));
 	if (!data->operators)

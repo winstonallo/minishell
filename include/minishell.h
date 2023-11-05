@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 14:29:38 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 15:39:14 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int			main(int argc, char **argv, char **env);
 
 /*Command execution*/
 int			execute_command(t_shell *data);
-int			redirect_input(int input_fd);
-int			redirect_output(int output_fd);
+int			redirect_input(t_shell *data, int input_fd);
+int			redirect_output(t_shell *data, int output_fd);
 
 /* ******************************************************************** */
 /*								BUILT INS								*/
@@ -34,6 +34,7 @@ int			cd(t_shell *data);
 int			pwd(t_shell *data);
 int			echo(t_shell *data);
 int			export(t_shell *data);
+void		env(t_shell *data);
 
 //export_utils.c
 int			update_env_list(t_shell *data);
@@ -52,7 +53,7 @@ int			initialize_command_table(t_shell *data);
 //
 int			get_environment(t_shell *data, size_t i, size_t j);
 int			get_paths(t_path **paths, t_shell *data);
-int			get_prompt(t_shell *data);
+int			get_prompt(t_shell *data, size_t i);
 
 /*Parsing*/
 int			parse_for_quotes(t_shell *data);

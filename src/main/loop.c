@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 18:05:23 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 15:27:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	first_read(t_shell *data)
 
 	status = 0;
 	clear_terminal(data->environment);
-	get_prompt(data);
+	get_prompt(data, 0);
 	data->raw_input = readline(data->prompt);
 	if (!data->raw_input)
 		return (-1);

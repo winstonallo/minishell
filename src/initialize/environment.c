@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:36:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 10:40:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 15:51:35 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 /*Get the current working directory's path, trim off everything that comes
 before the actual name, and use the new string as a prompt to have cwd
 information in prompt*/
-int	get_prompt(t_shell *data)
+int	get_prompt(t_shell *data, size_t i)
 {
 	char	*cwd;
 	char	*temp;
-	size_t	i;
 
 	if (data->prompt)
 		free(data->prompt);
@@ -31,17 +30,17 @@ int	get_prompt(t_shell *data)
 	{
 		if (cwd[i] == '/')
 		{
-			data->prompt = ft_strdup(&cwd[i + 1]);
-			free(cwd);
-			temp = ft_strjoin("\033[0;36m\033[1m", data->prompt);
-			free(data->prompt);
-			data->prompt = ft_strjoin(temp, " \x1b[0m🏩 ");
-			free(temp);
-			return (0);
+			temp = ft_strdup(&cwd[i + 1]);
+			if (!temp)
+				return (data->exit = FAILURE, -1);
+			data->prompt = ft_strjoin(temp, "$ ");
+			if (!data->prompt)
+				return (data->exit = FAILURE, -1);
+			return (free(temp), free(cwd), data->exit = SUCCESS, 0);
 		}
 	}
 	data->prompt = cwd;
-	return (0);
+	return (data->exit = FAILURE, 0);
 }
 
 int	get_environment(t_shell *data, size_t i, size_t j)
@@ -61,11 +60,11 @@ int	get_environment(t_shell *data, size_t i, size_t j)
 				new = envnew(ft_strndup(t[i], j), &t[i][j + 1],
 						ft_strlen(&t[i][j + 1]));
 				if (!new)
-					return (-1);
+					return (data->exit = FAILURE, -1);
 				envadd_back(data->env_list, new);
 			}
 		}
 		i++;
 	}
-	return (0);
+	return (data->exit = SUCCESS, 0);
 }
