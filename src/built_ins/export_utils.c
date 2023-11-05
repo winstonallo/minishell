@@ -6,7 +6,7 @@
 /*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:43:40 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/05 16:21:53 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:25:59 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,13 @@ int	update_env_list(t_shell *data)
 		new_line = ft_split((*data->cmd_table)->args[i], '=');
 		if (!new_line)
 			return (-1);
-		// if (compare_env(data, new_line) == 0)
-		// {
-		// 	free(new_line[1]);
-		// 	free(new_line);
-		// 	i++;
-		// 	continue ;
-		// }
+		if (compare_env(data, new_line) == 0)
+		{
+			free(new_line[1]);
+			free(new_line);
+			i++;
+			continue ;
+		}
 		if (add_arg_to_env(data, new_line) == -1)
 			return (-1);
 		free(new_line[1]);
