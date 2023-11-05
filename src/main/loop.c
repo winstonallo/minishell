@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 15:27:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 16:23:14 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	clear_terminal(char **env)
 	{
 		execve("/usr/bin/clear", args, env);
 		perror("minishell: unable to clear the terminal history");
-		exit(0);
+		exit(FAILURE);
 	}
 	else
 	{
@@ -51,17 +51,17 @@ int	read_input(t_shell *data, int *status)
 {
 	add_history(data->raw_input);
 	if (parse_for_quotes(data) == -1)
-		return (-1);
+		return (data->exit = FAILURE, -1);
 	if (expand_sequences(data) == -1)
-		return (-1);
+		return (data->exit = FAILURE, -1);
 	if (remove_escape(data) == -1)
-		return (-1);
+		return (data->exit = FAILURE, -1);
 	if (parse_special_char(data) == -1)
-		return (-1);
+		return (data->exit = FAILURE, -1);
 	if (get_command_table(data) == -1)
-		return (-1);
+		return (data->exit = FAILURE, -1);
 	*status = find_command(data);
-	return (0);
+	return (data->exit = SUCCESS, 0);
 }
 
 int	check_status(int status, t_shell *data)
@@ -72,8 +72,8 @@ int	check_status(int status, t_shell *data)
 		ft_putendl_fd(data->raw_input, 2);
 	}
 	else if (status == EXIT)
-		return (EXIT);
-	return (0);
+		return (data->exit = FAILURE, EXIT);
+	return (data->exit = SUCCESS, 0);
 }
 
 int	first_read(t_shell *data)
@@ -85,13 +85,13 @@ int	first_read(t_shell *data)
 	get_prompt(data, 0);
 	data->raw_input = readline(data->prompt);
 	if (!data->raw_input)
-		return (-1);
+		return (data->exit = FAILURE, -1);
 	if (read_input(data, &status) == -1)
-		return (-1);
+		return (data->exit = FAILURE, -1);
 	if (check_status(status, data) == EXIT)
-		return (-1);
+		return (data->exit = FAILURE, -1);
 	wipe(data);
-	return (0);
+	return (data->exit = SUCCESS, 0);
 }
 
 int	loop(t_shell *data)
@@ -99,20 +99,20 @@ int	loop(t_shell *data)
 	int	status;
 
 	if (first_read(data) == -1)
-		return (EXIT);
+		return (data->exit = FAILURE, EXIT);
 	while (1)
 	{
 		status = 0;
 		if (initialize_sequences(data) == -1)
-			return (-1);
+			return (data->exit = FAILURE);
 		data->raw_input = readline(data->prompt);
 		if (!data->raw_input)
-			return (-1);
+			return (data->exit = FAILURE);
 		if (read_input(data, &status) == -1)
-			return (-1);
+			return (data->exit = FAILURE);
 		if (check_status(status, data) == EXIT)
 			return (EXIT);
 		wipe(data);
 	}
-	return (0);
+	return (data->exit = FAILURE);
 }

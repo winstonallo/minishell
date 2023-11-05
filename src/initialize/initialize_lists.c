@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 15:52:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 16:22:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,43 +21,45 @@ int	initialize_sequences(t_shell *data)
 {
 	data->sequences = malloc(sizeof(t_quotes **));
 	if (!data->sequences)
-		return (free(data->paths), -1);
+		return (wipe4real(data), data->exit = FAILURE);
 	*data->sequences = NULL;
 	data->operators = malloc(sizeof(data->operators));
 	if (!data->operators)
-		return (-1);
+		return (wipe4real(data), data->exit = FAILURE);
 	*data->operators = NULL;
 	data->cmd_table = malloc(sizeof(data->cmd_table));
 	if (!data->cmd_table)
-		return (-1);
+		return (wipe4real(data), data->exit = FAILURE);
 	*data->cmd_table = NULL;
 	data->temp = NULL;
-	return (0);
+	return (data->exit = FAILURE);
 }
 
 int	initialize_lists(t_shell *data)
 {
 	data->env_list = malloc(sizeof(data->env_list));
 	if (!data->env_list)
-		return (data->exit = FAILURE, -1);
+		return (data->exit = FAILURE);
 	*data->env_list = NULL;
 	data->paths = malloc(sizeof(data->paths));
 	if (!data->paths)
-		return (data->exit = FAILURE, -1);
+		return (free(data->env_list), data->exit = FAILURE);
 	*data->paths = NULL;
 	data->sequences = malloc(sizeof(data->sequences));
 	if (!data->sequences)
-		return (data->exit = FAILURE, free(data->paths), -1);
+		return (free(data->paths), data->exit = FAILURE);
 	*data->sequences = NULL;
 	data->operators = malloc(sizeof(data->operators));
 	if (!data->operators)
-		return (-1);
+		return (free(data->env_list), free(data->paths),
+			data->exit = FAILURE);
 	*data->operators = NULL;
 	data->cmd_table = malloc(sizeof(data->cmd_table));
 	if (!data->cmd_table)
-		return (-1);
+		return (free(data->env_list), free(data->paths),
+			free(data->operators), data->exit = FAILURE);
 	*data->cmd_table = NULL;
 	data->temp = NULL;
 	data->prompt = NULL;
-	return (0);
+	return (data->exit = SUCCESS);
 }

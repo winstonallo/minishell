@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:43:40 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/05 15:40:38 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 16:15:46 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	update_env_list(t_shell *data)
 	head = *data->env_list;
 	new_line = ft_split((*data->cmd_table)->args[1], '=');
 	if (!new_line)
-		return (data->exit = FAILURE, -1);
+		return (data->exit = FAILURE);
 	new_node = envnew(new_line[0], new_line[1], ft_strlen(new_line[1]));
 	if (!new_node)
-		return (data->exit = FAILURE, -1);
+		return (data->exit = FAILURE);
 	envadd_back(data->env_list, new_node);
 	if (!new_line)
 		return (-1);
@@ -38,5 +38,5 @@ int	update_env_list(t_shell *data)
 		}
 		head = head->next;
 	}
-	return (data->exit = SUCCESS, free(new_line[1]), free(new_line), 0);
+	return (free(new_line[1]), free(new_line), data->exit = SUCCESS);
 }
