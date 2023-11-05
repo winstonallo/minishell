@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   initialize_lists.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 14:45:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 13:40:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	initialize_lists(t_shell *data)
 	if (!data->cmd_table)
 		return (-1);
 	*data->cmd_table = NULL;
+	data->temp = NULL;
 	data->prompt = NULL;
 	return (0);
 }

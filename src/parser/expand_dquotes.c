@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/01 17:03:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:28:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,29 +93,29 @@ char	**fill_array(size_t arr_size, char *seq, size_t *pos, t_shell *data)
 	return (arr);
 }
 
-char	*expand_dquotes(char *sequence, t_shell *data)
+char	*expand_dquotes(char *sequence, t_shell *data, size_t i, size_t pos)
 {
-	size_t		arr_size;
-	char		**arr;
-	size_t		i;
-	size_t		pos;
-	char		*temp;
+	size_t	arr_size;
+	char	**arr;
+	char	*new_temp;
 
-	temp = NULL;
-	pos = 0;
 	arr_size = count_words(sequence);
 	arr = fill_array(arr_size, sequence, &pos, data);
 	if (!arr)
 		return (NULL);
-	i = -1;
 	while (++i < arr_size)
 	{
-		if (!temp)
-			temp = ft_strndup(arr[i], ft_strlen(arr[i]));
+		if (!data->temp)
+			new_temp = ft_strndup(arr[i], ft_strlen(arr[i]));
 		else
-			temp = ft_strjoin(temp, arr[i]);
-		if (!temp)
-			return (free_array(arr), NULL);
+			new_temp = ft_strjoin(data->temp, arr[i]);
+		if (!new_temp)
+		{
+			free_array(arr);
+			return (NULL);
+		}
+		free(data->temp);
+		data->temp = new_temp;
 	}
-	return (free_array_arrsize(arr, arr_size), free(sequence), temp);
+	return (free_array_arrsize(arr, arr_size), data->temp);
 }

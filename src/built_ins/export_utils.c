@@ -6,7 +6,7 @@
 /*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:43:40 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/02 18:44:25 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/05 14:00:00 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	add_arg_to_env(t_shell *data, char **new_line)
 		}
 		head = head->next;
 	}
-	return (0);
+	return (free(new_line[1]), free(new_line), 0);
 }
 
 int	search_num_of_args(t_shell *data)
