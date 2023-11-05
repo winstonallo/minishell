@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 16:22:38 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:47:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	initialize_sequences(t_shell *data)
 		return (wipe4real(data), data->exit = FAILURE);
 	*data->cmd_table = NULL;
 	data->temp = NULL;
-	return (data->exit = FAILURE);
+	return (data->exit);
 }
 
 int	initialize_lists(t_shell *data)
@@ -61,5 +61,5 @@ int	initialize_lists(t_shell *data)
 	*data->cmd_table = NULL;
 	data->temp = NULL;
 	data->prompt = NULL;
-	return (data->exit = SUCCESS);
+	return (data->exit);
 }

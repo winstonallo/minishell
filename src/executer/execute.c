@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 16:19:58 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:57:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ char	*find_path(t_shell *data, char *command)
 	{
 		temp = ft_strjoin(head->path, command);
 		if (!temp)
-			return (data->exit = FAILURE, NULL);
+			return (NULL);
 		if (access(temp, X_OK) == 0)
-			return (data->exit = SUCCESS, free(command), temp);
+			return (free(command), temp);
 		free(temp);
 		head = head->next;
 	}
 	free(command);
-	return (data->exit = FAILURE, NULL);
+	return (NULL);
 }
 
 /*Child process used to execute the commands (because execve kills the current
@@ -76,9 +76,9 @@ int	execute_command(t_shell *data)
 	{
 		data->command_path = find_path(data, (*data->cmd_table)->args[0]);
 		if (!data->command_path)
-			return (data->exit = FAILURE);
+			return (data->exit);
 		child_process(data);
 		free(data->command_path);
 	}
-	return (data->exit = SUCCESS);
+	return (data->exit);
 }

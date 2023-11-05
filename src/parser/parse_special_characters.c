@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 18:35:55 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 16:13:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:54:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,17 @@ int	split_curr_sequence(char *seq, t_shell *data)
 			if (isop(seq[j]) || !seq[j])
 			{
 				if (add_node_special_char(&seq[i], j - i, data, 0) == -1)
-					return (free_opps(data->operators), data->exit = FAILURE);
+					return (free_opps(data->operators), data->exit);
 			}
 		}
 		if (isop(seq[j]))
 		{
 			if (add_node_special_char(NULL, 0, data, isop(seq[j])) == -1)
-				return (free_opps(data->operators), data->exit = FAILURE);
+				return (free_opps(data->operators), data->exit);
 			j++;
 		}
 	}
-	return (data->exit = SUCCESS);
+	return (data->exit);
 }
 
 /*Go through the list and look for special characters in each sequence*/
@@ -80,8 +80,8 @@ int	parse_special_char(t_shell *data)
 	while (temp)
 	{
 		if (split_curr_sequence(temp->sequence, data) == -1)
-			return (data->exit = FAILURE);
+			return (data->exit);
 		temp = temp->next;
 	}
-	return (data->exit = SUCCESS);
+	return (data->exit);
 }

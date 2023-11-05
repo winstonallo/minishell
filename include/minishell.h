@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 15:39:14 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:24:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int			pwd(t_shell *data);
 int			echo(t_shell *data);
 int			export(t_shell *data);
 void		env(t_shell *data);
+void		get_exit_code(t_shell *data);
 
 //export_utils.c
 int			update_env_list(t_shell *data);

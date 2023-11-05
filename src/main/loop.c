@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 16:23:14 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:44:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ int	read_input(t_shell *data, int *status)
 		return (data->exit = FAILURE, -1);
 	if (get_command_table(data) == -1)
 		return (data->exit = FAILURE, -1);
-	*status = find_command(data);
-	return (data->exit = SUCCESS, 0);
+	return (*status = find_command(data));
 }
 
 int	check_status(int status, t_shell *data)
@@ -72,8 +71,8 @@ int	check_status(int status, t_shell *data)
 		ft_putendl_fd(data->raw_input, 2);
 	}
 	else if (status == EXIT)
-		return (data->exit = FAILURE, EXIT);
-	return (data->exit = SUCCESS, 0);
+		return (EXIT);
+	return (data->exit);
 }
 
 int	first_read(t_shell *data)
@@ -85,13 +84,13 @@ int	first_read(t_shell *data)
 	get_prompt(data, 0);
 	data->raw_input = readline(data->prompt);
 	if (!data->raw_input)
-		return (data->exit = FAILURE, -1);
+		return (data->exit);
 	if (read_input(data, &status) == -1)
-		return (data->exit = FAILURE, -1);
+		return (data->exit);
 	if (check_status(status, data) == EXIT)
-		return (data->exit = FAILURE, -1);
+		return (EXIT);
 	wipe(data);
-	return (data->exit = SUCCESS, 0);
+	return (data->exit);
 }
 
 int	loop(t_shell *data)
@@ -99,17 +98,17 @@ int	loop(t_shell *data)
 	int	status;
 
 	if (first_read(data) == -1)
-		return (data->exit = FAILURE, EXIT);
+		return (data->exit = FAILURE);
 	while (1)
 	{
 		status = 0;
 		if (initialize_sequences(data) == -1)
-			return (data->exit = FAILURE);
+			return (data->exit);
 		data->raw_input = readline(data->prompt);
 		if (!data->raw_input)
-			return (data->exit = FAILURE);
+			return (data->exit);
 		if (read_input(data, &status) == -1)
-			return (data->exit = FAILURE);
+			return (data->exit);
 		if (check_status(status, data) == EXIT)
 			return (EXIT);
 		wipe(data);

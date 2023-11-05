@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:30:13 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 16:16:23 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:56:35 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	pwd(t_shell *data)
 {
 	data->cwd = getcwd(NULL, 0);
 	if (!data->cwd)
-		return (data->exit = FAILURE);
+		return (data->exit);
 	printf("%s\n", data->cwd);
-	return (data->exit = SUCCESS);
+	return (data->exit);
 }

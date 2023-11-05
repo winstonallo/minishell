@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:29:32 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 16:09:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:53:34 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*expand_uquotes(char *sequence, t_shell *data)
 	{
 		sequence = replace(sequence, data);
 		if (!sequence)
-			return (data->exit = FAILURE, NULL);
+			return (NULL);
 	}
-	return (data->exit = SUCCESS, sequence);
+	return (sequence);
 }

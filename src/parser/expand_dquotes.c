@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 16:08:38 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:53:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	*expand_dquotes(char *sequence, t_shell *data, size_t i, size_t pos)
 	size = count_words(sequence);
 	arr = fill_array(size, sequence, &pos, data);
 	if (!arr)
-		return (data->exit = FAILURE, NULL);
+		return (NULL);
 	while (++i < size)
 	{
 		if (!data->temp)
@@ -114,10 +114,10 @@ char	*expand_dquotes(char *sequence, t_shell *data, size_t i, size_t pos)
 		if (!new_temp)
 		{
 			free_array(arr);
-			return (data->exit = FAILURE, NULL);
+			return (NULL);
 		}
 		free(data->temp);
 		data->temp = new_temp;
 	}
-	return (data->exit = SUCCESS, free_array_arrsize(arr, size), data->temp);
+	return (free_array_arrsize(arr, size), data->temp);
 }
