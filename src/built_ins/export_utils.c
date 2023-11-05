@@ -6,7 +6,7 @@
 /*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:43:40 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/05 17:25:59 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/05 20:49:51 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,30 @@
 
 // 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 // BAUSTELLE IN : compare_env GEHT NOCH NICHT
-// 					🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
-int	strrrrlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 int	compare_env(t_shell *data, char **new_line)
 {
 	t_env	*temp;
+	int		max_len;
 
 	temp = *data->env_list;
-	// printf("len_ newline[0] : %i\n", strrrrlen(new_line[0]));
-	// printf("len_ newline[1] : %i\n", strrrrlen(new_line[1]));
+	if (ft_strlen(new_line[0]) > ft_strlen(temp->name))
+		max_len = ft_strlen(new_line[0]);
+	else
+		max_len = ft_strlen(temp->name);
 	while (temp)
 	{
-		if (ft_strncmp(temp->name, new_line[0], ft_strlen(temp->name) == 0)
-			&& ft_strncmp(temp->line, new_line[1], ft_strlen(temp->line) == 0))
+		if ((ft_strncmp(temp->name, new_line[0], max_len)) == 0)
 		{
-			printf("here?");
-			return (0);
+			free(temp->line);
+			temp->line = ft_strdup(new_line[1]);
+			if (!temp->line)
+				return (-1);
+			return (1);
 		}
-		// printf("name      :	%s\n", temp->name);
-		// printf("name_len  : %i\n", strrrrlen(temp->name));
-		// printf("line      : %s\n", temp->line);
-		// printf("line_len  : %i\n", strrrrlen(temp->line));
 		temp = temp->next;
 	}
-	return (1);
+	return (0);
 }
 
 int	add_arg_to_env(t_shell *data, char **new_line)
@@ -55,7 +46,8 @@ int	add_arg_to_env(t_shell *data, char **new_line)
 	t_env	*head;
 
 	head = *data->env_list;
-	new_node = envnew(new_line[0], new_line[1], ft_strlen(new_line[1]));
+	new_node = envnew(ft_strdup(new_line[0]), new_line[1],
+			ft_strlen(new_line[1]));
 	if (!new_node)
 		return (-1);
 	envadd_back(data->env_list, new_node);
@@ -91,53 +83,23 @@ int	update_env_list(t_shell *data)
 
 	len = search_num_of_args(data);
 	i = 1;
-	while (i <= len)
+	while (i < len)
 	{
 		new_line = ft_split((*data->cmd_table)->args[i], '=');
 		if (!new_line)
 			return (-1);
-		if (compare_env(data, new_line) == 0)
+		if (compare_env(data, new_line) == 1)
 		{
-			free(new_line[1]);
-			free(new_line);
+			free_array(new_line);
 			i++;
 			continue ;
 		}
+		else if (compare_env(data, new_line) == -1)
+			return (-1);
 		if (add_arg_to_env(data, new_line) == -1)
 			return (-1);
-		free(new_line[1]);
-		free(new_line);
 		i++;
+		free_array(new_line);
 	}
 	return (0);
 }
-
-//what
-// int	update_env_list(t_shell *data)
-// {
-// 	char **new_line;
-// 	t_env *new_node;
-// 	t_env *head;
-
-// 	head = *data->env_list;
-// 	new_line = ft_split((*data->cmd_table)->args[1], '=');
-// 	if (!new_line)
-// 		return (-1);
-// 	new_node = envnew(new_line[0], new_line[1], ft_strlen(new_line[1]));
-// 	if (!new_node)
-// 		return (-1);
-// 	envadd_back(data->env_list, new_node);
-// 	if (!new_line)
-// 		return (-1);
-// 	while (head)
-// 	{
-// 		if (head->next == NULL)
-// 		{
-// 			head->next = new_node;
-// 			new_node->next = NULL;
-// 			break ;
-// 		}
-// 		head = head->next;
-// 	}
-// 	return (free(new_line[1]), free(new_line), 0);
-// }
