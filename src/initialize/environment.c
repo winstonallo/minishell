@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:36:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 16:21:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/06 08:32:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ int	get_prompt(t_shell *data, size_t i)
 		{
 			temp = ft_strdup(&cwd[i + 1]);
 			if (!temp)
-				return (data->exit = FAILURE, -1);
+				return (-1);
 			data->prompt = ft_strjoin(temp, "$ ");
 			if (!data->prompt)
-				return (data->exit = FAILURE, -1);
-			return (free(temp), free(cwd), data->exit = SUCCESS, 0);
+				return (-1);
+			return (free(temp), free(cwd), 0);
 		}
 	}
 	data->prompt = cwd;
-	return (data->exit = FAILURE, 0);
+	return (0);
 }
 
 int	get_environment(t_shell *data, size_t i, size_t j)
@@ -60,11 +60,11 @@ int	get_environment(t_shell *data, size_t i, size_t j)
 				new = envnew(ft_strndup(t[i], j), &t[i][j + 1],
 						ft_strlen(&t[i][j + 1]));
 				if (!new)
-					return (data->exit = FAILURE);
+					return (-1);
 				envadd_back(data->env_list, new);
 			}
 		}
 		i++;
 	}
-	return (data->exit = SUCCESS);
+	return (0);
 }

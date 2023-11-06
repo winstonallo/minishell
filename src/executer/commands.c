@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 16:17:06 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/06 08:26:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,20 @@ command line to the executing part*/
 int	find_command(t_shell *data)
 {
 	if (ft_strncmp((*data->cmd_table)->args[0], "env", 4) == 0)
-		return (env(data), 0);
+		return (env(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "exit", 5) == 0)
-		return (EXIT);
+		return (printf("exit\n"), EXIT);
 	else if (ft_strncmp((*data->cmd_table)->args[0], "export", 6) == 0)
-		return (export(data), data->exit);
+		return (export(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "cd", 3) == 0)
-		return (cd(data), data->exit);
+		return (cd(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "pwd", 4) == 0)
-		return (pwd(data), data->exit);
+		return (pwd(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "echo", 5) == 0)
-		return (echo(data), data->exit);
+		return (echo(data));
 	else if (execute_command(data) == 0)
-		return (data->exit = SUCCESS);
-	return (data->exit = COMMAND_NOT_FOUND);
+		return (SUCCESS);
+	else
+		return (COMMAND_NOT_FOUND);
+	return (FAILURE);
 }

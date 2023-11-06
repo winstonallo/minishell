@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 17:57:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 20:19:14 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ int	execute_command(t_shell *data)
 	{
 		data->command_path = find_path(data, (*data->cmd_table)->args[0]);
 		if (!data->command_path)
-			return (data->exit);
+			return (-1);
 		child_process(data);
 		free(data->command_path);
 	}
-	return (data->exit);
+	return (0);
 }
