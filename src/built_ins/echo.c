@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/06 10:17:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/06 10:52:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ int	echo(t_shell *data)
 	}
 	while (head)
 	{
-		printf("%s", head->sequence);
-		if (head->next && head->next->status == UNQUOTED)
+		if (head->sequence)
+			printf("%s", head->sequence);
+		if (head->next && head->next->status == UNQUOTED && head->sequence)
 			printf(" ");
 		head = head->next;
 	}

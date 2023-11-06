@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 18:35:55 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 17:54:26 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/06 10:50:54 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	split_curr_sequence(char *seq, t_shell *data)
 
 	i = -1;
 	j = 0;
-	while (seq[++i] && seq[j])
+	while (seq && seq[++i] && seq[j])
 	{
 		i = j;
 		while (!isop(seq[j]) && seq[j])
