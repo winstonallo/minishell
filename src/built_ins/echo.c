@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 10:28:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/06 08:17:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ int	echo(t_shell *data)
 		printf("%s", (*data->cmd_table)->args[i]);
 	if (newline)
 		printf("\n");
-	return (0);
+	return (SUCCESS);
 }

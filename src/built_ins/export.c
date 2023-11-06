@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 11:22:46 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/05 17:44:43 by sstanfel         ###   ########.fr       */
+/*   Created: 2023/11/06 08:45:47 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/11/06 08:45:51 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 int	export(t_shell *data)
 {
@@ -21,8 +20,8 @@ int	export(t_shell *data)
 		return (0);
 	}
 	if (ft_strncmp((*data->cmd_table)->args[1], "=", 1) == 0)
-		return (-1);
+		return (data->exit);
 	else if (update_env_list(data) != 0)
-		return (-1);
-	return (0);
+		return (FAILURE);
+	return (SUCCESS);
 }

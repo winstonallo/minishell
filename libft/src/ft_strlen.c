@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:11:36 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/08 16:41:17 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 15:55:57 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (-1);
 	while (*str)
 	{
 		str++;

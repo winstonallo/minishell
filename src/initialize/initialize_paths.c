@@ -6,13 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:12:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 11:00:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:00:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	store_paths(t_path **paths, char *path)
+static int	store_paths(t_path **paths, char *path, t_shell *data)
 {
 	t_path	*new;
 
@@ -20,7 +20,7 @@ static int	store_paths(t_path **paths, char *path)
 	if (!new)
 		return (free_paths(paths), -1);
 	pathadd_back(paths, new);
-	return (0);
+	return (data->exit);
 }
 
 int	get_paths(t_path **paths, t_shell *data)
@@ -40,7 +40,7 @@ int	get_paths(t_path **paths, t_shell *data)
 				return (-1);
 			while (temp[++i])
 			{
-				if (store_paths(paths, temp[i]) == -1)
+				if (store_paths(paths, temp[i], data) == -1)
 					return (-1);
 			}
 			free(temp);
