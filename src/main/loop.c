@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/06 08:36:47 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/06 08:42:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int	loop(t_shell *data)
 			return (data->exit);
 		if (read_input(data) == -1)
 			return (data->exit);
-
 		if (check_status(data) == EXIT)
 			return (EXIT);
 		wipe(data);
