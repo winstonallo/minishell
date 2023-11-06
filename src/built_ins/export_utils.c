@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:43:40 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/06 08:48:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/06 10:22:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	search_num_of_args(t_shell *data)
 		i++;
 	return (i);
 }
+
 int	update_env_list(t_shell *data)
 {
 	char	**new_line;
