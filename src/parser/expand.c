@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:08:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/06 08:41:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:19:35 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ int	expand_sequences(t_shell *data)
 			temp = head->sequence;
 			head->sequence = expand_dquotes(head->sequence, data, -1, 0);
 			if (!head->sequence)
-				return (data->exit = FAILURE);
+				return (-1);
 			free(temp);
 		}
 		else if (head->status == UNQUOTED)
 		{
 			head->sequence = expand_uquotes(head->sequence, data);
 			if (!head->sequence)
-				return (data->exit = FAILURE);
+				return (-1);
 		}
 		head = head->next;
 	}
