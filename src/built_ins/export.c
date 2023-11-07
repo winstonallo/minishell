@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built_ins.c                                        :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 11:22:46 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/03 10:30:44 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/11/06 08:45:47 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/11/06 10:21:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 int	export(t_shell *data)
 {
+	if ((*data->cmd_table)->args[1] == NULL)
+	{
+		env(data);
+		return (0);
+	}
 	if (ft_strncmp((*data->cmd_table)->args[1], "=", 1) == 0)
-		return (-1);
+		return (data->exit);
 	else if (update_env_list(data) != 0)
-		return (-1);
-	return (0);
+		return (FAILURE);
+	return (SUCCESS);
 }

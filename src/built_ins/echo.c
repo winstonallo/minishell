@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 10:28:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/06 10:52:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,26 @@
 
 int	echo(t_shell *data)
 {
-	int	i;
-	int	newline;
+	int			newline;
+	t_quotes	*head;
 
-	i = 0;
 	newline = 1;
-	if ((*data->cmd_table)->args[1]
-		&& ft_strncmp((*data->cmd_table)->args[1], "-n", 3) == 0)
+	head = (*data->sequences)->next;
+	if (head->sequence
+		&& ft_strncmp(head->sequence, "-n", 3) == 0)
 	{
 		newline = 0;
-		i++;
+		head = head->next;
 	}
-	while ((*data->cmd_table)->args[++i])
-		printf("%s", (*data->cmd_table)->args[i]);
+	while (head)
+	{
+		if (head->sequence)
+			printf("%s", head->sequence);
+		if (head->next && head->next->status == UNQUOTED && head->sequence)
+			printf(" ");
+		head = head->next;
+	}
 	if (newline)
 		printf("\n");
-	return (0);
+	return (SUCCESS);
 }

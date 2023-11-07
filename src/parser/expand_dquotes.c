@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 14:28:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:53:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <stddef.h>
 
 /*This is the part where we look for expandable arguments in double quoted
 sequences.
@@ -90,20 +91,21 @@ char	**fill_array(size_t arr_size, char *seq, size_t *pos, t_shell *data)
 		if (arr[i][0] == '$' && isalnum(arr[i][1]))
 			arr[i] = replace(arr[i], data);
 	}
+	arr[i] = NULL;
 	return (arr);
 }
 
 char	*expand_dquotes(char *sequence, t_shell *data, size_t i, size_t pos)
 {
-	size_t	arr_size;
+	size_t	size;
 	char	**arr;
 	char	*new_temp;
 
-	arr_size = count_words(sequence);
-	arr = fill_array(arr_size, sequence, &pos, data);
+	size = count_words(sequence);
+	arr = fill_array(size, sequence, &pos, data);
 	if (!arr)
 		return (NULL);
-	while (++i < arr_size)
+	while (++i < size)
 	{
 		if (!data->temp)
 			new_temp = ft_strndup(arr[i], ft_strlen(arr[i]));
@@ -117,5 +119,5 @@ char	*expand_dquotes(char *sequence, t_shell *data, size_t i, size_t pos)
 		free(data->temp);
 		data->temp = new_temp;
 	}
-	return (free_array_arrsize(arr, arr_size), data->temp);
+	return (free_array_arrsize(arr, size), data->temp);
 }

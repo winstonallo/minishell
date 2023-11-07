@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   initialize_lists.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 14:45:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/06 08:23:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,18 @@ int	initialize_sequences(t_shell *data)
 {
 	data->sequences = malloc(sizeof(t_quotes **));
 	if (!data->sequences)
-		return (free(data->paths), -1);
+		return (wipe4real(data), -1);
 	*data->sequences = NULL;
 	data->operators = malloc(sizeof(data->operators));
 	if (!data->operators)
-		return (-1);
+		return (wipe4real(data), -1);
 	*data->operators = NULL;
 	data->cmd_table = malloc(sizeof(data->cmd_table));
 	if (!data->cmd_table)
-		return (-1);
+		return (wipe4real(data), -1);
 	*data->cmd_table = NULL;
-	return (0);
+	data->temp = NULL;
+	return (data->exit);
 }
 
 int	initialize_lists(t_shell *data)
@@ -42,7 +43,7 @@ int	initialize_lists(t_shell *data)
 	*data->env_list = NULL;
 	data->paths = malloc(sizeof(data->paths));
 	if (!data->paths)
-		return (-1);
+		return (free(data->env_list), -1);
 	*data->paths = NULL;
 	data->sequences = malloc(sizeof(data->sequences));
 	if (!data->sequences)
@@ -50,12 +51,15 @@ int	initialize_lists(t_shell *data)
 	*data->sequences = NULL;
 	data->operators = malloc(sizeof(data->operators));
 	if (!data->operators)
-		return (-1);
+		return (free(data->env_list), free(data->paths),
+			-1);
 	*data->operators = NULL;
 	data->cmd_table = malloc(sizeof(data->cmd_table));
 	if (!data->cmd_table)
-		return (-1);
+		return (free(data->env_list), free(data->paths),
+			free(data->operators), -1);
 	*data->cmd_table = NULL;
+	data->temp = NULL;
 	data->prompt = NULL;
 	return (0);
 }
