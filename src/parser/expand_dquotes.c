@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dquotes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 17:53:24 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/07 16:16:30 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ static size_t	count_words(char *seq)
 	ret = 0;
 	while (seq[i])
 	{
-		if (seq[i] == '$')
+		if (seq[i] == '$' && myisspace(seq[i + 1]))
+			i += 2;
+		else if (seq[i] == '$')
 		{
 			ret++;
 			i++;
