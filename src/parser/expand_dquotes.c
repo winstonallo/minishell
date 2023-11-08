@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 20:52:14 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 21:44:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,36 @@ char	**fill_array(size_t arr_size, char *seq, size_t *pos, t_shell *data)
 		arr[i] = get_next_word(seq, pos);
 		if (!arr[i])
 			return (free(arr), NULL);
-		if (arr[i][0] == '$' && isalnum(arr[i][1]))
+		if (arr[i][0] == '$' && (isalnum(arr[i][1]) || arr[i][1] == '?'))
 			arr[i] = replace(arr[i], data);
 	}
 	arr[i] = NULL;
 	return (arr);
+}
+static char	*expand_exitcode(char *str, t_shell *data)
+{
+	size_t	i;
+	char	*temp;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_strnstr(&str[i], "$?", 2))
+		{
+			temp = ft_strndup(str, i);
+			if (!temp)
+				return (NULL);
+			temp = ft_strjoin(temp, ft_itoa(data->exit));
+			if (!temp)
+				return (NULL);
+			i += 2;
+			str = ft_strjoin(temp, &str[i]);
+			if (!str)
+			return (free(temp), NULL);
+		}
+		i++;
+	}
+	return (str);
 }
 
 int	expand_dquotes(t_quotes *node, t_shell *data, size_t i, size_t pos)
@@ -118,7 +143,7 @@ int	expand_dquotes(t_quotes *node, t_shell *data, size_t i, size_t pos)
 			return (-1);
 		}
 		free(node->sequence);
-		node->sequence = data->temp;
+		node->sequence = expand_exitcode(data->temp, data);
 	}
 	return (free_array_arrsize(arr, size), 0);
 }
