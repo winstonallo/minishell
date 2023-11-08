@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 17:54:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:32:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ char	**get_command_array(t_op *data, int i, int j)
 		return (NULL);
 	while (data && data->special_character != PIPE)
 	{
-		if ((data->special_character == OUTPUT_REDIRECTION
-				|| data->special_character == INPUT_REDIRECTION))
+		if ((data->special_character == OUT_REDIR
+				|| data->special_character == IN_REDIR))
 		{
 			if (!data->next->next)
 				break ;
@@ -61,9 +61,9 @@ int	initialize_redirections(t_op *data, t_cmd_table **cmd_table)
 	out = NO_FD;
 	while (h && h->special_character != PIPE)
 	{
-		if (h->special_character == OUTPUT_REDIRECTION)
+		if (h->special_character == OUT_REDIR && h->status == UNQUOTED)
 			out = open(h->next->sequence, O_CREAT | O_TRUNC | O_RDWR, 0000644);
-		else if (h->special_character == INPUT_REDIRECTION)
+		else if (h->special_character == IN_REDIR && h->status == UNQUOTED)
 			in = open(h->next->sequence, O_RDONLY);
 		h = h->next;
 	}
