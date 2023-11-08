@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 15:45:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 20:23:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,7 @@ static int	dquotes(char *quoted_sequence, t_shell *data)
 
 	i = 0;
 	while (quoted_sequence[i] != '\"')
-	{
 		i++;
-		if (quoted_sequence[i] == '\\' && quoted_sequence[i + 2])
-			i += 2;
-	}
 	new = quotenew(quoted_sequence, IN_DOUBLE_QUOTES, i);
 	if (!new)
 		return (-1);

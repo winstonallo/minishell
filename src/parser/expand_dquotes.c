@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dquotes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/07 16:16:30 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/08 20:52:14 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static char	*get_next_word(char *seq, size_t *pos)
 		}
 		i++;
 	}
-	return (ft_strdup(seq));
+	return (ft_strdup(""));
 }
 
 char	**fill_array(size_t arr_size, char *seq, size_t *pos, t_shell *data)
@@ -97,29 +97,28 @@ char	**fill_array(size_t arr_size, char *seq, size_t *pos, t_shell *data)
 	return (arr);
 }
 
-char	*expand_dquotes(char *sequence, t_shell *data, size_t i, size_t pos)
+int	expand_dquotes(t_quotes *node, t_shell *data, size_t i, size_t pos)
 {
 	size_t	size;
 	char	**arr;
-	char	*new_temp;
 
-	size = count_words(sequence);
-	arr = fill_array(size, sequence, &pos, data);
+	size = count_words(node->sequence);
+	arr = fill_array(size, node->sequence, &pos, data);
 	if (!arr)
-		return (NULL);
+		return (-1);
 	while (++i < size)
 	{
 		if (!data->temp)
-			new_temp = ft_strndup(arr[i], ft_strlen(arr[i]));
+			data->temp = ft_strndup(arr[i], ft_strlen(arr[i]));
 		else
-			new_temp = ft_strjoin(data->temp, arr[i]);
-		if (!new_temp)
+			data->temp = ft_strjoin(node->sequence, arr[i]);
+		if (!data->temp)
 		{
 			free_array(arr);
-			return (NULL);
+			return (-1);
 		}
-		free(data->temp);
-		data->temp = new_temp;
+		free(node->sequence);
+		node->sequence = data->temp;
 	}
-	return (free_array_arrsize(arr, size), data->temp);
+	return (free_array_arrsize(arr, size), 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:08:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/07 16:12:32 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/08 20:52:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,14 @@ char	*replace(char *str, t_shell *data)
 int	expand_sequences(t_shell *data)
 {
 	t_quotes	*head;
-	char		*temp;
 
 	head = *data->sequences;
 	while (head)
 	{
 		if (head->status == IN_DOUBLE_QUOTES)
 		{
-			temp = head->sequence;
-			head->sequence = expand_dquotes(head->sequence, data, -1, 0);
-			if (!head->sequence)
+			if (expand_dquotes(head, data, -1, 0))
 				return (-1);
-			free(temp);
 		}
 		else if (head->status == UNQUOTED)
 		{
