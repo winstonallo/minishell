@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 10:46:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 10:56:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static char	*get_next_word(char *seq, size_t *pos)
 	size_t	i;
 	int		in_arg;
 	char	*ret;
+	int		endofseq = 0;
 
 	i = *pos;
 	in_arg = 0;
@@ -61,9 +62,9 @@ static char	*get_next_word(char *seq, size_t *pos)
 			i++;
 		if ((myisspace(seq[i]) && in_arg) || (seq[i] == '$') || !seq[i + 1])
 		{
-			if (!seq[i])
-				i++;
-			ret = ft_strndup(&seq[*pos], i - *pos);
+			if (seq [i] != ' ' && !seq[i + 1])
+				endofseq++;
+			ret = ft_strndup(&seq[*pos], (i + endofseq) - *pos);
 			if (!ret)
 				return (NULL);
 			*pos = i;
