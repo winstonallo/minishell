@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/06 10:22:23 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 10:05:02 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ int			get_prompt(t_shell *data, size_t i);
 int			parse_for_quotes(t_shell *data);
 void		free_quoted_sequences(t_quotes **quoted_sequences);
 int			parse_special_char(t_shell *data);
-char		*expand_dquotes(char *sequence, t_shell *data, size_t i,
-				size_t pos);
+char		*expand_dquotes(char *seq, t_shell *data, size_t i, size_t pos);
 char		*expand_uquotes(char *sequence, t_shell *data);
 char		*replace(char *str, t_shell *data);
 int			remove_escape(t_shell *data);

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:08:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 09:57:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 10:22:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	*replace(char *str, t_shell *data)
 	char	*ret;
 	t_env	*head;
 
-	printf("String to replace: |%s|\n", str);
 	head = *data->env_list;
 	str++;
 	if (*str == '?')

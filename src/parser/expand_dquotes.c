@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 09:57:08 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 10:46:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char	*get_next_word(char *seq, size_t *pos)
 			i++;
 		if ((myisspace(seq[i]) && in_arg) || (seq[i] == '$') || !seq[i + 1])
 		{
-			if (!seq[i + 1])
+			if (!seq[i])
 				i++;
 			ret = ft_strndup(&seq[*pos], i - *pos);
 			if (!ret)
@@ -71,7 +71,7 @@ static char	*get_next_word(char *seq, size_t *pos)
 		}
 		i++;
 	}
-	return (ft_strdup(seq));
+	return (ft_strdup(""));
 }
 
 char	**fill_array(size_t arr_size, char *seq, size_t *pos, t_shell *data)
@@ -88,7 +88,7 @@ char	**fill_array(size_t arr_size, char *seq, size_t *pos, t_shell *data)
 		arr[i] = get_next_word(seq, pos);
 		if (!arr[i])
 			return (free(arr), NULL);
-		if (arr[i][0] == '$' && isalnum(arr[i][1]))
+		if (arr[i][0] == '$' && arr[i][1] && isalnum(arr[i][1]))
 			arr[i] = replace(arr[i], data);
 	}
 	arr[i] = NULL;
