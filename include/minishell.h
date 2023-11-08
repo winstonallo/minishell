@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 22:10:09 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 22:17:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int			redirect_output(t_shell *data, int output_fd);
 int			cd(t_shell *data);
 int			pwd(t_shell *data);
 int			echo(t_shell *data);
-int			expoort(t_shell *data);
 //export.c
 int 		env(t_shell *data);
 //export_utils.c
