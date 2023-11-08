@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:47:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 14:28:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:50:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_op	*opnew(char *content, int status, int op, unsigned long len)
 	new->sequence = ft_strndup(content, len);
 	if (!new->sequence)
 		return (free(new), NULL);
-	new->special_character = op;
+	new->s_char = op;
 	new->status = status;
 	new->next = NULL;
 	return (new);

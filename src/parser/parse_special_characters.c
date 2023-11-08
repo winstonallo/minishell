@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 18:35:55 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 15:34:16 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 19:32:46 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,26 @@ This is tricky because they do not have to be separated by spaces from other
 command line arguments.
 We re-split the sequences, make extra nodes in the list for special
 characters and set the flags accordingly*/
-int	isop(char *s, size_t *j, int justneedreturn)
+int	isop(char *s, size_t *j, t_shell *data)
 {
-	if (justneedreturn && s--)
-	{
-		if (*s == '>' && *(s + 1) == '>')
-			return (APPEND);
-		else if (*s == '<' && *(s + 1) == '<')
-			return (HEREDOC);
-		s++;
-	}
-	if (*s == '|')
-		return (PIPE);
-	else if (*s == '<' && *(s + 1) != '<')
-		return (IN_REDIR);
-	else if (*s == '>' && *(s + 1) != '>')
-		return (OUT_REDIR);
-	else if (*s == '>' && *(s + 1) == '>')
+	if (*s == '|' && !data->s_char_tmp)
+			data->s_char_tmp = PIPE;
+	else if (*s == '<' && *(s + 1) != '<' && !data->s_char_tmp)
+		data->s_char_tmp = IN_REDIR;
+	else if (*s == '>' && *(s + 1) != '>' && !data->s_char_tmp)
+		data->s_char_tmp = OUT_REDIR;
+	else if (*s == '>' && *(s + 1) == '>' && !data->s_char_tmp)
 	{
 		*j += 1;
-		return (APPEND);
+		data->s_char_tmp = APPEND;
 	}
-	else if (*s == '<' && *(s + 1) == '<')
+	else if (*s == '<' && *(s + 1) == '<' && !data->s_char_tmp)
 	{
 		*j += 1;
-		return (HEREDOC);
+		data->s_char_tmp = HEREDOC;
 	}
+	if (data->s_char_tmp)
+		return (1);
 	return (0);
 }
 
@@ -56,6 +50,7 @@ int	add_node_special_char(char *seq, size_t len, t_shell *data, int status)
 	if (!new)
 		return (-1);
 	opadd_back(data->operators, new);
+	data->s_char_tmp = 0;
 	return (0);
 }
 
@@ -71,18 +66,18 @@ int	split_curr_sequence(char *seq, t_shell *d)
 	while (seq && seq[++i] && seq[j])
 	{
 		i = j;
-		while (!isop(&seq[j], &j, 0) && seq[j])
+		while (!isop(&seq[j], &j, d) && seq[j])
 		{
 			j++;
-			if ((isop(&seq[j], &j, 0) || !seq[j]))
+			if ((isop(&seq[j], &j, d) || !seq[j]))
 			{
 				if (add_node_special_char(&seq[i], j - i, d, 0) == -1)
 					return (free_opps(d->operators), d->exit);
 			}
 		}
-		if (isop(&seq[j], &j, 0))
+		if (isop(&seq[j], &j, d))
 		{
-			if (add_node_special_char(NULL, 0, d, isop(&seq[j], &j, 1)) == -1)
+			if (add_node_special_char(NULL, 0, d, d->s_char_tmp) == -1)
 				return (free_opps(d->operators), d->exit);
 			j++;
 		}
@@ -113,6 +108,5 @@ int	parse_special_char(t_shell *data)
 		}
 		t = t->next;
 	}
-	print_op_list(data->operators);
 	return (data->exit);
 }

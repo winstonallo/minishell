@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 15:32:25 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:56:05 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,14 @@ char	**get_command_array(t_op *data, int i, int j)
 	char	**arr;
 
 	head = data;
-	while (++i && head && head->special_character != PIPE)
+	while (++i && head && head->s_char != PIPE)
 		head = head->next;
 	arr = malloc((i + 1) * sizeof(char *));
 	if (!arr)
 		return (NULL);
-	while (data && data->special_character != PIPE)
+	while (data && data->s_char != PIPE)
 	{
-		if ((data->special_character == OUT_REDIR
-				|| data->special_character == IN_REDIR))
+		if ((data->s_char))
 		{
 			if (!data->next->next)
 				break ;
@@ -59,11 +58,13 @@ int	initialize_redirections(t_op *data, t_cmd_table **cmd_table)
 	h = data;
 	in = NO_FD;
 	out = NO_FD;
-	while (h && h->special_character != PIPE)
+	while (h && h->s_char != PIPE)
 	{
-		if (h->special_character == OUT_REDIR && h->status == UNQUOTED)
+		if (h->s_char == OUT_REDIR && h->status == UNQUOTED)
 			out = open(h->next->sequence, O_CREAT | O_TRUNC | O_RDWR, 0000644);
-		else if (h->special_character == IN_REDIR && h->status == UNQUOTED)
+		else if (h->s_char == APPEND && h->status == UNQUOTED)
+			out = open(h->next->sequence, O_CREAT | O_APPEND | O_RDWR, 0000644);
+		else if (h->s_char == IN_REDIR && h->status == UNQUOTED)
 			in = open(h->next->sequence, O_RDONLY);
 		h = h->next;
 	}
@@ -115,9 +116,9 @@ int	get_command_table(t_shell *data)
 		data->cmd_head->args = get_command_array(op_head, 0, -1);
 		if (!data->cmd_head->args)
 			return (data->exit);
-		while (op_head && op_head->special_character != PIPE)
+		while (op_head && op_head->s_char != PIPE)
 			op_head = op_head->next;
-		if (op_head && op_head->special_character == PIPE)
+		if (op_head && op_head->s_char == PIPE)
 		{
 			if (add_delimiter(data) == -1)
 				return (data->exit);

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/06 08:23:16 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:50:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	initialize_sequences(t_shell *data)
 		return (wipe4real(data), -1);
 	*data->cmd_table = NULL;
 	data->temp = NULL;
+	data->s_char_tmp = 0;
 	return (data->exit);
 }
 
@@ -45,20 +46,8 @@ int	initialize_lists(t_shell *data)
 	if (!data->paths)
 		return (free(data->env_list), -1);
 	*data->paths = NULL;
-	data->sequences = malloc(sizeof(data->sequences));
-	if (!data->sequences)
-		return (free(data->paths), -1);
-	*data->sequences = NULL;
-	data->operators = malloc(sizeof(data->operators));
-	if (!data->operators)
-		return (free(data->env_list), free(data->paths),
-			-1);
-	*data->operators = NULL;
-	data->cmd_table = malloc(sizeof(data->cmd_table));
-	if (!data->cmd_table)
-		return (free(data->env_list), free(data->paths),
-			free(data->operators), -1);
-	*data->cmd_table = NULL;
+	if (initialize_sequences(data) == -1)
+		return (-1);
 	data->temp = NULL;
 	data->prompt = NULL;
 	return (0);
