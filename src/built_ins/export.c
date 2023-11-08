@@ -5,23 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 08:45:47 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/06 10:21:45 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/11/08 22:11:39 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/11/08 22:12:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	export(t_shell *data)
+static int	print_env_sorted(t_shell *data)
 {
-	if ((*data->cmd_table)->args[1] == NULL)
+	//env nicht nach alphabehet sortiert == BAUSTELLE
+	env(data);
+	return (0);
+}
+
+int	expoort(t_shell *data)
+{
+	int		i;
+	char	**arg;
+
+	i = 1;
+	arg = (*data->cmd_table)->args;
+	if (arg[i] == NULL)
+		print_env_sorted(data);
+	while (arg[i])
 	{
-		env(data);
-		return (0);
+		if (export_error(arg[i]) == 1)
+			return (FAILURE);
+		else if (export_error(arg[i]) == 2)
+			return (SUCCESS);
+		else if (update_env_list(data) != 0)
+			return (FAILURE);
+		i++;
 	}
-	if (ft_strncmp((*data->cmd_table)->args[1], "=", 1) == 0)
-		return (data->exit);
-	else if (update_env_list(data) != 0)
-		return (FAILURE);
 	return (SUCCESS);
 }

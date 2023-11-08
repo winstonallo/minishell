@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 20:33:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 22:10:09 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ int			redirect_output(t_shell *data, int output_fd);
 int			cd(t_shell *data);
 int			pwd(t_shell *data);
 int			echo(t_shell *data);
-int			export(t_shell *data);
+int			expoort(t_shell *data);
 //export.c
-int			env(t_shell *data);
-void		get_exit_code(t_shell *data);
-
+int 		env(t_shell *data);
 //export_utils.c
 int			update_env_list(t_shell *data);
+//export_error.c
+int			export_error(char *arg);
 
-/* ******************************************************************** */
-/*								INITIALIZATION							*/
-/* **********************************************************************/
-//
-int			initialize_lists(t_shell *data);
+	/* ******************************************************************** */
+	/*								INITIALIZATION							*/
+	/* **********************************************************************/
+	//
+	int initialize_lists(t_shell *data);
 int			initialize_sequences(t_shell *data);
 int			initialize_command_table(t_shell *data);
 //

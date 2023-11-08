@@ -41,6 +41,8 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${EXEC_DIR}pipe_utils.c \
 \
 		${SRC_DIR}${BUILT_INS}export_utils.c \
+		${SRC_DIR}${BUILT_INS}export_error.c \
+		${SRC_DIR}${BUILT_INS}export.c \
 		${SRC_DIR}${BUILT_INS}echo.c \
 		${SRC_DIR}${BUILT_INS}pwd.c \
 		${SRC_DIR}${BUILT_INS}cd.c \

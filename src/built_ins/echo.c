@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 21:17:16 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 21:53:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	echo(t_shell *data)
 	{
 		newline = 0;
 		head = head->next;
+		head = head->next;
 	}
 	while (head)
 	{
@@ -35,6 +36,7 @@ int	echo(t_shell *data)
 	}
 	if (newline)
 		printf("\n");
+	return (SUCCESS);
 	return (SUCCESS);
 }
 // int	echo(t_shell *data)
