@@ -6,14 +6,13 @@
 /*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:43:40 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/05 20:49:51 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/08 14:03:58 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
-// BAUSTELLE IN : compare_env GEHT NOCH NICHT
+
 
 int	compare_env(t_shell *data, char **new_line)
 {
@@ -48,6 +47,7 @@ int	add_arg_to_env(t_shell *data, char **new_line)
 	head = *data->env_list;
 	new_node = envnew(ft_strdup(new_line[0]), new_line[1],
 			ft_strlen(new_line[1]));
+
 	if (!new_node)
 		return (-1);
 	envadd_back(data->env_list, new_node);
@@ -66,40 +66,32 @@ int	add_arg_to_env(t_shell *data, char **new_line)
 	return (0);
 }
 
-int	search_num_of_args(t_shell *data)
-{
-	int	i;
 
-	i = 1;
-	while ((*data->cmd_table)->args[i])
-		i++;
-	return (i);
-}
 int	update_env_list(t_shell *data)
 {
 	char	**new_line;
-	int		len;
-	int		i;
+	//int		len;
+	//int		i;
 
-	len = search_num_of_args(data);
-	i = 1;
-	while (i < len)
-	{
-		new_line = ft_split((*data->cmd_table)->args[i], '=');
+	//len = ft_strlen((*data->cmd_table)->args[1]);
+	//i = 1;
+	//while (i < len)
+	//{
+		new_line = ft_split((*data->cmd_table)->args[1], '=');
 		if (!new_line)
 			return (-1);
 		if (compare_env(data, new_line) == 1)
 		{
 			free_array(new_line);
-			i++;
-			continue ;
+			//i++;
+			//continue ;
 		}
 		else if (compare_env(data, new_line) == -1)
 			return (-1);
 		if (add_arg_to_env(data, new_line) == -1)
 			return (-1);
-		i++;
+		//i++;
 		free_array(new_line);
-	}
+	//}
 	return (0);
 }

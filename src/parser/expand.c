@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:08:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 14:17:38 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/07 16:12:32 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ char	*replace(char *str, t_shell *data)
 
 	head = *data->env_list;
 	str++;
+	if (*str == '?')
+	{
+		ret = ft_itoa(data->exit);
+		if (!ret)
+			return (NULL);
+		return (free(--str), ret);
+	}
 	while (head)
 	{
 		if (ft_strncmp(str, head->name, ft_strlen(str)) == 0)
@@ -63,5 +70,5 @@ int	expand_sequences(t_shell *data)
 		}
 		head = head->next;
 	}
-	return (0);
+	return (data->exit);
 }

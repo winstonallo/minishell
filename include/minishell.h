@@ -6,7 +6,7 @@
 /*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 17:50:01 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:33:56 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int			main(int argc, char **argv, char **env);
 
 /*Command execution*/
 int			execute_command(t_shell *data);
-int			redirect_input(int input_fd);
-int			redirect_output(int output_fd);
+int			redirect_input(t_shell *data, int input_fd);
+int			redirect_output(t_shell *data, int output_fd);
 
 /* ******************************************************************** */
 /*								BUILT INS								*/
@@ -36,15 +36,19 @@ int			pwd(t_shell *data);
 int			echo(t_shell *data);
 int			export(t_shell *data);
 //export.c
-void 		env(t_shell *data);
+int			env(t_shell *data);
+void		get_exit_code(t_shell *data);
+
 //export_utils.c
 int			update_env_list(t_shell *data);
+//export_error.c
+int	export_error(char *arg);
 
-/* ******************************************************************** */
-/*								INITIALIZATION							*/
-/* **********************************************************************/
-//
-int			initialize_lists(t_shell *data);
+	/* ******************************************************************** */
+	/*								INITIALIZATION							*/
+	/* **********************************************************************/
+	//
+	int initialize_lists(t_shell *data);
 int			initialize_sequences(t_shell *data);
 int			initialize_command_table(t_shell *data);
 //
@@ -54,7 +58,7 @@ int			initialize_command_table(t_shell *data);
 //
 int			get_environment(t_shell *data, size_t i, size_t j);
 int			get_paths(t_path **paths, t_shell *data);
-int			get_prompt(t_shell *data);
+int			get_prompt(t_shell *data, size_t i);
 
 /*Parsing*/
 int			parse_for_quotes(t_shell *data);

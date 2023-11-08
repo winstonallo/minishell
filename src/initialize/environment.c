@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:36:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 10:40:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/06 10:21:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 /*Get the current working directory's path, trim off everything that comes
 before the actual name, and use the new string as a prompt to have cwd
 information in prompt*/
-int	get_prompt(t_shell *data)
+/* put this back before pushing data->prompt = ft_strjoin(temp, "$ ");*/
+int	get_prompt(t_shell *data, size_t i)
 {
 	char	*cwd;
 	char	*temp;
-	size_t	i;
 
 	if (data->prompt)
 		free(data->prompt);
@@ -31,13 +31,13 @@ int	get_prompt(t_shell *data)
 	{
 		if (cwd[i] == '/')
 		{
-			data->prompt = ft_strdup(&cwd[i + 1]);
-			free(cwd);
-			temp = ft_strjoin("\033[0;36m\033[1m", data->prompt);
-			free(data->prompt);
-			data->prompt = ft_strjoin(temp, " \x1b[0m🏩 ");
-			free(temp);
-			return (0);
+			temp = ft_strdup(&cwd[i + 1]);
+			if (!temp)
+				return (-1);
+			data->prompt = ft_strdup("");
+			if (!data->prompt)
+				return (-1);
+			return (free(temp), free(cwd), 0);
 		}
 	}
 	data->prompt = cwd;
