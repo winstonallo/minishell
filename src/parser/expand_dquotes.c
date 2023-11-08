@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 17:53:24 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 09:57:08 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ We split the sequence into an array of words based on '$' characters, replace
 the $args by their value and strjoin them back into one string. Note that the
 spaces are NOT removed in the process, they are seen as a character just like
 any other.*/
-static size_t	count_words(char *seq)
+static size_t	count_words(char *seq, int i, int ret)
 {
-	int	i;
-	int	ret;
-
-	i = 0;
-	ret = 0;
 	while (seq[i])
 	{
+		if (seq[i] == '$' && myisspace(seq[i + 1]))
+		{
+			i += 2;
+			ret--;
+		}	
 		if (seq[i] == '$')
 		{
 			ret++;
@@ -101,7 +101,7 @@ char	*expand_dquotes(char *sequence, t_shell *data, size_t i, size_t pos)
 	char	**arr;
 	char	*new_temp;
 
-	size = count_words(sequence);
+	size = count_words(sequence, 0, 0);
 	arr = fill_array(size, sequence, &pos, data);
 	if (!arr)
 		return (NULL);
