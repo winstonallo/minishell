@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 14:04:23 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 19:35:51 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,22 @@ char	*find_path(t_shell *data, char *command)
  * output if necessary and executes a command while the parent waits.
  * 
  */
-void	child_process(t_shell *data)
+void	child1(t_cmd_table *head, t_shell *data)
 {
 	pid_t	pid;
 
 	pid = fork();
 	if (!pid)
 	{
-		if (!pid && (*data->cmd_table)->outfile != NO_FD)
-			if (redirect_output(data, (*data->cmd_table)->outfile) == -1)
+		if (head->next && head->next->pipe)
+			set_pipes(data, head);
+		if (!pid && (head->outfile != NO_FD))
+			if (redirect_output(data, head->outfile) == -1)
 				exit(1);
-		if (!pid && (*data->cmd_table)->infile != NO_FD)
-			if (redirect_input(data, (*data->cmd_table)->infile) == -1)
+		if (!pid && head->infile != NO_FD)
+			if (redirect_input(data, head->infile) == -1)
 				exit(1);
-		execve(data->command_path, (*data->cmd_table)->args, data->environment);
+		execve(head->path, head->args, data->environment);
 		ft_putstr_fd(data->command_path, 2);
 		perror(": failed to execute command");
 		wipe(data);
@@ -78,13 +80,20 @@ void	child_process(t_shell *data)
  */
 int	execute_command(t_shell *data)
 {
-	if (*data->cmd_table)
+	t_cmd_table	*head;
+
+	head = *data->cmd_table;
+	while (head)
 	{
-		data->command_path = find_path(data, (*data->cmd_table)->args[0]);
-		if (!data->command_path)
+		head->path = find_path(data, head->args[0]);
+		if (!head->path)
 			return (-1);
-		child_process(data);
-		free(data->command_path);
+		child1(head, data);
+		free(head->path);
+		head = head->next;
+		if (head->pipe)
+			head = head->next;
+		perror("du hund\n");
 	}
 	return (0);
 }

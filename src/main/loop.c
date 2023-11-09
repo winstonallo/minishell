@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 16:03:03 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 18:04:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	clear_terminal(char **env)
 int	read_input(t_shell *data)
 {
 	add_history(data->raw_input);
-	if (lexer(data) == -1)
-		return (-1);
+	// if (lexer(data) == -1)
+	// 	return (-1);
 	if (parse_for_quotes(data) == -1)
 		return (-1);
 	if (expand_sequences(data) == -1)
@@ -133,7 +133,10 @@ int	loop(t_shell *data)
 		if (!data->raw_input)
 			return (data->exit);
 		if (read_input(data) == -1)
+		{
+			wipe(data);
 			continue ;
+		}
 		if (check_status(data) == EXIT)
 			return (EXIT);
 		wipe(data);

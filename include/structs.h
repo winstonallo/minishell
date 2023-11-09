@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:53:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 21:51:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:31:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_shell
 	char				*cwd;
 	int					exit;
 	int					s_char_tmp;
+	int					pipe_fd[2];
 	struct s_quotes		**sequences;
 	struct s_path		**paths;
 	struct s_op			**operators;

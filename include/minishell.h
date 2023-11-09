@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 15:48:44 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 18:29:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int			main(int argc, char **argv, char **env);
 int			execute_command(t_shell *data);
 int			redirect_input(t_shell *data, int input_fd);
 int			redirect_output(t_shell *data, int output_fd);
+int			set_pipes(t_shell *data, t_cmd_table *head);
 
 /* ******************************************************************** */
 /*								BUILT INS								*/
