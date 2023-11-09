@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:47:35 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 16:02:28 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 22:05:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	isquote(char pos, int *status)
 	if (*status == IN_DOUBLE_QUOTES || *status == IN_SINGLE_QUOTES)
 		return (1);
 	else
-	 	*status = UNQUOTED;
+		*status = UNQUOTED;
 	return (0);
 }
 

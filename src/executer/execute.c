@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 21:40:29 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/09 22:06:40 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	child2(t_cmd_table *head, t_shell *data)
 		exit(0);
 	}
 	wait(0);
+	free(head->path);
 }
 
 /**
@@ -120,23 +121,22 @@ int	execute_command(t_shell *data)
 	t_cmd_table	*head;
 	int			pipes;
 	int			i;
-	int stdin_fd = dup(0);
+	int			stdin_fd;
 
-	i = 0;
+	stdin_fd = dup(0);
+	i = -1;
 	head = *data->cmd_table;
 	pipes = count_pipes(data);
-	while (i < pipes)
+	while (++i < pipes)
 	{
 		head->path = find_path(data, head->args[0]);
 		if (!head->path)
 			return (-1);
 		child1(head, data);
-		//wait(0);
 		free(head->path);
 		head = head->next;
 		if (head && head->pipe)
 			head = head->next;
-		i++;
 	}
 	child2(head, data);
 	dup2(stdin_fd, 0);
