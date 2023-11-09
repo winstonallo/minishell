@@ -6,24 +6,22 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:52:25 by arthur            #+#    #+#             */
-/*   Updated: 2023/11/09 12:53:37 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 14:08:03 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+//env nicht nach alphabehet sortiert == BAUSTELLE
 static int	print_env_sorted(t_shell *data)
 {
-	//env nicht nach alphabehet sortiert == BAUSTELLE
 	env(data);
 	return (0);
 }
 
 /**
- * The function "export" is used to update the environment list with the given arguments and returns a
- * success or failure status.
- * 
- * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure `t_shell`.
+ * The function "export" is used to update the environment list with the 
+ * given arguments and returns a success or failure status.
  * 
  * @return either SUCCESS or FAILURE.
  */

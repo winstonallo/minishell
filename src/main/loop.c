@@ -6,19 +6,15 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 12:58:10 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:54:15 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /**
- * The function "clear_terminal" clears the terminal screen by executing the "clear" command.
- * 
- * @param env The `env` parameter is a pointer to an array of strings that represents the environment
- * variables. Each string in the array follows the format "variable=value".
- * 
- * @return The function does not have a return type, so it does not return anything.
+ * The function "clear_terminal" clears the terminal screen by executing the 
+ * "clear" command.
  */
 void	clear_terminal(char **env)
 {
@@ -50,15 +46,9 @@ void	clear_terminal(char **env)
 }
 
 /**
- * The function reads user input, processes it for quotes, expands sequences, parses special
- * characters, creates a command table, and finds the command to execute.
- * 
- * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure of type
- * `t_shell`.
- * 
- * @return an integer value. If all the function calls within the function are successful, it will
- * return 0. Otherwise, if any of the function calls return -1, indicating an error, the function will
- * return -1.
+ * The function reads user input, processes it for quotes, expands sequences, 
+ * parses special characters, creates a command table, 
+ * and finds the command to execute.
  */
 int	read_input(t_shell *data)
 {
@@ -76,12 +66,8 @@ int	read_input(t_shell *data)
 }
 
 /**
- * The function "check_status" checks the exit status of a shell command and returns the appropriate
- * value.
- * 
- * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure of type
- * `t_shell`.
- * 
+ * The function "check_status" checks the exit status of a shell command 
+ * and returns the appropriate value.
  * @return the value of `data->exit`.
  */
 int	check_status(t_shell *data)
@@ -98,12 +84,10 @@ int	check_status(t_shell *data)
 }
 
 /**
- * The function `first_read` reads user input, processes it, and returns the exit status.
- * 
- * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure of type
- * `t_shell`. This structure likely contains various data members related to the shell, such as the
- * environment, prompt, raw input, and exit status.
- * 
+ * The function `first_read` reads user input, processes it, and 
+ * returns the exit status.
+ * Extra function for the first readline call in order to clear 
+ * the terminal on startup
  * @return the value of `data->exit`.
  */
 int	first_read(t_shell *data)
@@ -123,15 +107,16 @@ int	first_read(t_shell *data)
 }
 
 /**
- * The function "loop" reads input from the user, processes it, and repeats the process until an exit
- * condition is met.
+ * The function "loop" reads input from the user, processes it, and repeats 
+ * the process until an exit condition is met.
  * 
- * @param data The parameter "data" is of type "t_shell", which is a struct that contains information
- * and variables related to the shell program.
+ * @param data The parameter "data" is of type "t_shell", which is a struct
+ *  that contains information and variables related to the shell program.
  * 
- * @return an integer value. If the condition `first_read(data) == EXIT` is true, then the function
- * will return the value of `EXIT`. Otherwise, if any of the subsequent conditions are true, the
- * function will return the value of `data->exit`. If none of the conditions are true, the function
+ * @return an integer value. If the condition `first_read(data) == EXIT` 
+ * is true, then the function will return the value of `EXIT`. Otherwise,
+ * if any of the subsequent conditions are true, the function will return 
+ * the value of `data->exit`. If none of the conditions are true, the function
  * will return 0.
  */
 int	loop(t_shell *data)

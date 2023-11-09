@@ -6,20 +6,15 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 12:56:43 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:56:35 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /**
- * The function initializes sequences, operators, cmd_table, temp, and s_char_tmp variables in the
- * t_shell struct and returns the exit status.
- * 
- * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure of type
- * `t_shell`.
- * 
- * @return the value of `data->exit`.
+ * The function initializes sequences, operators, cmd_table, temp, and 
+ * s_char_tmp variables in the t_shell struct and returns the exit status.
  */
 int	initialize_sequences(t_shell *data)
 {
@@ -41,13 +36,8 @@ int	initialize_sequences(t_shell *data)
 }
 
 /**
- * The function initializes lists and variables in a shell data structure.
- * 
- * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure of type
- * `t_shell`.
- * 
- * @return an integer value. If the function is successful, it will return 0. If there is an error, it
- * will return -1.
+ * The function initializes lists and variables in the shell data structure.
+ *
  */
 int	initialize_lists(t_shell *data)
 {

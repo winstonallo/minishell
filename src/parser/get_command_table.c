@@ -6,24 +6,24 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 13:00:16 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:49:05 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /**
- * The function "get_command_array" takes a linked list of commands and returns an array of strings
- * containing the commands.
+ * The function "get_command_array" takes a linked list of commands and 
+ * returns an array of strings containing the commands.
  * 
- * @param data A pointer to a linked list of type t_op. Each node in the linked list represents a
- * command or an operator (such as PIPE).
- * @param i The parameter `i` is used as a counter to determine the size of the array `arr`. It is
- * incremented in the first while loop until it reaches the end of the linked list or encounters a node
- * with the character `PIPE`.
- * @param j The parameter `j` in the `get_command_array` function is used as an index to keep track of
- * the current position in the `arr` array. It is incremented each time a new command is added to the
- * array.
+ * @param data A pointer to a linked list of type t_op. Each node in the 
+ * linked list represents a command or an operator (such as PIPE).
+ * @param i The parameter `i` is used as a counter to determine the size of the
+ * array `arr`. It is incremented in the first while loop until it reaches the 
+ * end of the linked list or encounters a node with the character `PIPE`.
+ * @param j The parameter `j` in the `get_command_array` function is used as an
+ * index to keep track of the current position in the `arr` array. 
+ * It is incremented each time a new command is added to the array.
  * 
  * @return a pointer to a character array (char **)
  */
@@ -58,13 +58,14 @@ char	**get_command_array(t_op *data, int i, int j)
 /**
  * The function initializes file redirections for a command table.
  * 
- * @param data A pointer to a linked list of t_op structures. Each t_op structure represents a command
- * or operator in a shell command line.
- * @param cmd_table A pointer to a pointer to a struct t_cmd_table. This is a table that stores
- * information about the commands and their redirections.
+ * @param data A pointer to a linked list of t_op structures. Each t_op 
+ * structure represents a command or operator in a shell command line.
+ * @param cmd_table A pointer to a pointer to a struct t_cmd_table. 
+ * This is a table that stores information about the commands and their 
+ * redirections.
  * 
- * @return an integer value. If the function is successful, it returns 0. If there is an error, it
- * returns -1.
+ * @return an integer value. If the function is successful, it returns 0. 
+ * If there is an error, it returns -1.
  */
 int	initialize_redirections(t_op *data, t_cmd_table **cmd_table)
 {
@@ -94,14 +95,15 @@ int	initialize_redirections(t_op *data, t_cmd_table **cmd_table)
 }
 
 /**
- * The function "add_delimiter" adds a new command table entry with a pipe delimiter to the given shell
- * data structure.
+ * The function "add_delimiter" adds a new command table entry with a 
+ * pipe delimiter to the given shell data structure.
  * 
- * @param data The parameter "data" is of type "t_shell*", which is a pointer to a structure of type
- * "t_shell".
+ * @param data The parameter "data" is of type "t_shell*", which is a 
+ * pointer to a structure of type "t_shell".
  * 
- * @return an integer value. If the value is -1, it indicates an error occurred. If the value is 0, it
- * indicates that the function executed successfully.
+ * @return an integer value. If the value is -1, it indicates an error 
+ * occurred. If the value is 0, it indicates that the function executed 
+ * successfully.
  */
 int	add_delimiter(t_shell *data)
 {
@@ -115,11 +117,11 @@ int	add_delimiter(t_shell *data)
 }
 
 /**
- * The function `get_command_table` initializes redirections and creates a command table based on the
- * given shell data.
+ * The function `get_command_table` initializes redirections and creates a 
+ * command table based on the given shell data.
  * 
- * @param data A pointer to a structure of type t_shell, which contains various data related to the
- * shell program.
+ * @param data A pointer to a structure of type t_shell, which contains 
+ * various data related to the shell program.
  * 
  * @return the value of `data->exit`.
  */

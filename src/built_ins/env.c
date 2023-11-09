@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:31:47 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 12:46:52 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 14:08:39 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 /**
  * The `env` function prints the environment variables stored in a linked list.
  * 
- * @param data The parameter "data" is of type "t_shell*", which is a pointer to a structure of type
- * "t_shell".
- * 
- * @return the value of `data->exit`.
+ * @return the exit code after setting it to 0.
  */
 int	env(t_shell *data)
 {

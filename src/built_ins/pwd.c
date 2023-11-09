@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:30:13 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 12:53:47 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 14:04:49 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 /**
  * The function `pwd` prints the current working directory.
- * 
- * @param data The parameter `data` is a pointer to a structure of type `t_shell`.
  * 
  * @return either SUCCESS or FAILURE.
  */

@@ -6,22 +6,16 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:36:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 12:56:16 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:57:36 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /**
- * The function `get_prompt` retrieves the current working directory and sets it as the prompt for a
+ * The function `get_prompt` retrieves the current working directory 
+ * and sets it as the prompt for the
  * shell, using the last directory name as the prompt.
- * 
- * @param data A pointer to a struct of type t_shell.
- * @param i The parameter `i` is used as a counter in the function. It is initially passed as an
- * argument to the function, but its value is not used or modified within the function.
- * 
- * @return an integer value. If the function is successful, it returns 0. If there is an error, it
- * returns -1.
  */
 int	get_prompt(t_shell *data, size_t i)
 {
@@ -52,19 +46,8 @@ int	get_prompt(t_shell *data, size_t i)
 }
 
 /**
- * The function `get_environment` parses an array of strings representing environment variables and
- * adds them to a linked list.
- * 
- * @param data A pointer to a structure of type t_shell, which likely contains information about the
- * shell environment.
- * @param i The parameter `i` is used as an index to iterate through the array `t`, which represents
- * the environment variables.
- * @param j The parameter `j` is used as an index to iterate through the characters of the string
- * `t[i]`. It is initialized to 0 before the inner while loop starts, and it is incremented until it
- * reaches the end of the string or encounters the character '='.
- * 
- * @return an integer value. If the function executes successfully, it will return 0. If there is an
- * error, it will return -1.
+ * The function `get_environment` parses an array of strings representing 
+ * environment variables and adds them to a linked list.
  */
 int	get_environment(t_shell *data, size_t i, size_t j)
 {

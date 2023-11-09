@@ -6,19 +6,17 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 12:53:13 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 14:05:23 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /**
- * The function `find_command` checks the first argument of the command table and executes the
- * corresponding command or returns an error if the command is not found.
- * 
- * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure `t_shell`.
- * 
- * @return The function `find_command` returns an integer value. The possible return values are:
+ * The function `find_command` checks the first argument of the command table 
+ * and executes the corresponding command or returns an error if
+ * the command is not found.
+ * @return either SUCCESS or FAILURE.
  */
 int	find_command(t_shell *data)
 {

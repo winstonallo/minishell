@@ -6,19 +6,20 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:08:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 12:59:06 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:49:51 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /**
- * The function "replace" takes a string and a shell data structure as input, and replaces a specific
- * substring in the string with a corresponding value from the shell's environment list.
+ * The function "replace" takes a string and a shell data structure as input, 
+ * and replaces a specific substring in the string with a corresponding
+ * value from the shell's environment list.
  * 
  * @param str A pointer to a character array (string) that needs to be replaced.
- * @param data The "data" parameter is of type "t_shell" and is a pointer to a structure that contains
- * information about the shell.
+ * @param data The "data" parameter is of type "t_shell" and is a pointer to a 
+ * structure that contains information about the shell.
  * 
  * @return The function `replace` returns a `char*`.
  */
@@ -51,11 +52,11 @@ char	*replace(char *str, t_shell *data)
 }
 
 /**
- * The function "expand_sequences" expands sequences within a shell data structure, including expanding
- * double quotes and unquoted sequences.
+ * The function "expand_sequences" expands sequences within a shell data 
+ * structure, including expanding double quotes and unquoted sequences.
  * 
- * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure `t_shell`.
- * 
+ * @param data The parameter `data` is of type `t_shell*`, which is a pointer
+ *  to a structure `t_shell`.
  * @return the value of `data->exit`.
  */
 int	expand_sequences(t_shell *data)

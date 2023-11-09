@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 13:09:31 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:46:48 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static int	dquotes(char *quoted_sequence, t_shell *data)
 	t_quotes	*new;
 
 	i = 0;
-
 	while (quoted_sequence[i] != '\"')
 		i++;
 	new = quotenew(quoted_sequence, IN_DOUBLE_QUOTES, i);
@@ -73,12 +72,12 @@ static int	squotes(char *quoted_sequence, t_shell *data)
  * The function "split_args" takes an array of unquoted strings and adds 
  * them to a linked list of quotes in a shell data structure.
  * 
- * @param unquoted_array A pointer to an array of strings (char pointers) that represent the unquoted
- * arguments.
+ * @param unquoted_array A pointer to an array of strings (char pointers) 
+ * that represent the unquoted arguments.
  * @param data The parameter `data` is of type `t_shell*`.
  * 
- * @return an integer value. If the function executes successfully, it will return 0. If there is an
- * error, it will return -1.
+ * @return an integer value. If the function executes successfully, 
+ * it will return 0. If there is an error, it will return -1.
  */
 static int	split_args(char **unquoted_array, t_shell *data)
 {
@@ -101,11 +100,12 @@ static int	split_args(char **unquoted_array, t_shell *data)
 }
 
 /**
- * The function `uquote` takes an unquoted sequence of characters, splits it into an array of strings,
- * and then processes each string as separate arguments.
+ * The function `uquote` takes an unquoted sequence of characters, splits it
+ * into an array of strings, and then processes each string as separate 
+ * arguments.
  * 
- * @param unquoted_sequence A pointer to a character array representing an unquoted sequence of
- * characters.
+ * @param unquoted_sequence A pointer to a character array representing an 
+ * unquoted sequence of characters.
  * @param data The parameter `data` is of type `t_shell*`.
  * 
  * @return the value of `i - 1`.
@@ -136,8 +136,8 @@ static int	uquote(char *unquoted_sequence, t_shell *data)
 }
 
 /**
- * The function "parse_for_quotes" parses a string for quotes and performs different actions based on
- * the type of quote encountered.
+ * The function "parse_for_quotes" parses a string for quotes and performs
+ *  different actions based on the type of quote encountered.
  * 
  * @param data A pointer to a structure of type t_shell.
  * 

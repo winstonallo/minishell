@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 12:52:52 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 14:12:51 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			pwd(t_shell *data);
 int			echo(t_shell *data);
 int			export(t_shell *data);
 //export.c
-int 		env(t_shell *data);
+int			env(t_shell *data);
 //export_utils.c
 int			update_env_list(t_shell *data);
 //export_error.c
@@ -46,7 +46,7 @@ int			export_error(char *arg);
 	/*								INITIALIZATION							*/
 	/* **********************************************************************/
 	//
-	int initialize_lists(t_shell *data);
+int			initialize_lists(t_shell *data);
 int			initialize_sequences(t_shell *data);
 int			initialize_command_table(t_shell *data);
 //
