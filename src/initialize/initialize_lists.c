@@ -3,20 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_lists.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 21:52:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:56:43 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*Reinitialize all lists at every new loop only exception is the paths list, 
-since we want to keep that during the whole runtime of the program to be able 
-to change it durably
-NOTE: the paths list only contains the paths, we probably need to make 
-one with the whole environment*/
+/**
+ * The function initializes sequences, operators, cmd_table, temp, and s_char_tmp variables in the
+ * t_shell struct and returns the exit status.
+ * 
+ * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure of type
+ * `t_shell`.
+ * 
+ * @return the value of `data->exit`.
+ */
 int	initialize_sequences(t_shell *data)
 {
 	data->sequences = malloc(sizeof(t_quotes **));
@@ -36,6 +40,15 @@ int	initialize_sequences(t_shell *data)
 	return (data->exit);
 }
 
+/**
+ * The function initializes lists and variables in a shell data structure.
+ * 
+ * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure of type
+ * `t_shell`.
+ * 
+ * @return an integer value. If the function is successful, it will return 0. If there is an error, it
+ * will return -1.
+ */
 int	initialize_lists(t_shell *data)
 {
 	data->env_list = malloc(sizeof(data->env_list));

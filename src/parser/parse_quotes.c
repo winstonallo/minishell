@@ -3,22 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 21:50:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/09 13:09:31 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*This is the first step of the parsing process, where we split the input in
-tokens based on their quote status.
-The outcome of this file is a list of strings with flags for their
-quote status (double quoted, single quoted, unquoted)
-The quotes are also removed in the process*/
-/*Create new sequence of double quoted input, remove the quotes and
-set the node's flag accordingly*/
+/**
+ * The function `dquotes` adds a new quote sequence to the shell data structure
+ *  for a double quoted sequence in a given string.
+ * 
+ * @param quoted_sequence A pointer to a character array representing a 
+ * quoted sequence of characters.
+ * @param data The parameter "data" is of type "t_shell", which is a struct 
+ * that likely contains
+ * information about the shell environment and state. It is being passed as a 
+ * pointer to the function.
+ * 
+ * @return the value of the variable `i`.
+ */
 static int	dquotes(char *quoted_sequence, t_shell *data)
 {
 	size_t		i;
@@ -35,8 +41,19 @@ static int	dquotes(char *quoted_sequence, t_shell *data)
 	return (i);
 }
 
-/*Create new sequence of single quoted input, remove the quotes and
-set the node's flag accordingly*/
+/**
+ * The function `squotes` adds a new quote sequence to the shell data 
+ * structure for a single quote delimited sequence.
+ * 
+ * @param quoted_sequence A pointer to a character array representing a 
+ * quoted sequence of characters.
+ * @param data The parameter "data" is of type "t_shell" and is a pointer 
+ * to a structure that contains
+ * information about the shell.
+ * 
+ * @return the index of the closing single quote character in the 
+ * `quoted_sequence` string.
+ */
 static int	squotes(char *quoted_sequence, t_shell *data)
 {
 	size_t		i;
@@ -52,6 +69,17 @@ static int	squotes(char *quoted_sequence, t_shell *data)
 	return (i);
 }
 
+/**
+ * The function "split_args" takes an array of unquoted strings and adds 
+ * them to a linked list of quotes in a shell data structure.
+ * 
+ * @param unquoted_array A pointer to an array of strings (char pointers) that represent the unquoted
+ * arguments.
+ * @param data The parameter `data` is of type `t_shell*`.
+ * 
+ * @return an integer value. If the function executes successfully, it will return 0. If there is an
+ * error, it will return -1.
+ */
 static int	split_args(char **unquoted_array, t_shell *data)
 {
 	int			i;
@@ -72,11 +100,16 @@ static int	split_args(char **unquoted_array, t_shell *data)
 	return (0);
 }
 
-/*Find out the length of the unquoted sequence (until next quote or
-end of line), split it by spaces and create a node for each index of
-the array (in 'split_args')
-Note that arguments do not have to be space separated, this is the 
-first parsing step, there are a lot more to come:)).*/
+/**
+ * The function `uquote` takes an unquoted sequence of characters, splits it into an array of strings,
+ * and then processes each string as separate arguments.
+ * 
+ * @param unquoted_sequence A pointer to a character array representing an unquoted sequence of
+ * characters.
+ * @param data The parameter `data` is of type `t_shell*`.
+ * 
+ * @return the value of `i - 1`.
+ */
 static int	uquote(char *unquoted_sequence, t_shell *data)
 {
 	size_t		i;
@@ -102,7 +135,14 @@ static int	uquote(char *unquoted_sequence, t_shell *data)
 	return (free_array(unquoted_array), i - 1);
 }
 
-/*Split user input in sequences based on the quotes.*/
+/**
+ * The function "parse_for_quotes" parses a string for quotes and performs different actions based on
+ * the type of quote encountered.
+ * 
+ * @param data A pointer to a structure of type t_shell.
+ * 
+ * @return the value of `data->exit`.
+ */
 int	parse_for_quotes(t_shell *data)
 {
 	int			quote_status;

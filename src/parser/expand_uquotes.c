@@ -3,18 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   expand_uquotes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:29:32 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 17:53:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:58:43 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*This is where we expand unquoted sequences, note that this process is way 
-simpler than for the double quotes because the unquoted sequences are already
-split into words*/
+/**
+ * The function expands any variables in a given sequence by replacing them with their corresponding
+ * values.
+ * 
+ * @param sequence A pointer to a character array (string) that represents a sequence of characters.
+ * @param data The "data" parameter is of type "t_shell", which is likely a struct that contains
+ * information about the shell environment. It could include variables, settings, and other data
+ * related to the shell.
+ * 
+ * @return a pointer to a character, which is the modified sequence.
+ */
 char	*expand_uquotes(char *sequence, t_shell *data)
 {
 	if (*sequence == '$')

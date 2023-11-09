@@ -3,19 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 21:55:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:58:10 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*This is the main loop, it gets the input from readline, parses it and executes
-it, frees everything, reinitializes the needed data and gives the prompt back.
-We have one extra function for the first read, because we want to clear the
-terminal on startup, but besides that it is the same as the main loop.*/
+/**
+ * The function "clear_terminal" clears the terminal screen by executing the "clear" command.
+ * 
+ * @param env The `env` parameter is a pointer to an array of strings that represents the environment
+ * variables. Each string in the array follows the format "variable=value".
+ * 
+ * @return The function does not have a return type, so it does not return anything.
+ */
 void	clear_terminal(char **env)
 {
 	pid_t	pid;
@@ -45,8 +49,17 @@ void	clear_terminal(char **env)
 	}
 }
 
-/*This gets called in every loop.
-Add the line from 'readline' to the command history*/
+/**
+ * The function reads user input, processes it for quotes, expands sequences, parses special
+ * characters, creates a command table, and finds the command to execute.
+ * 
+ * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure of type
+ * `t_shell`.
+ * 
+ * @return an integer value. If all the function calls within the function are successful, it will
+ * return 0. Otherwise, if any of the function calls return -1, indicating an error, the function will
+ * return -1.
+ */
 int	read_input(t_shell *data)
 {
 	add_history(data->raw_input);
@@ -62,6 +75,15 @@ int	read_input(t_shell *data)
 	return (0);
 }
 
+/**
+ * The function "check_status" checks the exit status of a shell command and returns the appropriate
+ * value.
+ * 
+ * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure of type
+ * `t_shell`.
+ * 
+ * @return the value of `data->exit`.
+ */
 int	check_status(t_shell *data)
 {
 	if (data->exit == COMMAND_NOT_FOUND)
@@ -75,6 +97,15 @@ int	check_status(t_shell *data)
 	return (data->exit);
 }
 
+/**
+ * The function `first_read` reads user input, processes it, and returns the exit status.
+ * 
+ * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure of type
+ * `t_shell`. This structure likely contains various data members related to the shell, such as the
+ * environment, prompt, raw input, and exit status.
+ * 
+ * @return the value of `data->exit`.
+ */
 int	first_read(t_shell *data)
 {
 	clear_terminal(data->environment);
@@ -91,6 +122,18 @@ int	first_read(t_shell *data)
 	return (data->exit);
 }
 
+/**
+ * The function "loop" reads input from the user, processes it, and repeats the process until an exit
+ * condition is met.
+ * 
+ * @param data The parameter "data" is of type "t_shell", which is a struct that contains information
+ * and variables related to the shell program.
+ * 
+ * @return an integer value. If the condition `first_read(data) == EXIT` is true, then the function
+ * will return the value of `EXIT`. Otherwise, if any of the subsequent conditions are true, the
+ * function will return the value of `data->exit`. If none of the conditions are true, the function
+ * will return 0.
+ */
 int	loop(t_shell *data)
 {
 	if (first_read(data) == EXIT)

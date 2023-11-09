@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:31:47 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/06 08:15:30 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:46:52 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/**
+ * The `env` function prints the environment variables stored in a linked list.
+ * 
+ * @param data The parameter "data" is of type "t_shell*", which is a pointer to a structure of type
+ * "t_shell".
+ * 
+ * @return the value of `data->exit`.
+ */
 int	env(t_shell *data)
 {
 	t_env	*head;

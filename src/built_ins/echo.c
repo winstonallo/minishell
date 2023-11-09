@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 21:53:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:46:40 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/**
+ * The function "echo" prints out the sequences stored in a linked list, with the option to omit a
+ * newline character at the end.
+ * 
+ * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure `t_shell`.
+ * 
+ * @return the value of the macro `SUCCESS`.
+ */
 int	echo(t_shell *data)
 {
 	int			newline;
@@ -37,30 +45,4 @@ int	echo(t_shell *data)
 	if (newline)
 		printf("\n");
 	return (SUCCESS);
-	return (SUCCESS);
 }
-// int	echo(t_shell *data)
-// {
-// 	int			newline;
-// 	int			i;
-// 	t_cmd_table	*head;
-
-// 	i = 0;
-// 	newline = 1;
-// 	head = (*data->cmd_table);
-// 	if (head->args
-// 		&& ft_strncmp(head->args[1], "-n", 3) == 0)
-// 	{
-// 		i++;
-// 		newline = 0;
-// 		head = head->next;
-// 	}
-// 	while (head->args[++i])
-// 	{
-// 		if (head->args[i])
-// 			printf("%s", head->args[i]);
-// 	}
-// 	if (newline)
-// 		printf("\n");
-// 	return (SUCCESS);
-// }

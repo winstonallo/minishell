@@ -46,7 +46,6 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${BUILT_INS}echo.c \
 		${SRC_DIR}${BUILT_INS}pwd.c \
 		${SRC_DIR}${BUILT_INS}cd.c \
-		${SRC_DIR}${BUILT_INS}export.c \
 		${SRC_DIR}${BUILT_INS}env.c \
 \
 		${SRC_DIR}${INIT_DIR}initialize_paths.c \

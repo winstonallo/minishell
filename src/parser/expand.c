@@ -3,21 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:08:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 21:55:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:59:06 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*This is the second step of the parsing process.
-We go through the whole list of sequences and look for '$' in 
-double- and unquoted sequences (the single quotes escape it).
-If we find a '$', we look for it in the environment, and if we find it, we
-replace it with its value, otherwise, we remove the argument
-(echo $nonexistingargument prints only a newline)*/
+/**
+ * The function "replace" takes a string and a shell data structure as input, and replaces a specific
+ * substring in the string with a corresponding value from the shell's environment list.
+ * 
+ * @param str A pointer to a character array (string) that needs to be replaced.
+ * @param data The "data" parameter is of type "t_shell" and is a pointer to a structure that contains
+ * information about the shell.
+ * 
+ * @return The function `replace` returns a `char*`.
+ */
 char	*replace(char *str, t_shell *data)
 {
 	char	*ret;
@@ -46,6 +50,14 @@ char	*replace(char *str, t_shell *data)
 	return (free(--str), ft_strdup(""));
 }
 
+/**
+ * The function "expand_sequences" expands sequences within a shell data structure, including expanding
+ * double quotes and unquoted sequences.
+ * 
+ * @param data The parameter `data` is of type `t_shell*`, which is a pointer to a structure `t_shell`.
+ * 
+ * @return the value of `data->exit`.
+ */
 int	expand_sequences(t_shell *data)
 {
 	t_quotes	*head;
