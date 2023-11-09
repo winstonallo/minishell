@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 14:12:51 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/09 15:48:44 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int			get_command_table(t_shell *data);
 int			myisspace(char c);
 int			myisspacealnum(char c);
 int			isquote(char pos, int *status);
+int			lexer(t_shell *data);
+
 
 /* ******************************************************************** */
 /*								LIST UTILS								*/

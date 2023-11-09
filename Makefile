@@ -16,6 +16,8 @@ BUILT_INS = built_ins/
 
 INIT_DIR = initialize/
 
+LEXER_DIR = lexer/
+
 SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${MAIN_DIR}loop.c \
 \
@@ -51,6 +53,8 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${INIT_DIR}initialize_paths.c \
 		${SRC_DIR}${INIT_DIR}initialize_lists.c \
 		${SRC_DIR}${INIT_DIR}environment.c \
+\
+		${SRC_DIR}${LEXER_DIR}errors.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 

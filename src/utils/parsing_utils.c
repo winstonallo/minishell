@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:47:35 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/01 17:04:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:02:28 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 */
 void	issquote(char pos, int *status)
 {
-	if (pos == '\'' && *status != IN_SINGLE_QUOTES)
+	if (pos == '\'' && *status == UNQUOTED)
 		*status = IN_SINGLE_QUOTES;
 	else if (pos == '\'' && *status == IN_SINGLE_QUOTES)
 		*status = UNQUOTED;
@@ -26,7 +26,7 @@ void	issquote(char pos, int *status)
 status*/
 void	isdquote(char pos, int *status)
 {
-	if (pos == '\"' && *status != IN_DOUBLE_QUOTES)
+	if (pos == '\"' && *status == UNQUOTED)
 		*status = IN_DOUBLE_QUOTES;
 	else if (pos == '\"' && *status == IN_DOUBLE_QUOTES)
 		*status = UNQUOTED;
@@ -40,6 +40,8 @@ int	isquote(char pos, int *status)
 	issquote(pos, status);
 	if (*status == IN_DOUBLE_QUOTES || *status == IN_SINGLE_QUOTES)
 		return (1);
+	else
+	 	*status = UNQUOTED;
 	return (0);
 }
 
