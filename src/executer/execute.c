@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 19:35:51 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:02:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,27 @@ char	*find_path(t_shell *data, char *command)
  * output if necessary and executes a command while the parent waits.
  * 
  */
-void	child1(t_cmd_table *head, t_shell *data)
+void	child1(t_cmd_table *head, t_shell *data, int first)
 {
 	pid_t	pid;
 
 	pid = fork();
 	if (!pid)
 	{
-		if (head->next && head->next->pipe)
-			set_pipes(data, head);
-		if (!pid && (head->outfile != NO_FD))
+		if (!first)
+		{
+			head->infile = data->pipe_fd[0];
+			close(data->pipe_fd[1]);
+		}
+		else if (head->next)
+		{
+			head->outfile = data->pipe_fd[1];
+			close(data->pipe_fd[0]);
+		}	
+		if (head->outfile != NO_FD)
 			if (redirect_output(data, head->outfile) == -1)
 				exit(1);
-		if (!pid && head->infile != NO_FD)
+		if (head->infile != NO_FD)
 			if (redirect_input(data, head->infile) == -1)
 				exit(1);
 		execve(head->path, head->args, data->environment);
@@ -71,7 +79,6 @@ void	child1(t_cmd_table *head, t_shell *data)
 		wipe(data);
 		exit(0);
 	}
-	waitpid(pid, NULL, 0);
 }
 
 /**
@@ -81,19 +88,22 @@ void	child1(t_cmd_table *head, t_shell *data)
 int	execute_command(t_shell *data)
 {
 	t_cmd_table	*head;
+	int			first;
 
+	first = 1;
+	pipe(data->pipe_fd);
 	head = *data->cmd_table;
 	while (head)
 	{
 		head->path = find_path(data, head->args[0]);
 		if (!head->path)
 			return (-1);
-		child1(head, data);
+		child1(head, data, first);
+		first = 0;
 		free(head->path);
 		head = head->next;
-		if (head->pipe)
+		if (head && head->pipe)
 			head = head->next;
-		perror("du hund\n");
 	}
 	return (0);
 }
