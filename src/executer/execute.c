@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 22:06:40 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/10 12:31:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	child1(t_cmd_table *head, t_shell *data)
 		dup2(pipe_fd[1], 1);
 		execve(head->path, head->args, data->environment);
 		ft_putstr_fd(data->command_path, 2);
-		perror(": failed to execute command");
+		perror("minishell: failed to execute command");
 		wipe(data);
 		exit(0);
 	}
@@ -93,6 +93,7 @@ void	child1(t_cmd_table *head, t_shell *data)
 	{
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
+		close(pipe_fd[0]);
 	}
 }
 
