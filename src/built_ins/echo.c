@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 14:07:31 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/10 14:48:31 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@
  * The function "echo" prints out the sequences stored in a linked list,
  * with the option to omit a newline character at the end.
  */
-int	echo(t_shell *data)
+int	echo(t_shell *data, int newline)
 {
-	int			newline;
 	t_op		*head;
 
-	newline = 1;
-	head = (*data->operators)->next;
+	if ((*data->operators)->next)
+		head = (*data->operators)->next;
+	else
+		return (printf("\n"), SUCCESS);
 	if (head->sequence
 		&& ft_strncmp(head->sequence, "-n", 3) == 0)
 	{
 		newline = 0;
-		head = head->next;
 		head = head->next;
 	}
 	while (head)

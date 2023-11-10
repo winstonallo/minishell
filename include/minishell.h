@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 22:06:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/10 14:37:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			set_pipes(t_shell *data, t_cmd_table *head);
 //built_ins.c
 int			cd(t_shell *data);
 int			pwd(t_shell *data);
-int			echo(t_shell *data);
+int			echo(t_shell *data, int newline);
 int			export(t_shell *data);
 //export.c
 int			env(t_shell *data);
