@@ -6,12 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/10 12:31:55 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:58:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <unistd.h>
 
 /**
  * The function "find_path" searches for the executable file specified by the 
@@ -46,24 +45,27 @@ char	*find_path(t_shell *data, char *command)
 	return (NULL);
 }
 
-void	child2(t_cmd_table *head, t_shell *data)
+static int	child2(t_cmd_table *head, t_shell *data)
 {
 	pid_t	pid;
+	int		status;
 
-	pid = fork();
 	head->path = find_path(data, head->args[0]);
 	if (!head->path)
-		return ;
+		return (-1);
+	pid = fork();
 	if (!pid)
 	{
 		execve(head->path, head->args, data->environment);
 		ft_putstr_fd(data->command_path, 2);
 		perror(": failed to execute command");
 		wipe(data);
-		exit(0);
+		exit (127);
 	}
-	wait(0);
+	waitpid(pid, &status, 0);
 	free(head->path);
+	data->exit = WEXITSTATUS(status);
+	return (0);
 }
 
 /**
@@ -139,7 +141,8 @@ int	execute_command(t_shell *data)
 		if (head && head->pipe)
 			head = head->next;
 	}
-	child2(head, data);
+	if (child2(head, data) == -1)
+		return (-1);
 	dup2(stdin_fd, 0);
 	close(stdin_fd);
 	return (0);
