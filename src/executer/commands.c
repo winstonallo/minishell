@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/12 17:45:49 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/12 17:49:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,6 @@
  * the command is not found.
  * @return either SUCCESS or FAILURE.
  */
-int	myexit(t_shell *data)
-{
-	int	i;
-
-	i = -1;
-	if ((*data->cmd_table)->args[2])
-		return (ft_putstr_fd("minishell: exit: too many arguments\n", 2), FAILURE);
-	else if ((*data->cmd_table)->args[1])
-	{
-		while ((*data->cmd_table)->args[1][++i])
-		{
-			if (!ft_isdigit((*data->cmd_table)->args[1][i]))
-			{
-				ft_putstr_fd("minishell: exit: ", 2);
-				ft_putstr_fd((*data->cmd_table)->args[1], 2);
-				ft_putstr_fd(": numeric argument required\n", 2);
-				data->exit = 2;
-				wipe4real(data);
-				exit (data->exit);
-			}
-		}
-		data->exit = ft_atoi((*data->cmd_table)->args[1]) % 256;
-		wipe4real(data);
-		exit (data->exit);
-	}
-	wipe4real(data);
-	exit(SUCCESS);
-}
-
 int	find_command(t_shell *data)
 {
 	if (ft_strncmp((*data->cmd_table)->args[0], "env", 4) == 0)
