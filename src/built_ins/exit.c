@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:49:20 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/12 18:25:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/12 20:48:35 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static char	*get_arg(char **args)
 	int	sign;
 
 	j = -1;
+	if (!args[1])
+		return (NULL);
 	while (args[1][++j])
 	{
 		if (args[1][j] == '+' && sign != 9)
@@ -63,7 +65,7 @@ int	myexit(t_shell *data)
 
 	arg = get_arg((*data->cmd_table)->args);
 	if (!arg)
-		return (FAILURE);
+		return (EXIT);
 	if ((*data->cmd_table)->args[1])
 	{
 		num_arg(data, arg);

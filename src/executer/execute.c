@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/12 19:08:25 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/12 21:33:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ static int	child2(t_cmd_table *head, t_shell *data)
 	}
 	waitpid(pid, &status, 0);
 	free(head->path);
-	//if (!data->exit)
 	data->exit = WEXITSTATUS(status);
+//	printf("\nEXIT CODE: %d\n\n", data->exit);
 	return (0);
 }
 
@@ -76,11 +76,13 @@ static int	child2(t_cmd_table *head, t_shell *data)
  * output if necessary and executes a command while the parent waits.
  * 
  */
-void	child1(t_cmd_table *head, t_shell *data)
+void	child1(t_cmd_table *head, t_shell *data, int status)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
 
+	// while (!status)
+	// 	break ;
 	if (pipe(pipe_fd) == -1)
 		exit (0);
 	pid = fork();
@@ -95,16 +97,11 @@ void	child1(t_cmd_table *head, t_shell *data)
 		wipe(data);
 		exit(1);
 	}
-	else
-	{
-		close(pipe_fd[1]);
-		dup2(pipe_fd[0], 0);
-		close(pipe_fd[0]);
-		int status;
-		waitpid(pid, &status, WNOHANG);
-		//if (!data->exit)
-		data->exit = WEXITSTATUS(status);
-	}
+	close(pipe_fd[1]);
+	dup2(pipe_fd[0], 0);
+	close(pipe_fd[0]);
+	waitpid(pid, &status, 0);
+	data->exit = WEXITSTATUS(status);
 }
 
 static int	count_pipes(t_shell *data)
@@ -143,7 +140,7 @@ int	execute_command(t_shell *data)
 		head->path = find_path(data, head->args[0]);
 		if (!head->path)
 			return (-1);
-		child1(head, data);
+		child1(head, data, 0);
 		free(head->path);
 		head = head->next;
 		if (head && head->pipe)
