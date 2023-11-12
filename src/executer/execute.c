@@ -6,11 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/10 13:58:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/12 19:08:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <stdlib.h>
+#include <sys/wait.h>
 
 /**
  * The function "find_path" searches for the executable file specified by the 
@@ -60,10 +62,11 @@ static int	child2(t_cmd_table *head, t_shell *data)
 		ft_putstr_fd(data->command_path, 2);
 		perror(": failed to execute command");
 		wipe(data);
-		exit (127);
+		exit (1);
 	}
 	waitpid(pid, &status, 0);
 	free(head->path);
+	//if (!data->exit)
 	data->exit = WEXITSTATUS(status);
 	return (0);
 }
@@ -86,16 +89,21 @@ void	child1(t_cmd_table *head, t_shell *data)
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], 1);
 		execve(head->path, head->args, data->environment);
+		close(pipe_fd[1]);
 		ft_putstr_fd(data->command_path, 2);
 		perror("minishell: failed to execute command");
 		wipe(data);
-		exit(0);
+		exit(1);
 	}
 	else
 	{
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
 		close(pipe_fd[0]);
+		int status;
+		waitpid(pid, &status, WNOHANG);
+		//if (!data->exit)
+		data->exit = WEXITSTATUS(status);
 	}
 }
 
