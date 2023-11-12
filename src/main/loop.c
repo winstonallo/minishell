@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/12 15:50:00 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/12 15:55:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,31 +84,6 @@ int	check_status(t_shell *data)
 }
 
 /**
- * The function `first_read` reads user input, processes it, and 
- * returns the exit status.
- * Extra function for the first readline call in order to clear 
- * the terminal on startup
- * @return the value of `data->exit`.
- */
-int	first_read(t_shell *data)
-{
-	clear_terminal(data->environment);
-	get_prompt(data, 0);
-	data->raw_input = readline(data->prompt);
-	if (!data->raw_input)
-		return (perror("memory allocation failed"), 1);
-	if (!data->raw_input[0])
-		return (wipe(data), 1);
-	if (read_input(data) == -1)
-		return (data->exit);
-	data->exit = check_status(data);
-	if (data->exit == EXIT)
-		return (EXIT);
-	wipe(data);
-	return (data->exit);
-}
-
-/**
  * The function "loop" reads input from the user, processes it, and repeats 
  * the process until an exit condition is met.
  * 
@@ -123,18 +98,16 @@ int	first_read(t_shell *data)
  */
 int	loop(t_shell *data)
 {
-	if (first_read(data) == EXIT)
-		return (EXIT);
 	while (1)
 	{
-		if (initialize_sequences(data) == -1)
-			return (data->exit);
-		data->raw_input = readline(data->prompt);
+	if (initialize_sequences(data) == -1)
+		return (data->exit);
+	data->raw_input = readline(data->prompt);
 	if (!data->raw_input)
 	{
-		perror("memory allocation failed");
+		wipe(data);
 		continue ;
-	}	
+	}
 	if (!data->raw_input[0])
 	{
 		wipe(data);

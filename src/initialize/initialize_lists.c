@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_lists.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 13:56:35 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/12 15:56:37 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int	initialize_lists(t_shell *data)
 	if (!data->paths)
 		return (free(data->env_list), -1);
 	*data->paths = NULL;
-	if (initialize_sequences(data) == -1)
-		return (-1);
 	data->temp = NULL;
 	data->prompt = NULL;
 	return (0);
