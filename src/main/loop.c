@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/10 13:18:13 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/12 15:50:00 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,9 @@ int	first_read(t_shell *data)
 	get_prompt(data, 0);
 	data->raw_input = readline(data->prompt);
 	if (!data->raw_input)
-		return (data->exit);
+		return (perror("memory allocation failed"), 1);
+	if (!data->raw_input[0])
+		return (wipe(data), 1);
 	if (read_input(data) == -1)
 		return (data->exit);
 	data->exit = check_status(data);
@@ -128,16 +130,24 @@ int	loop(t_shell *data)
 		if (initialize_sequences(data) == -1)
 			return (data->exit);
 		data->raw_input = readline(data->prompt);
-		if (!data->raw_input)
-			return (data->exit);
-		if (read_input(data) == -1)
-		{
-			wipe(data);
-			continue ;
-		}
-		if (check_status(data) == EXIT)
-			return (EXIT);
+	if (!data->raw_input)
+	{
+		perror("memory allocation failed");
+		continue ;
+	}	
+	if (!data->raw_input[0])
+	{
 		wipe(data);
+		continue ;
+	}
+	if (read_input(data) == -1)
+	{
+		wipe(data);
+		continue ;
+	}
+	if (check_status(data) == EXIT)
+		return (EXIT);
+	wipe(data);
 	}
 	return (0);
 }
