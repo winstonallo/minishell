@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/12 15:55:47 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/12 17:25:46 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,31 +96,50 @@ int	check_status(t_shell *data)
  * the value of `data->exit`. If none of the conditions are true, the function
  * will return 0.
  */
-int	loop(t_shell *data)
+
+int	first_read(t_shell *data)
 {
-	while (1)
-	{
 	if (initialize_sequences(data) == -1)
-		return (data->exit);
+		return (-1);
+	clear_terminal(data->environment);
+	if (get_prompt(data, 0) == -1)
+		return (-1);
 	data->raw_input = readline(data->prompt);
 	if (!data->raw_input)
-	{
-		wipe(data);
-		continue ;
-	}
-	if (!data->raw_input[0])
-	{
-		wipe(data);
-		continue ;
-	}
+		return (EXIT);
 	if (read_input(data) == -1)
-	{
-		wipe(data);
-		continue ;
-	}
-	if (check_status(data) == EXIT)
+		return (data->exit);
+	data->exit = check_status(data);
+	if (data->exit == EXIT)
 		return (EXIT);
 	wipe(data);
+	return (data->exit);
+}
+
+int	loop(t_shell *data)
+{
+	if (first_read(data) == EXIT)
+		return (EXIT);
+	while (1)
+	{
+		if (initialize_sequences(data) == -1)
+			return (data->exit);
+		data->raw_input = readline(data->prompt);
+		if (!data->raw_input)
+			return (EXIT);
+		if (!data->raw_input[0])
+		{
+			wipe(data);
+			continue ;
+		}
+		if (read_input(data) == -1)
+		{
+			wipe(data);
+			continue ;
+		}
+		if (check_status(data) == EXIT)
+			return (EXIT);
+		wipe(data);
 	}
 	return (0);
 }
