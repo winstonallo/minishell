@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:53:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/13 10:46:00 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/13 10:59:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_shell
 	char				*prompt;
 	char				*cwd;
 	int					validexit;
+	int					allocated;
 	int					exit;
 	int					s_char_tmp;
 	int					pipe_fd[2];
