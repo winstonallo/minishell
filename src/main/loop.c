@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/12 17:25:46 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/13 10:38:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	first_read(t_shell *data)
 		return (-1);
 	data->raw_input = readline(data->prompt);
 	if (!data->raw_input)
-		return (EXIT);
+		return (myexit(data));
 	if (read_input(data) == -1)
 		return (data->exit);
 	data->exit = check_status(data);
@@ -126,7 +126,7 @@ int	loop(t_shell *data)
 			return (data->exit);
 		data->raw_input = readline(data->prompt);
 		if (!data->raw_input)
-			return (EXIT);
+			return (myexit(data));
 		if (!data->raw_input[0])
 		{
 			wipe(data);
