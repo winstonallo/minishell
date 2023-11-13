@@ -6,13 +6,14 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/13 10:30:31 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:10:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <stdlib.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
 /**
  * The function "find_path" searches for the executable file specified by the 
@@ -58,6 +59,10 @@ static int	child2(t_cmd_table *head, t_shell *data)
 	pid = fork();
 	if (!pid)
 	{
+		if (head->outfile != NO_FD)
+			dup2(head->outfile, 1);
+		if (head->infile != NO_FD)
+			dup2(head->infile, 0);
 		execve(head->path, head->args, data->environment);
 		ft_putstr_fd(data->command_path, 2);
 		perror(": failed to execute command");
@@ -86,6 +91,10 @@ void	child1(t_cmd_table *head, t_shell *data)
 	if (!pid)
 	{
 		close(pipe_fd[0]);
+		if (head->outfile != NO_FD)
+			dup2(head->outfile, 1);
+		if (head->infile != NO_FD)
+			dup2(head->infile, 0);
 		dup2(pipe_fd[1], 1);
 		execve(head->path, head->args, data->environment);
 		close(pipe_fd[1]);
