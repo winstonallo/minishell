@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/10 17:50:47 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:43:09 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ static char	*expand_exitcode(char *str, t_shell *data)
 			str = ft_strjoin(temptemp, &str[i]);
 			if (!str)
 				return (free(temptemp), NULL);
+			i -= 2;
 		}
 		i++;
 	}
