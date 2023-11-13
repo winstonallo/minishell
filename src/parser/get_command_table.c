@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/10 13:21:38 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/13 20:55:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@ int	initialize_redirections(t_op *data, t_cmd_table **cmd_table, int o, int i)
 			o = open(h->next->sequence, O_CREAT | O_APPEND | O_RDWR, 0000644);
 		else if (h->s_char == IN_REDIR && h->status == UNQUOTED)
 			i = open(h->next->sequence, O_RDONLY);
+		if (o < 0)
+			return (perror(h->next->sequence), -1);
+		if (i < 0)
+			return (perror(h->next->sequence), -1);
 		h = h->next;
 	}
 	new = cmdnew(o, i, 0);
@@ -129,7 +133,7 @@ int	get_command_table(t_shell *data)
 	while (op_head)
 	{
 		if (initialize_redirections(op_head, data->cmd_table, 0, 0) == -1)
-			return (data->exit);
+			return (data->exit = FAILURE, -1);
 		data->cmd_head = *data->cmd_table;
 		while (data->cmd_head->args || data->cmd_head->pipe == PIPE)
 			data->cmd_head = data->cmd_head->next;

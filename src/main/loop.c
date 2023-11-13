@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/13 10:38:25 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/13 20:59:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	first_read(t_shell *data)
 	if (!data->raw_input)
 		return (myexit(data));
 	if (read_input(data) == -1)
-		return (data->exit);
+		data->exit = FAILURE;
 	data->exit = check_status(data);
 	if (data->exit == EXIT)
 		return (EXIT);
