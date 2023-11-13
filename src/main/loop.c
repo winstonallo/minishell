@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 18:04:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/13 10:38:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	clear_terminal(char **env)
 int	read_input(t_shell *data)
 {
 	add_history(data->raw_input);
-	// if (lexer(data) == -1)
-	// 	return (-1);
 	if (parse_for_quotes(data) == -1)
 		return (-1);
 	if (expand_sequences(data) == -1)
@@ -86,29 +84,6 @@ int	check_status(t_shell *data)
 }
 
 /**
- * The function `first_read` reads user input, processes it, and 
- * returns the exit status.
- * Extra function for the first readline call in order to clear 
- * the terminal on startup
- * @return the value of `data->exit`.
- */
-int	first_read(t_shell *data)
-{
-	clear_terminal(data->environment);
-	get_prompt(data, 0);
-	data->raw_input = readline(data->prompt);
-	if (!data->raw_input)
-		return (data->exit);
-	if (read_input(data) == -1)
-		return (data->exit);
-	data->exit = check_status(data);
-	if (data->exit == EXIT)
-		return (EXIT);
-	wipe(data);
-	return (data->exit);
-}
-
-/**
  * The function "loop" reads input from the user, processes it, and repeats 
  * the process until an exit condition is met.
  * 
@@ -121,6 +96,26 @@ int	first_read(t_shell *data)
  * the value of `data->exit`. If none of the conditions are true, the function
  * will return 0.
  */
+
+int	first_read(t_shell *data)
+{
+	if (initialize_sequences(data) == -1)
+		return (-1);
+	clear_terminal(data->environment);
+	if (get_prompt(data, 0) == -1)
+		return (-1);
+	data->raw_input = readline(data->prompt);
+	if (!data->raw_input)
+		return (myexit(data));
+	if (read_input(data) == -1)
+		return (data->exit);
+	data->exit = check_status(data);
+	if (data->exit == EXIT)
+		return (EXIT);
+	wipe(data);
+	return (data->exit);
+}
+
 int	loop(t_shell *data)
 {
 	if (first_read(data) == EXIT)
@@ -131,7 +126,12 @@ int	loop(t_shell *data)
 			return (data->exit);
 		data->raw_input = readline(data->prompt);
 		if (!data->raw_input)
-			return (data->exit);
+			return (myexit(data));
+		if (!data->raw_input[0])
+		{
+			wipe(data);
+			continue ;
+		}
 		if (read_input(data) == -1)
 		{
 			wipe(data);

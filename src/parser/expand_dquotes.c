@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dquotes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 14:05:41 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/10 17:50:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ static char	*get_next_word(char *seq, size_t *pos)
 
 	i = *pos;
 	in_arg = 0;
-	if (seq[i++] == '$' && (ft_isalnum(seq[i + 1])))
+	if (seq[i] && seq[i + 1] && seq[i++] == '$' && (ft_isalnum(seq[i + 1])))
 		in_arg = 1;
 	while (seq[i])
 	{
 		if (seq[i] == '$' && !ft_isalnum(seq[i + 1]))
 			i++;
-		if ((myisspace(seq[i]) && in_arg) || (seq[i] == '$') || !seq[i + 1])
+		if (((myisspace(seq[i]) && in_arg) || (seq[i] == '$') || (!seq[i + 1])))
 		{
 			if (!seq[i + 1])
 				i++;
@@ -109,7 +109,7 @@ char	**fill_array(size_t arr_size, char *seq, size_t *pos, t_shell *data)
 		arr[i] = get_next_word(seq, pos);
 		if (!arr[i])
 			return (free(arr), NULL);
-		if (arr[i][0] == '$' && (isalnum(arr[i][1]) || arr[i][1] == '?'))
+		if (arr[i][0] == '$' && (isalnum(arr[i][1])))
 			arr[i] = replace(arr[i], data);
 	}
 	arr[i] = NULL;
@@ -126,8 +126,12 @@ static char	*expand_exitcode(char *str, t_shell *data)
 {
 	size_t	i;
 	char	*temp;
+	char	*temptemp;
+	char	*temptemptemp;
 
 	i = 0;
+	temp = NULL;
+	temptemp = NULL;
 	while (str[i])
 	{
 		if (ft_strnstr(&str[i], "$?", 2))
@@ -135,17 +139,22 @@ static char	*expand_exitcode(char *str, t_shell *data)
 			temp = ft_strndup(str, i);
 			if (!temp)
 				return (NULL);
-			temp = ft_strjoin(temp, ft_itoa(data->exit));
-			if (!temp)
+			temptemptemp = ft_itoa(data->exit);
+			if (!temptemptemp)
 				return (NULL);
-			i += 2;
-			str = ft_strjoin(temp, &str[i]);
-			if (!str)
+			temptemp = ft_strjoin(temp, temptemptemp);
+			if (!temptemp)
 				return (free(temp), NULL);
+			free(temptemptemp);
+			free(temp);
+			i += 2;
+			str = ft_strjoin(temptemp, &str[i]);
+			if (!str)
+				return (free(temptemp), NULL);
 		}
 		i++;
 	}
-	return (str);
+	return (free(temptemp), str);
 }
 
 /**
@@ -176,7 +185,9 @@ int	expand_dquotes(t_quotes *node, t_shell *data, size_t i, size_t pos)
 			return (-1);
 		}
 		free(node->sequence);
-		node->sequence = expand_exitcode(data->temp, data);
+		data->temp = expand_exitcode(data->temp, data);
+		node->sequence = data->temp;
 	}
+	data->temp = NULL;
 	return (free_array_arrsize(arr, size), 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:29:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 14:07:46 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/12 17:27:54 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
  */
 int	cd(t_shell *data)
 {
+	if ((*data->cmd_table)->args[2])
+		return (ft_putstr_fd("cd: too many arguments\n", 2), FAILURE);
 	if (chdir((*data->cmd_table)->args[1]) == -1)
 	{
 		perror("minishell: cd");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_uquotes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:29:32 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 13:50:46 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/10 16:09:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
  */
 char	*expand_uquotes(char *sequence, t_shell *data)
 {
-	if (*sequence == '$')
+	if (*sequence == '$' && (*(sequence + 1) || myisspace(*(sequence + 1))))
 	{
 		sequence = replace(sequence, data);
 		if (!sequence)

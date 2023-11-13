@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:54:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 19:27:54 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:07:07 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ typedef struct s_cmd_table
 	int					outfile;
 	int					infile;
 	int					pipe;
-	int					first;
-	int					last;
+	int					index;
 	struct s_cmd_table	*next;
 }	t_cmd_table;
 

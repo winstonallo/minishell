@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 17:59:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:21:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,29 +67,25 @@ char	**get_command_array(t_op *data, int i, int j)
  * @return an integer value. If the function is successful, it returns 0. 
  * If there is an error, it returns -1.
  */
-int	initialize_redirections(t_op *data, t_cmd_table **cmd_table)
+int	initialize_redirections(t_op *data, t_cmd_table **cmd_table, int o, int i)
 {
 	t_op		*h;
 	t_cmd_table	*new;
-	int			in;
-	int			out;
 
 	h = data;
-	in = NO_FD;
-	out = NO_FD;
 	while (h && h->s_char != PIPE)
 	{
 		if (h->s_char == OUT_REDIR && h->status == UNQUOTED)
-			out = open(h->next->sequence, O_CREAT | O_TRUNC | O_RDWR, 0000644);
+			o = open(h->next->sequence, O_CREAT | O_TRUNC | O_RDWR, 0000644);
 		else if (h->s_char == APPEND && h->status == UNQUOTED)
-			out = open(h->next->sequence, O_CREAT | O_APPEND | O_RDWR, 0000644);
+			o = open(h->next->sequence, O_CREAT | O_APPEND | O_RDWR, 0000644);
 		else if (h->s_char == IN_REDIR && h->status == UNQUOTED)
-			in = open(h->next->sequence, O_RDONLY);
+			i = open(h->next->sequence, O_RDONLY);
 		h = h->next;
 	}
-	new = cmdnew(out, in, 0);
+	new = cmdnew(o, i, 0);
 	if (!new)
-		return (close(in), close(out), -1);
+		return (close(i), close(o), -1);
 	cmdadd_back(cmd_table, new);
 	return (0);
 }
@@ -132,7 +128,7 @@ int	get_command_table(t_shell *data)
 	op_head = *data->operators;
 	while (op_head)
 	{
-		if (initialize_redirections(op_head, data->cmd_table) == -1)
+		if (initialize_redirections(op_head, data->cmd_table, 0, 0) == -1)
 			return (data->exit);
 		data->cmd_head = *data->cmd_table;
 		while (data->cmd_head->args || data->cmd_head->pipe == PIPE)

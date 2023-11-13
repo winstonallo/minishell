@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 18:29:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/12 17:49:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ int			set_pipes(t_shell *data, t_cmd_table *head);
 //built_ins.c
 int			cd(t_shell *data);
 int			pwd(t_shell *data);
-int			echo(t_shell *data);
+int			echo(t_shell *data, int newline);
 int			export(t_shell *data);
+int			myexit(t_shell *data);
+
 //export.c
 int			env(t_shell *data);
 //export_utils.c
@@ -75,7 +77,6 @@ int			myisspace(char c);
 int			myisspacealnum(char c);
 int			isquote(char pos, int *status);
 int			lexer(t_shell *data);
-
 
 /* ******************************************************************** */
 /*								LIST UTILS								*/
