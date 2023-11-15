@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 14:24:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:35:33 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,8 @@ int	initialize_redirections(t_op *data, t_cmd_table **cmd_table, int o, int i)
 			i = open(h->next->sequence, O_RDONLY);
 		h = h->next;
 	}
-	if (o < 0)
-		return (perror(""), -1);
-	if (i < 0)
-		return (perror(""), -1);
+	if (o < 0 || i < 0)
+		return (perror(" "), -1);
 	new = cmdnew(o, i, 0);
 	if (!new)
 		return (close(i), close(o), -1);

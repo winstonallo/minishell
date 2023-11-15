@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:51:30 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 14:29:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:33:05 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ t_cmd_table	*cmdnew(int outfile, int infile, int pepi)
 		return (NULL);
 	new->args = NULL;
 	new->outfile = outfile;
-	if (new->outfile == -1)
-		return (NULL);
+	// if (new->outfile == -1)
+	// 	return (NULL);
 	new->infile = infile;
-	if (new->infile == -1)
-		return (close(new->outfile), NULL);
+	// if (new->infile == -1)
+	// 	return (close(new->outfile), NULL);
 	new->pipe = pepi;
 	new->next = NULL;
 	return (new);
@@ -58,9 +58,9 @@ void	free_cmd_tables(t_cmd_table **cmd_tables)
 		temp = head;
 		if (head->args)
 			free_array(head->args);
-		if (head->infile != NO_FD)
+		if (head->infile > 0)
 			close(head->infile);
-		if (head->outfile != NO_FD)
+		if (head->outfile > 0)
 			close(head->outfile);
 		head = head->next;
 		free(temp);
