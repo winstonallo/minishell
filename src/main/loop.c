@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 17:30:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 21:19:37 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ int	read_input(t_shell *data)
 		return (-1);
 	if (get_command_table(data) == -1)
 		return (-1);
-	data->exit = find_command(data);
+	if (ft_strncmp((*data->cmd_table)->args[0], "exit", 5) == 0)
+		return (myexit(data));
+	execute_command(data);
 	return (0);
 }
 
@@ -74,8 +76,8 @@ int	check_status(t_shell *data)
 {
 	if (data->exit == COMMAND_NOT_FOUND)
 	{
-		ft_putstr_fd("minishell: command not found: ", 2);
-		ft_putendl_fd(data->raw_input, 2);
+		ft_putstr_fd(data->raw_input, 2);
+		ft_putstr_fd(": command not found\n", 2);
 		return (COMMAND_NOT_FOUND);
 	}
 	else if (data->exit == EXIT)

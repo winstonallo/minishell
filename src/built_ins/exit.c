@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:49:20 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/13 11:08:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 21:23:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,11 @@ int	myexit(t_shell *data)
 		gtfo(data, 0, NULL);
 	arg = get_arg((*data->cmd_table)->args, data, -1, 0);
 	if (!arg && data->validexit)
-		return (printf("exit\n"), EXIT);
+	{
+		printf("exit\n");
+		wipe4real(data);
+		exit(SUCCESS);
+	}
 	else if (!arg && !data->validexit)
 		return (FAILURE);
 	if ((*data->cmd_table)->args[1])

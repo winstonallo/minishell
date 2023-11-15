@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 15:39:55 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 21:30:20 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -48,7 +49,20 @@ char	*find_path(t_shell *data, char *command)
 	return (NULL);
 }
 
-static int	child2(t_cmd_table *head, t_shell *data)
+int	is_builtin(t_shell *data, char *path, int stdin_fd)
+{
+	if (find_command(data) == 0)
+	{
+		close(stdin_fd);
+		if (path)
+			free(path);
+		wipe4real(data);
+		exit(data->exit);
+	}
+	return (0);
+}
+
+static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 {
 	pid_t	pid;
 	int		status;
@@ -63,6 +77,7 @@ static int	child2(t_cmd_table *head, t_shell *data)
 			dup2(head->outfile, 1);
 		if (head->infile != NO_FD)
 			dup2(head->infile, 0);
+		is_builtin(data, head->path, stdin_fd);
 		execve(head->path, head->args, data->environment);
 		ft_putstr_fd(data->command_path, 2);
 		perror(": failed to execute command");
@@ -80,7 +95,7 @@ static int	child2(t_cmd_table *head, t_shell *data)
  * output if necessary and executes a command while the parent waits.
  * 
  */
-void	child1(t_cmd_table *head, t_shell *data)
+void	child1(t_cmd_table *head, t_shell *data, int stdin_fd)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -96,6 +111,7 @@ void	child1(t_cmd_table *head, t_shell *data)
 		if (head->infile != NO_FD)
 			dup2(head->infile, 0);
 		dup2(pipe_fd[1], 1);
+		is_builtin(data, head->path, stdin_fd);
 		execve(head->path, head->args, data->environment);
 		close(pipe_fd[1]);
 		ft_putstr_fd(data->command_path, 2);
@@ -144,13 +160,13 @@ int	execute_command(t_shell *data)
 		head->path = find_path(data, head->args[0]);
 		if (!head->path)
 			return (-1);
-		child1(head, data);
+		child1(head, data, stdin_fd);
 		free(head->path);
 		head = head->next;
 		if (head && head->pipe)
 			head = head->next;
 	}
-	if (child2(head, data) == -1)
+	if (child2(head, data, stdin_fd) == -1)
 		return (close(stdin_fd), -1);
 	dup2(stdin_fd, 0);
 	close(stdin_fd);
