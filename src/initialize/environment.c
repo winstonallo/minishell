@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:36:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 17:31:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:55:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int	get_prompt(t_shell *data, size_t i)
 			temp = ft_strdup(&cwd[i + 1]);
 			if (!temp)
 				return (-1);
-			data->prompt = temp;
+			data->prompt = ft_strjoin(temp, " x ");
 			if (!data->prompt)
 				return (-1);
-			return (free(cwd), 0);
+			return (free(cwd), free(temp), 0);
 		}
 	}
 	data->prompt = cwd;
@@ -72,5 +72,6 @@ int	get_environment(t_shell *data, size_t i, size_t j)
 		}
 		i++;
 	}
+	get_prompt(data, 0);
 	return (0);
 }
