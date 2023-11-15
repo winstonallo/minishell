@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:08:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 15:46:25 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:18:30 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,25 +55,26 @@ static int	do_expand(t_quotes *node, t_shell *data, size_t i, size_t pos)
 {
 	size_t	size;
 	char	**arr;
+	char	*temp;
 
 	arr = fill_array(&size, node->sequence, &pos, data);
 	if (!arr)
 		return (-1);
+	temp = NULL;
 	while (++i < size)
 	{
-		if (!data->temp)
-			data->temp = ft_strndup(arr[i], ft_strlen(arr[i]));
+		if (!temp)
+			temp = ft_strndup(arr[i], ft_strlen(arr[i]));
 		else
-			data->temp = ft_strjoin(node->sequence, arr[i]);
-		if (!data->temp)
+			temp = ft_strjoin(node->sequence, arr[i]);
+		if (!temp)
 		{
 			free_array(arr);
 			return (-1);
 		}
 		free(node->sequence);
-		node->sequence = expand_exitcode(data->temp, data, 0);
+		node->sequence = expand_exitcode(temp, data, 0);
 	}
-	data->temp = NULL;
 	return (free_array_arrsize(arr, size), 0);
 }
 

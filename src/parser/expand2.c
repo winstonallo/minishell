@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 15:33:47 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:18:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,8 @@ static char	*idkyet(char *str, char *temp1, char *temp3, size_t i)
 	temp2 = ft_strjoin(temp1, temp3);
 	if (!temp2)
 		return (free(temp1), NULL);
-	free(temp3);
 	free(temp1);
+	free(temp3);
 	i += 2;
 	str = ft_strjoin(temp2, &str[i]);
 	if (!str)

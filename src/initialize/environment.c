@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:36:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 13:57:36 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/15 17:31:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int	get_prompt(t_shell *data, size_t i)
 			temp = ft_strdup(&cwd[i + 1]);
 			if (!temp)
 				return (-1);
-			data->prompt = ft_strdup("");
+			data->prompt = temp;
 			if (!data->prompt)
 				return (-1);
-			return (free(temp), free(cwd), 0);
+			return (free(cwd), 0);
 		}
 	}
 	data->prompt = cwd;
