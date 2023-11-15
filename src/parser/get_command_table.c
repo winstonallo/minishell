@@ -6,12 +6,26 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/13 20:55:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:24:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+static int	get_array_size(t_op *data)
+{
+	int		i;
+	t_op	*head;
+
+	head = data;
+	i = 0;
+	while (head && head->s_char != PIPE)
+	{
+		head = head->next;
+		i++;
+	}
+	return (i);
+}
 /**
  * The function "get_command_array" takes a linked list of commands and 
  * returns an array of strings containing the commands.
@@ -27,15 +41,11 @@
  * 
  * @return a pointer to a character array (char **)
  */
-char	**get_command_array(t_op *data, int i, int j)
+char	**get_command_array(t_op *data, int j)
 {
-	t_op	*head;
 	char	**arr;
 
-	head = data;
-	while (++i && head && head->s_char != PIPE)
-		head = head->next;
-	arr = malloc((i + 1) * sizeof(char *));
+	arr = malloc((get_array_size(data) + 1) * sizeof(char *));
 	if (!arr)
 		return (NULL);
 	while (data && data->s_char != PIPE)
@@ -45,8 +55,10 @@ char	**get_command_array(t_op *data, int i, int j)
 			if (!data->next->next)
 				break ;
 			data = data->next->next;
+			continue ;
 		}
-		arr[++j] = ft_strdup(data->sequence);
+		if (data->sequence && data->sequence[0])
+			arr[++j] = ft_strdup(data->sequence);
 		if (!arr[j])
 			return (free_array(arr), NULL);
 		data = data->next;
@@ -81,12 +93,12 @@ int	initialize_redirections(t_op *data, t_cmd_table **cmd_table, int o, int i)
 			o = open(h->next->sequence, O_CREAT | O_APPEND | O_RDWR, 0000644);
 		else if (h->s_char == IN_REDIR && h->status == UNQUOTED)
 			i = open(h->next->sequence, O_RDONLY);
-		if (o < 0)
-			return (perror(h->next->sequence), -1);
-		if (i < 0)
-			return (perror(h->next->sequence), -1);
 		h = h->next;
 	}
+	if (o < 0)
+		return (perror(""), -1);
+	if (i < 0)
+		return (perror(""), -1);
 	new = cmdnew(o, i, 0);
 	if (!new)
 		return (close(i), close(o), -1);
@@ -137,7 +149,7 @@ int	get_command_table(t_shell *data)
 		data->cmd_head = *data->cmd_table;
 		while (data->cmd_head->args || data->cmd_head->pipe == PIPE)
 			data->cmd_head = data->cmd_head->next;
-		data->cmd_head->args = get_command_array(op_head, 0, -1);
+		data->cmd_head->args = get_command_array(op_head, -1);
 		if (!data->cmd_head->args)
 			return (data->exit);
 		while (op_head && op_head->s_char != PIPE)
