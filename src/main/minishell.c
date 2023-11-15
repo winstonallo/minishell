@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:00:40 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/06 08:23:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/09 13:51:39 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*This is only a wrapper function, loop.c is where the real shit happens
-Here we initialize the lists for the first time, get the environment and
-the paths (all of the one-time things)*/
+/**
+ * The main function initializes a shell data structure, sets up environment 
+ * variables and paths, and enters a loop until the program is exited.
+ */
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	data;

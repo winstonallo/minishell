@@ -6,16 +6,16 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/06 08:42:24 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:24:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*This is the main loop, it gets the input from readline, parses it and executes
-it, frees everything, reinitializes the needed data and gives the prompt back.
-We have one extra function for the first read, because we want to clear the
-terminal on startup, but besides that it is the same as the main loop.*/
+/**
+ * The function "clear_terminal" clears the terminal screen by executing the 
+ * "clear" command.
+ */
 void	clear_terminal(char **env)
 {
 	pid_t	pid;
@@ -45,8 +45,11 @@ void	clear_terminal(char **env)
 	}
 }
 
-/*This gets called in every loop.
-Add the line from 'readline' to the command history*/
+/**
+ * The function reads user input, processes it for quotes, expands sequences, 
+ * parses special characters, creates a command table, 
+ * and finds the command to execute.
+ */
 int	read_input(t_shell *data)
 {
 	add_history(data->raw_input);
@@ -62,6 +65,11 @@ int	read_input(t_shell *data)
 	return (0);
 }
 
+/**
+ * The function "check_status" checks the exit status of a shell command 
+ * and returns the appropriate value.
+ * @return the value of `data->exit`.
+ */
 int	check_status(t_shell *data)
 {
 	if (data->exit == COMMAND_NOT_FOUND)
@@ -75,15 +83,32 @@ int	check_status(t_shell *data)
 	return (data->exit);
 }
 
+/**
+ * The function "loop" reads input from the user, processes it, and repeats 
+ * the process until an exit condition is met.
+ * 
+ * @param data The parameter "data" is of type "t_shell", which is a struct
+ *  that contains information and variables related to the shell program.
+ * 
+ * @return an integer value. If the condition `first_read(data) == EXIT` 
+ * is true, then the function will return the value of `EXIT`. Otherwise,
+ * if any of the subsequent conditions are true, the function will return 
+ * the value of `data->exit`. If none of the conditions are true, the function
+ * will return 0.
+ */
+
 int	first_read(t_shell *data)
 {
+	if (initialize_sequences(data) == -1)
+		return (-1);
 	clear_terminal(data->environment);
-	get_prompt(data, 0);
+	if (get_prompt(data, 0) == -1)
+		return (-1);
 	data->raw_input = readline(data->prompt);
 	if (!data->raw_input)
-		return (data->exit);
+		return (myexit(data));
 	if (read_input(data) == -1)
-		return (data->exit);
+		data->exit = FAILURE;
 	data->exit = check_status(data);
 	if (data->exit == EXIT)
 		return (EXIT);
@@ -101,9 +126,17 @@ int	loop(t_shell *data)
 			return (data->exit);
 		data->raw_input = readline(data->prompt);
 		if (!data->raw_input)
-			return (data->exit);
+			return (myexit(data));
+		if (!data->raw_input[0])
+		{
+			wipe(data);
+			continue ;
+		}
 		if (read_input(data) == -1)
-			return (data->exit);
+		{
+			wipe(data);
+			continue ;
+		}
 		if (check_status(data) == EXIT)
 			return (EXIT);
 		wipe(data);

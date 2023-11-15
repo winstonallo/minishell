@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:30:13 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/06 08:17:14 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/09 14:04:49 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/**
+ * The function `pwd` prints the current working directory.
+ * 
+ * @return either SUCCESS or FAILURE.
+ */
 int	pwd(t_shell *data)
 {
 	data->cwd = getcwd(NULL, 0);

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 10:05:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:45:39 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int			main(int argc, char **argv, char **env);
 int			execute_command(t_shell *data);
 int			redirect_input(t_shell *data, int input_fd);
 int			redirect_output(t_shell *data, int output_fd);
+int			set_pipes(t_shell *data, t_cmd_table *head);
 
 /* ******************************************************************** */
 /*								BUILT INS								*/
@@ -33,19 +34,21 @@ int			redirect_output(t_shell *data, int output_fd);
 //built_ins.c
 int			cd(t_shell *data);
 int			pwd(t_shell *data);
-int			echo(t_shell *data);
+int			echo(t_shell *data, int newline);
 int			export(t_shell *data);
+int			myexit(t_shell *data);
+
 //export.c
 int			env(t_shell *data);
-void		get_exit_code(t_shell *data);
-
 //export_utils.c
 int			update_env_list(t_shell *data);
+//export_error.c
+int			export_error(char *arg);
 
-/* ******************************************************************** */
-/*								INITIALIZATION							*/
-/* **********************************************************************/
-//
+	/* ******************************************************************** */
+	/*								INITIALIZATION							*/
+	/* **********************************************************************/
+	//
 int			initialize_lists(t_shell *data);
 int			initialize_sequences(t_shell *data);
 int			initialize_command_table(t_shell *data);
@@ -62,7 +65,8 @@ int			get_prompt(t_shell *data, size_t i);
 int			parse_for_quotes(t_shell *data);
 void		free_quoted_sequences(t_quotes **quoted_sequences);
 int			parse_special_char(t_shell *data);
-char		*expand_dquotes(char *seq, t_shell *data, size_t i, size_t pos);
+int			expand_dquotes(t_quotes *node, t_shell *data, size_t i,
+				size_t pos);
 char		*expand_uquotes(char *sequence, t_shell *data);
 char		*replace(char *str, t_shell *data);
 int			remove_escape(t_shell *data);
@@ -72,6 +76,7 @@ int			get_command_table(t_shell *data);
 int			myisspace(char c);
 int			myisspacealnum(char c);
 int			isquote(char pos, int *status);
+int			lexer(t_shell *data);
 
 /* ******************************************************************** */
 /*								LIST UTILS								*/

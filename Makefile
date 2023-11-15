@@ -16,6 +16,8 @@ BUILT_INS = built_ins/
 
 INIT_DIR = initialize/
 
+LEXER_DIR = lexer/
+
 SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${MAIN_DIR}loop.c \
 \
@@ -39,17 +41,22 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${EXEC_DIR}commands.c \
 		${SRC_DIR}${EXEC_DIR}execute.c \
 		${SRC_DIR}${EXEC_DIR}pipe_utils.c \
+		${SRC_DIR}${EXEC_DIR}pipe.c \
 \
 		${SRC_DIR}${BUILT_INS}export_utils.c \
+		${SRC_DIR}${BUILT_INS}export_error.c \
+		${SRC_DIR}${BUILT_INS}export.c \
 		${SRC_DIR}${BUILT_INS}echo.c \
 		${SRC_DIR}${BUILT_INS}pwd.c \
 		${SRC_DIR}${BUILT_INS}cd.c \
-		${SRC_DIR}${BUILT_INS}export.c \
 		${SRC_DIR}${BUILT_INS}env.c \
+		${SRC_DIR}${BUILT_INS}exit.c \
 \
 		${SRC_DIR}${INIT_DIR}initialize_paths.c \
 		${SRC_DIR}${INIT_DIR}initialize_lists.c \
 		${SRC_DIR}${INIT_DIR}environment.c \
+\
+		${SRC_DIR}${LEXER_DIR}errors.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
@@ -98,4 +105,5 @@ test: all
 
 child_test: all
 	clear; valgrind --trace-children=yes --leak-check=full --track-origins=yes --track-fds=yes --show-reachable=yes --show-leak-kinds=all --error-limit=no --suppressions=./$(NAME).supp ./$(NAME)
+
 .PHONY: all clean fclean re

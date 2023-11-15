@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:36:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/06 10:21:29 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/09 13:57:36 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*Get the current working directory's path, trim off everything that comes
-before the actual name, and use the new string as a prompt to have cwd
-information in prompt*/
-/* put this back before pushing data->prompt = ft_strjoin(temp, "$ ");*/
+/**
+ * The function `get_prompt` retrieves the current working directory 
+ * and sets it as the prompt for the
+ * shell, using the last directory name as the prompt.
+ */
 int	get_prompt(t_shell *data, size_t i)
 {
 	char	*cwd;
@@ -44,6 +45,10 @@ int	get_prompt(t_shell *data, size_t i)
 	return (0);
 }
 
+/**
+ * The function `get_environment` parses an array of strings representing 
+ * environment variables and adds them to a linked list.
+ */
 int	get_environment(t_shell *data, size_t i, size_t j)
 {
 	char	**t;

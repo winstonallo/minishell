@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 10:29:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/12 17:27:54 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/11/09 18:05:19 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/11/09 18:34:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/**
- * The function `cd` changes the current directory in a shell program and 
- * updates the prompt.
- * @return either SUCCESS or FAILURE.
- */
-int	cd(t_shell *data)
+int	set_pipes(t_shell *data, t_cmd_table *head)
 {
-	if ((*data->cmd_table)->args[2])
-		return (ft_putstr_fd("cd: too many arguments\n", 2), FAILURE);
-	if (chdir((*data->cmd_table)->args[1]) == -1)
+	if (pipe(data->pipe_fd) == -1)
+		return (perror("pipe"), -1);
+	if (head->outfile)
+		return (0);
+	else
 	{
-		perror("minishell: cd");
-		return (FAILURE);
+		head->outfile = data->pipe_fd[1];
+		if (!head->next->next->infile)
+			head->next->next->infile = data->pipe_fd[0];
 	}
-	if (get_prompt(data, 0) == -1)
-		return (FAILURE);
-	return (SUCCESS);
+	return (0);
 }

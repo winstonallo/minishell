@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:54:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/31 20:56:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:07:07 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_quotes
 typedef struct s_op
 {
 	char				*sequence;
-	int					special_character;
+	int					s_char;
 	int					status;
 	struct s_op			*next;
 }	t_op;
@@ -44,9 +44,11 @@ typedef struct s_op
 typedef struct s_cmd_table
 {
 	char				**args;
+	char				*path;
 	int					outfile;
 	int					infile;
 	int					pipe;
+	int					index;
 	struct s_cmd_table	*next;
 }	t_cmd_table;
 

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:52:49 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 15:43:26 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/08 21:58:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 # define IN_SINGLE_QUOTES 0x27
 # define UNQUOTED 0x00
 # define PIPE 0x7c 
-# define INPUT_REDIRECTION 0x3c
-# define OUTPUT_REDIRECTION 0x3e
+# define IN_REDIR 0x3c
+# define OUT_REDIR 0x3e
+# define APPEND 0x3e3e
+# define HEREDOC 0x3c3c
 # define SPECIAL_CHAR 999999
 # define NO_FD 0
 

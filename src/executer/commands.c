@@ -6,22 +6,24 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/06 08:26:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/12 18:44:57 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
-Here we look for the commands that we do not execute using execve (the 7
-specified in the subject) and execute them if found, otherwise we pass the 
-command line to the executing part*/
+/**
+ * The function `find_command` checks the first argument of the command table 
+ * and executes the corresponding command or returns an error if
+ * the command is not found.
+ * @return either SUCCESS or FAILURE.
+ */
 int	find_command(t_shell *data)
 {
 	if (ft_strncmp((*data->cmd_table)->args[0], "env", 4) == 0)
 		return (env(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "exit", 5) == 0)
-		return (printf("exit\n"), EXIT);
+		return (myexit(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "export", 6) == 0)
 		return (export(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "cd", 3) == 0)
@@ -29,9 +31,9 @@ int	find_command(t_shell *data)
 	else if (ft_strncmp((*data->cmd_table)->args[0], "pwd", 4) == 0)
 		return (pwd(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "echo", 5) == 0)
-		return (echo(data));
+		return (echo(data, 1));
 	else if (execute_command(data) == 0)
-		return (SUCCESS);
+		return (data->exit);
 	else
 		return (COMMAND_NOT_FOUND);
 	return (FAILURE);
