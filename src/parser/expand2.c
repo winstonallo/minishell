@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_dquotes.c                                   :+:      :+:    :+:   */
+/*   expand2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 14:45:16 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 15:33:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <stddef.h>
 
 /**
  * The function count_words counts the number of words in a given sequence, 
@@ -19,7 +20,7 @@
  * 
  * @return the number of words in the given sequence.
  */
-static size_t	count_words(char *seq)
+size_t	count_words(char *seq)
 {
 	int	i;
 	int	ret;
@@ -95,16 +96,17 @@ static char	*get_next_word(char *seq, size_t *pos)
  * any variables replaced by their corresponding values from the shell
  * data structure.
  */
-char	**fill_array(size_t arr_size, char *seq, size_t *pos, t_shell *data)
+char	**fill_array(size_t *size, char *seq, size_t *pos, t_shell *data)
 {
 	size_t	i;
 	char	**arr;
 
 	i = -1;
-	arr = malloc((arr_size + 1) * sizeof(char *));
+	*size = count_words(seq);
+	arr = malloc((*size + 1) * sizeof(char *));
 	if (!arr)
 		return (NULL);
-	while (++i < arr_size)
+	while (++i < *size)
 	{
 		arr[i] = get_next_word(seq, pos);
 		if (!arr[i])
@@ -116,79 +118,49 @@ char	**fill_array(size_t arr_size, char *seq, size_t *pos, t_shell *data)
 	return (arr);
 }
 
+static char	*idkyet(char *str, char *temp1, char *temp3, size_t i)
+{
+	char	*temp2;
+
+	temp2 = NULL;
+	temp1 = ft_strndup(str, i);
+	if (!temp1)
+		return (NULL);
+	temp2 = ft_strjoin(temp1, temp3);
+	if (!temp2)
+		return (free(temp1), NULL);
+	free(temp3);
+	free(temp1);
+	i += 2;
+	str = ft_strjoin(temp2, &str[i]);
+	if (!str)
+		return (free(temp2), NULL);
+	i -= 2;
+	return (free(temp2), str);
+}
+
 /**
  * The function `expand_exitcode` replaces occurrences of "$?" in a string 
  * with the exit code of the shell.
  * 
  * @return a modified version of the input string `str`.
  */
-static char	*expand_exitcode(char *str, t_shell *data)
+char	*expand_exitcode(char *str, t_shell *data, size_t i)
 {
-	size_t	i;
-	char	*temp;
-	char	*temptemp;
-	char	*temptemptemp;
+	char	*temp1;
+	char	*temp3;
 
-	i = 0;
-	temp = NULL;
-	temptemp = NULL;
+	temp1 = NULL;
 	while (str[i])
 	{
 		if (ft_strnstr(&str[i], "$?", 2))
 		{
-			temp = ft_strndup(str, i);
-			if (!temp)
+			temp3 = ft_itoa(data->exit);
+			if (!temp3)
 				return (NULL);
-			temptemptemp = ft_itoa(data->exit);
-			if (!temptemptemp)
-				return (NULL);
-			temptemp = ft_strjoin(temp, temptemptemp);
-			if (!temptemp)
-				return (free(temp), NULL);
-			free(temptemptemp);
-			free(temp);
-			i += 2;
-			str = ft_strjoin(temptemp, &str[i]);
-			if (!str)
-				return (free(temptemp), NULL);
-			i -= 2;
+			str = idkyet(str, temp1, temp3, i);
 		}
 		i++;
 	}
-	return (free(temptemp), str);
-}
-
-/**
- * The function "expand_dquotes" expands double quotes in a given sequence 
- * by replacing variables and command substitutions.
- * 
- * @param node A pointer to a node of the list of quote-type separated 
- * sequences.
- */
-int	expand_dquotes(t_quotes *node, t_shell *data, size_t i, size_t pos)
-{
-	size_t	size;
-	char	**arr;
-
-	size = count_words(node->sequence);
-	arr = fill_array(size, node->sequence, &pos, data);
-	if (!arr)
-		return (-1);
-	while (++i < size)
-	{
-		if (!data->temp)
-			data->temp = ft_strndup(arr[i], ft_strlen(arr[i]));
-		else
-			data->temp = ft_strjoin(node->sequence, arr[i]);
-		if (!data->temp)
-		{
-			free_array(arr);
-			return (-1);
-		}
-		free(node->sequence);
-		data->temp = expand_exitcode(data->temp, data);
-		node->sequence = data->temp;
-	}
-	data->temp = NULL;
-	return (free_array_arrsize(arr, size), 0);
+	return (str);
 }

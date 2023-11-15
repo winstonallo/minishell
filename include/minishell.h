@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 14:45:39 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 15:31:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void		free_quoted_sequences(t_quotes **quoted_sequences);
 int			parse_special_char(t_shell *data);
 int			expand_dquotes(t_quotes *node, t_shell *data, size_t i,
 				size_t pos);
-char		*expand_uquotes(char *sequence, t_shell *data);
+char		**fill_array(size_t *size, char *seq, size_t *pos, t_shell *data);
+size_t		count_words(char *seq);
+char		*expand_exitcode(char *str, t_shell *data, size_t i);
+
 char		*replace(char *str, t_shell *data);
 int			remove_escape(t_shell *data);
 int			get_command_table(t_shell *data);
@@ -110,7 +113,7 @@ void		envadd_back(t_env **lst, t_env *new_node);
 /*Input reading*/
 int			loop(t_shell *data);
 int			find_command(t_shell *data);
-int			expand_sequences(t_shell *data);
+int			expand(t_shell *data);
 
 /*Testing utils*/
 void		print_quote_list(t_quotes **sequences);

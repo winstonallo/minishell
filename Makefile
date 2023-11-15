@@ -23,10 +23,9 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 \
 		${SRC_DIR}${PARSER_DIR}parse_quotes.c \
 		${SRC_DIR}${PARSER_DIR}parse_special_characters.c \
-		${SRC_DIR}${PARSER_DIR}expand_dquotes.c \
+		${SRC_DIR}${PARSER_DIR}expand2.c \
 		${SRC_DIR}${PARSER_DIR}expand.c \
 		${SRC_DIR}${PARSER_DIR}get_command_table.c \
-		${SRC_DIR}${PARSER_DIR}expand_uquotes.c \
 \
 		${SRC_DIR}${UTILS_DIR}list_utils_quote_parsing.c \
 		${SRC_DIR}${UTILS_DIR}list_utils_special_char.c \

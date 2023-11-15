@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 14:35:33 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:51:37 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static int	get_array_size(t_op *data)
 	}
 	return (i);
 }
+
 /**
  * The function "get_command_array" takes a linked list of commands and 
  * returns an array of strings containing the commands.

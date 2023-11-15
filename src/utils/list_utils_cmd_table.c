@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:51:30 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 14:33:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:51:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,7 @@ t_cmd_table	*cmdnew(int outfile, int infile, int pepi)
 		return (NULL);
 	new->args = NULL;
 	new->outfile = outfile;
-	// if (new->outfile == -1)
-	// 	return (NULL);
 	new->infile = infile;
-	// if (new->infile == -1)
-	// 	return (close(new->outfile), NULL);
 	new->pipe = pepi;
 	new->next = NULL;
 	return (new);

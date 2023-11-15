@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/13 16:10:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 15:39:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int	execute_command(t_shell *data)
 			head = head->next;
 	}
 	if (child2(head, data) == -1)
-		return (-1);
+		return (close(stdin_fd), -1);
 	dup2(stdin_fd, 0);
 	close(stdin_fd);
 	return (0);
