@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/16 15:30:58 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:16:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 
 	head->path = find_path(data, head->args[0]);
 	if (!head->path)
-		return (-1);
+		return (is_builtin(data, head->path, stdin_fd, NULL), -1);
 	pid = fork();
 	if (!pid)
 	{
@@ -32,7 +32,9 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 		ft_putstr_fd(data->command_path, 2);
 		perror(": failed to execute command");
 		wipe(data);
-		exit (1);
+		if (!data->exit)
+			data->exit = 1;
+		exit (data->exit);
 	}
 	waitpid(pid, &status, 0);
 	free(head->path);

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/16 15:22:54 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:11:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	is_builtin(t_shell *data, char *path, int stdin_fd, int *pipe_fd)
 {
-	if (find_command(data) == 0)
+	data->exit = find_command(data);
+	if (data->exit == SUCCESS)
 	{
 		close(stdin_fd);
 		if (pipe_fd)

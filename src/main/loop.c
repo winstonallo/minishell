@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/16 15:55:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:21:07 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,20 @@ void	clear_terminal(char **env)
 	}
 }
 
+int	checkcmd(t_shell *data)
+{
+	if (!data->cmd_table || !*data->cmd_table || !(*data->cmd_table)->args
+	|| !(*data->cmd_table)->args[0])
+		return (SUCCESS);
+	if (ft_strncmp((*data->cmd_table)->args[0], "exit", 5) == 0)
+		return (myexit(data));
+	else if (ft_strncmp((*data->cmd_table)->args[0], "export", 6) == 0)
+		return (export(data));
+	else if (ft_strncmp((*data->cmd_table)->args[0], "cd", 3) == 0)
+		return (cd(data));
+	return (COMMAND_NOT_FOUND);
+}
+
 /**
  * The function reads user input, processes it for quotes, expands sequences, 
  * parses special characters, creates a command table, 
@@ -61,12 +75,8 @@ int	read_input(t_shell *data)
 		return (-1);
 	if (get_command_table(data) == -1)
 		return (-1);
-	if (ft_strncmp((*data->cmd_table)->args[0], "exit", 5) == 0)
-		return (myexit(data));
-	else if (ft_strncmp((*data->cmd_table)->args[0], "export", 6) == 0)
-		return (export(data));
-	else if (ft_strncmp((*data->cmd_table)->args[0], "cd", 3) == 0)
-		return (cd(data));
+	if (checkcmd(data) != COMMAND_NOT_FOUND)
+		return (SUCCESS);
 	execute_command(data);
 	return (0);
 }
