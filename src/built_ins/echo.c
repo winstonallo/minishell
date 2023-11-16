@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/16 15:42:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/16 18:21:33 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ int	do_echo(t_op **head, int skipped)
 			skipped = 1;
 		}
 		if ((*head)->next->next)
-		{
 			*head = (*head)->next->next;
-			skipped = 1;
-		}
-		else
+		else if (!(*head)->next)
 			return (BREAK);
 	}
 	if ((*head)->sequence)
