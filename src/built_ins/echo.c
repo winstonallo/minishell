@@ -6,28 +6,38 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/16 15:18:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:42:56 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	do_echo(t_op **head)
+int	do_echo(t_op **head, int skipped)
 {
 	if ((*head)->s_char == PIPE)
-		return (PIPE);
+		return (BREAK);
 	if ((*head)->s_char && (*head)->next)
 	{
+		if ((*head)->next->s_char)
+		{
+			*head = (*head)->next->next->next;
+			skipped = 1;
+		}
 		if ((*head)->next->next)
+		{
 			*head = (*head)->next->next;
+			skipped = 1;
+		}
 		else
-			return (0);
+			return (BREAK);
 	}
 	if ((*head)->sequence)
 		printf("%s", (*head)->sequence);
 	if ((*head)->status == UNQUOTED && (*head)->next && (*head)->next->status
 		== UNQUOTED)
 		printf(" ");
+	if (!skipped)
+		*head = (*head)->next;
 	return (0);
 }
 
@@ -51,9 +61,8 @@ int	echo(t_shell *data, int newline)
 	}
 	while (head)
 	{
-		if (do_echo(&head) == PIPE)
+		if (do_echo(&head, 0) == BREAK)
 			break ;
-		head = head->next;
 	}
 	if (newline)
 		printf("\n");

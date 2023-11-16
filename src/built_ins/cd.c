@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:29:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/12 17:27:54 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:57:34 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@
 int	cd(t_shell *data)
 {
 	if ((*data->cmd_table)->args[2])
+	{
+		data->exit = FAILURE;
 		return (ft_putstr_fd("cd: too many arguments\n", 2), FAILURE);
+	}
 	if (chdir((*data->cmd_table)->args[1]) == -1)
 	{
 		perror("minishell: cd");
+		data->exit = FAILURE;
 		return (FAILURE);
 	}
 	if (get_prompt(data, 0) == -1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 17:32:48 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/09 14:12:15 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/16 15:51:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ int	ft_issign(char *arg)
 int	export_error(char *arg)
 {
 	if ((ft_strchr(arg, '=') != NULL) && arg[2] == '\0')
-		return (ft_putstr_fd(" not a valid identifier", 2), 1);
+		return (ft_putendl_fd(" not a valid identifier", 2), 1);
 	else if (ft_strnstr(arg, "-=", ft_strlen(arg)) != 0)
-		return (ft_putstr_fd(" not a valid identifier", 2), 1);
+		return (ft_putendl_fd(" not a valid identifier", 2), 1);
 	else if (ft_strchr(arg, '=') == NULL)
 	{
 		if (ft_issign(arg) != 0)
-			return (ft_putstr_fd(" not a valid identifier", 2), 1);
+			return (ft_putendl_fd(" not a valid identifier", 2), 1);
 		if ((ft_isdigit(arg[1])))
-			return (ft_putstr_fd(" not a valid identifier", 2), 1);
+			return (ft_putendl_fd(" not a valid identifier", 2), 1);
 		return (2);
 	}
 	return (0);

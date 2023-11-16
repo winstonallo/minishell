@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 21:29:54 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:55:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@ int	find_command(t_shell *data)
 		return (0);
 	if (ft_strncmp((*data->cmd_table)->args[0], "env", 4) == 0)
 		return (env(data));
-	else if (ft_strncmp((*data->cmd_table)->args[0], "export", 6) == 0)
-		return (export(data));
-	else if (ft_strncmp((*data->cmd_table)->args[0], "cd", 3) == 0)
-		return (cd(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "pwd", 4) == 0)
 		return (pwd(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "echo", 5) == 0)
