@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:36:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 18:55:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:42:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ int	get_prompt(t_shell *data, size_t i)
 	{
 		if (cwd[i] == '/')
 		{
-			temp = ft_strdup(&cwd[i + 1]);
+			temp = ft_strjoin(BOLD, &cwd[i + 1]);
 			if (!temp)
 				return (-1);
-			data->prompt = ft_strjoin(temp, " x ");
+			data->prompt = ft_strjoin(temp, " ✗ \e[0m");
 			if (!data->prompt)
 				return (-1);
 			return (free(cwd), free(temp), 0);
