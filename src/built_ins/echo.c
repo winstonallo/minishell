@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/10 14:48:31 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:56:13 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ int	echo(t_shell *data, int newline)
 	}
 	while (head)
 	{
+		if (head->s_char == PIPE)
+			break ;
+		if (head->s_char && head->next)
+		{
+			if (head->next->next)
+				head = head->next->next;
+			else
+			 	break ;
+		}	
 		if (head->sequence)
 			printf("%s", head->sequence);
 		if (head->status == UNQUOTED && head->next && head->next->status

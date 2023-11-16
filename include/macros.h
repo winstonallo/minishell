@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:52:49 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 21:58:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:39:57 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,14 @@
 # define NOT_EXECUTABLE 126
 # define COMMAND_NOT_FOUND 127
 # define CTRL_C 130
+
+
+# define GREEN		"\e[92;5;118m"
+# define RED 		"\e[91m"
+# define YELLOW 	"\e[93;5;226m"
+# define GRAY		"\e[33;2;37m"
+# define RESET 		"\e[0m"
+# define CURSIVE 	"\e[33;3m"
+# define BOLD 		"\e[1m"
 
 #endif

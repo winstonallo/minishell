@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 21:30:20 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:58:46 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,13 @@ char	*find_path(t_shell *data, char *command)
 	return (NULL);
 }
 
-int	is_builtin(t_shell *data, char *path, int stdin_fd)
+int	is_builtin(t_shell *data, char *path, int stdin_fd, int *pipe_fd)
 {
 	if (find_command(data) == 0)
 	{
 		close(stdin_fd);
+		if (pipe_fd)
+			close(pipe_fd[1]);
 		if (path)
 			free(path);
 		wipe4real(data);
@@ -77,7 +79,7 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 			dup2(head->outfile, 1);
 		if (head->infile != NO_FD)
 			dup2(head->infile, 0);
-		is_builtin(data, head->path, stdin_fd);
+		is_builtin(data, head->path, stdin_fd, NULL);
 		execve(head->path, head->args, data->environment);
 		ft_putstr_fd(data->command_path, 2);
 		perror(": failed to execute command");
@@ -111,7 +113,7 @@ void	child1(t_cmd_table *head, t_shell *data, int stdin_fd)
 		if (head->infile != NO_FD)
 			dup2(head->infile, 0);
 		dup2(pipe_fd[1], 1);
-		is_builtin(data, head->path, stdin_fd);
+		is_builtin(data, head->path, stdin_fd, pipe_fd);
 		execve(head->path, head->args, data->environment);
 		close(pipe_fd[1]);
 		ft_putstr_fd(data->command_path, 2);
