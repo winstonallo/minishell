@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:49:20 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 21:23:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:02:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static char	*get_arg(char **args, t_shell *data, int j, int sign)
 	if (!sign && args[2])
 	{
 		data->validexit = 0;
+		data->exit = 1;
 		return (ft_putstr_fd("minishell: exit: too many arguments\n", 2), NULL);
 	}
 	else if (sign && args[2])
