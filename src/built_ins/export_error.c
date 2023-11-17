@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 17:32:48 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/16 15:51:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/17 10:37:54 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_issign(char *arg)
  * @return The function `export_error` returns different values based on 
  * certain conditions
  */
-int	export_error(char *arg)
+int	export_error(char *arg, int argname)
 {
 	if ((ft_strchr(arg, '=') != NULL) && arg[2] == '\0')
 		return (ft_putendl_fd(" not a valid identifier", 2), 1);
@@ -47,9 +47,9 @@ int	export_error(char *arg)
 		return (ft_putendl_fd(" not a valid identifier", 2), 1);
 	else if (ft_strchr(arg, '=') == NULL)
 	{
-		if (ft_issign(arg) != 0)
+		if (ft_issign(arg) != 0 && argname)
 			return (ft_putendl_fd(" not a valid identifier", 2), 1);
-		if ((ft_isdigit(arg[1])))
+		if ((ft_isdigit(arg[0])) && argname)
 			return (ft_putendl_fd(" not a valid identifier", 2), 1);
 		return (2);
 	}

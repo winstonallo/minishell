@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/17 09:26:35 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/17 10:38:46 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			env(t_shell *data);
 //export_utils.c
 int			update_env_list(t_shell *data);
 //export_error.c
-int			export_error(char *arg);
+int			export_error(char *arg, int argname);
 
 	/* ******************************************************************** */
 	/*								INITIALIZATION							*/

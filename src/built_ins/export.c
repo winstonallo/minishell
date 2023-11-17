@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:52:25 by arthur            #+#    #+#             */
-/*   Updated: 2023/11/16 15:52:54 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/17 10:38:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 // 	env(data);
 // 	return (0);
 // }
-
 /**
  * The function "export" is used to update the environment list with the 
  * given arguments and returns a success or failure status.
@@ -29,19 +28,22 @@ int	export(t_shell *data)
 {
 	int		i;
 	char	**arg;
+	int		argname;
 
 	i = 1;
 	arg = (*data->cmd_table)->args;
 	// if (arg[i] == NULL)
 	// 	print_env_sorted(data);
+	argname = 1;
 	while (arg[i])
 	{
-		if (export_error(arg[i]) == 1)
+		if (export_error(arg[i], argname) == 1)
 			return (data->exit = FAILURE);
-		else if (export_error(arg[i]) == 2)
+		else if (export_error(arg[i], argname) == 2)
 			return (data->exit = SUCCESS);
 		else if (update_env_list(data) != 0)
 			return (data->exit = FAILURE);
+		argname = 0;
 		i++;
 	}
 	return (SUCCESS);
