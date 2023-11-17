@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/17 13:36:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:04:37 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <asm-generic/errno-base.h>
-#include <dirent.h>
-#include <unistd.h>
+
 
 static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
 {
