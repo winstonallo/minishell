@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/16 16:21:07 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:37:25 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	clear_terminal(char **env)
 int	checkcmd(t_shell *data)
 {
 	if (!data->cmd_table || !*data->cmd_table || !(*data->cmd_table)->args
-	|| !(*data->cmd_table)->args[0])
+		|| !(*data->cmd_table)->args[0])
 		return (SUCCESS);
 	if (ft_strncmp((*data->cmd_table)->args[0], "exit", 5) == 0)
 		return (myexit(data));
