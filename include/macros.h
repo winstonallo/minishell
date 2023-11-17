@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:52:49 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/16 15:28:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/17 13:04:46 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define COMMAND_NOT_FOUND 127
 # define CTRL_C 130
 # define BREAK 404
+# define MALLOC_ERROR 1234
 
 # define GREEN		"\e[92;5;118m"
 # define RED 		"\e[91m"

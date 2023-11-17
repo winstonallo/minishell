@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/17 12:17:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/17 13:33:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_builtin(t_shell *data, char *path, int stdin_fd, int *pipe_fd)
 		wipe4real(data);
 		exit(data->exit);
 	}
-	return (0);
+	return (data->exit);
 }
 
 /**
@@ -52,7 +52,7 @@ char	*find_path(t_shell *data, char *command)
 	{
 		temp = ft_strjoin(head->path, command);
 		if (!temp)
-			return (NULL);
+			return (data->validpath = MALLOC_ERROR, NULL);
 		if (access(temp, X_OK) == 0)
 			return (data->validpath = 1, free(command), temp);
 		free(temp);

@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/17 12:27:07 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/17 13:36:50 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <asm-generic/errno-base.h>
 #include <dirent.h>
 #include <unistd.h>
 
@@ -30,15 +31,19 @@ static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
 		wipe4real(data);
 		exit(data->exit);
 	}
-	else if (head->path && access(head->path, X_OK) == -1)
+	else if (!data->validpath && access(head->args[0], X_OK) == -1)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(head->args[0]);
-		data->exit = 126;
-		closedir(check);
-		close(stdin_fd);
-		wipe4real(data);
-		exit(data->exit);		
+		if (errno == EACCES)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			perror(head->args[0]);
+			data->exit = 126;
+			closedir(check);
+			close(stdin_fd);
+			wipe4real(data);
+			exit(data->exit);		
+		}
+		is_builtin(data, head->path, stdin_fd, NULL);
 	}
 }
 
@@ -48,18 +53,18 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 	int		status;
 
 	head->path = find_path(data, head->args[0]);
-	if (!head->path)
-		return (is_builtin(data, head->path, stdin_fd, NULL), -1);
+	if (data->validpath == MALLOC_ERROR)
+		return (-1);
 	pid = fork();
 	if (!pid)
 	{
 		if (set_redirections(data, head) == -1)
 			exit (1);
-		is_builtin(data, head->path, stdin_fd, NULL);
 		check_permission(data, head, stdin_fd);
 		execve(head->path, head->args, data->environment);
 		ft_putstr_fd(head->args[0], 2);
-		perror(": failed to execute command");
+		if (!data->exit)
+			perror(": failed to execute command");
 		close(stdin_fd);
 		wipe4real(data);
 		if (!data->exit)

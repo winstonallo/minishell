@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:30:13 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 14:04:49 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/17 13:33:57 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	pwd(t_shell *data)
 {
 	data->cwd = getcwd(NULL, 0);
 	if (!data->cwd)
-		return (FAILURE);
+		exit(FAILURE);
 	printf("%s\n", data->cwd);
-	return (SUCCESS);
+	exit(SUCCESS);
 }

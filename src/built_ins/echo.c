@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/16 18:21:33 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/17 13:34:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,5 @@ int	echo(t_shell *data, int newline)
 	}
 	if (newline)
 		printf("\n");
-	return (SUCCESS);
+	exit(SUCCESS);
 }
