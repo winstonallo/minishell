@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:49:20 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/16 16:02:10 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:53:50 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	gtfo(t_shell *data, int status, char *arg)
 		free(arg);
 	data->exit = status;
 	wipe4real(data);
-	printf("exit\n");
+	// printf("exit\n");
 	exit (data->exit);
 }
 
@@ -75,7 +75,7 @@ int	myexit(t_shell *data)
 	arg = get_arg((*data->cmd_table)->args, data, -1, 0);
 	if (!arg && data->validexit)
 	{
-		printf("exit\n");
+		//printf("exit\n");
 		wipe4real(data);
 		exit(SUCCESS);
 	}
@@ -87,6 +87,6 @@ int	myexit(t_shell *data)
 		gtfo(data, ft_atoi(arg) % 256, arg);
 	}
 	wipe4real(data);
-	printf("exit\n");
+	//printf("exit\n");
 	exit(SUCCESS);
 }
