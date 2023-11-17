@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:52:25 by arthur            #+#    #+#             */
-/*   Updated: 2023/11/17 10:38:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:36:50 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int	export(t_shell *data)
 
 	i = 1;
 	arg = (*data->cmd_table)->args;
-	// if (arg[i] == NULL)
-	// 	print_env_sorted(data);
 	argname = 1;
 	while (arg[i])
 	{

@@ -6,12 +6,11 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/17 16:17:08 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/17 16:37:15 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 static void	exit_handler(t_shell *data, int stdin_fd, DIR *check, int code)
 {
@@ -22,7 +21,6 @@ static void	exit_handler(t_shell *data, int stdin_fd, DIR *check, int code)
 		closedir(check);
 	exit(data->exit);
 }
-
 
 static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
 {
@@ -97,8 +95,6 @@ void	child1(t_cmd_table *head, t_shell *data, int stdin_fd)
 			dup2(head->outfile, 1);
 		else
 			dup2(pipe_fd[1], 1);
-		if (head->infile != NO_FD)
-			dup2(head->infile, 0);
 		is_builtin(data, head->path, stdin_fd, pipe_fd);
 		execve(head->path, head->args, data->environment);
 		close(pipe_fd[1]);
