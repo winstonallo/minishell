@@ -3,14 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/17 09:27:07 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/17 12:27:07 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <dirent.h>
+#include <unistd.h>
+
+static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
+{
+	DIR		*check;
+
+	check = opendir(head->args[0]);
+	if (check)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(head->args[0], 2);
+		ft_putstr_fd(": is a directory\n", 2);
+		data->exit = 126;
+		closedir(check);
+		close(stdin_fd);
+		wipe4real(data);
+		exit(data->exit);
+	}
+	else if (head->path && access(head->path, X_OK) == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(head->args[0]);
+		data->exit = 126;
+		closedir(check);
+		close(stdin_fd);
+		wipe4real(data);
+		exit(data->exit);		
+	}
+}
 
 static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 {
@@ -26,16 +56,17 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 		if (set_redirections(data, head) == -1)
 			exit (1);
 		is_builtin(data, head->path, stdin_fd, NULL);
+		check_permission(data, head, stdin_fd);
 		execve(head->path, head->args, data->environment);
-		ft_putstr_fd(data->command_path, 2);
+		ft_putstr_fd(head->args[0], 2);
 		perror(": failed to execute command");
-		wipe(data);
+		close(stdin_fd);
+		wipe4real(data);
 		if (!data->exit)
 			data->exit = 1;
 		exit (data->exit);
 	}
 	waitpid(pid, &status, 0);
-	free(head->path);
 	data->exit = WEXITSTATUS(status);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/17 10:38:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/17 12:17:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ char	*find_path(t_shell *data, char *command)
 	char	*temp;
 
 	head = *data->paths;
+	data->validpath = 0;
 	if (access(command, X_OK) == 0)
-		return (command);
+		return (data->validpath = 1, command);
 	command = ft_strjoin("/", command);
 	if (!command)
 		return (NULL);
@@ -53,11 +54,12 @@ char	*find_path(t_shell *data, char *command)
 		if (!temp)
 			return (NULL);
 		if (access(temp, X_OK) == 0)
-			return (free(command), temp);
+			return (data->validpath = 1, free(command), temp);
 		free(temp);
 		head = head->next;
 	}
 	free(command);
+	data->validpath = 0;
 	return (NULL);
 }
 

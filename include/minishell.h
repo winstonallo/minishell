@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/17 10:38:46 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/17 11:26:08 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "macros.h"
 # include "structs.h"
 # include <stddef.h>
+# include <dirent.h>
 
 int			main(int argc, char **argv, char **env);
 
