@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/16 15:22:46 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/17 09:26:35 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int			count_pipes(t_shell *data);
 char		*find_path(t_shell *data, char *command);
 int			execute_command(t_shell *data);
 int			is_builtin(t_shell *data, char *path, int stdin_fd, int *pipe_fd);
-int			redirect_input(t_shell *data, int input_fd);
-int			redirect_output(t_shell *data, int output_fd);
+int			set_redirections(t_shell *data, t_cmd_table *head);
 int			set_pipes(t_shell *data, t_cmd_table *head);
 
 /* ******************************************************************** */

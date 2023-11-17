@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 13:52:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 14:01:58 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/17 09:26:29 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param input_fd The `input_fd` parameter is the file descriptor of the input
  * file that we want to redirect to the standard input (stdin) of the shell.
  */
-int	redirect_input(t_shell *data, int input_fd)
+static int	redirect_input(t_shell *data, int input_fd)
 {
 	if (dup2(input_fd, STDIN_FILENO) == -1)
 		return (perror("output redirection failed"), -1);
@@ -35,9 +35,20 @@ int	redirect_input(t_shell *data, int input_fd)
  * 
  * @return the value of `data->exit`.
  */
-int	redirect_output(t_shell *data, int output_fd)
+static int	redirect_output(t_shell *data, int output_fd)
 {
 	if (dup2(output_fd, STDOUT_FILENO) == -1)
 		return (perror("output redirection failed"), -1);
 	return (data->exit);
+}
+
+int	set_redirections(t_shell *data, t_cmd_table *head)
+{
+	if (head->infile != NO_FD)
+		if (redirect_input(data, head->infile) == -1)
+			return (-1);
+	if (head->outfile != NO_FD)
+		if (redirect_output(data, head->outfile) == -1)
+			return (-1);
+	return (0);
 }

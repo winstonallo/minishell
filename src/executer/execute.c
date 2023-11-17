@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/16 16:16:29 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/17 09:27:07 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 	pid = fork();
 	if (!pid)
 	{
-		if (head->outfile != NO_FD)
-			dup2(head->outfile, 1);
-		if (head->infile != NO_FD)
-			dup2(head->infile, 0);
+		if (set_redirections(data, head) == -1)
+			exit (1);
 		is_builtin(data, head->path, stdin_fd, NULL);
 		execve(head->path, head->args, data->environment);
 		ft_putstr_fd(data->command_path, 2);
