@@ -6,58 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/16 16:21:07 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/18 15:38:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-/**
- * The function "clear_terminal" clears the terminal screen by executing the 
- * "clear" command.
- */
-void	clear_terminal(char **env)
-{
-	pid_t	pid;
-	char	*args[2];
-
-	args[0] = malloc(strlen("clear") + 1);
-	if (!args[0])
-	{
-		perror("minishell: unable to clear the terminal history");
-		return ;
-	}
-	ft_strlcpy(args[0], "clear", 5);
-	args[1] = NULL;
-	pid = fork();
-	if (pid == -1)
-		perror("fork");
-	if (pid == 0)
-	{
-		execve("/usr/bin/clear", args, env);
-		perror("minishell: unable to clear the terminal history");
-		exit(FAILURE);
-	}
-	else
-	{
-		waitpid(0, NULL, 0);
-		free(args[0]);
-	}
-}
-
-int	checkcmd(t_shell *data)
-{
-	if (!data->cmd_table || !*data->cmd_table || !(*data->cmd_table)->args
-	|| !(*data->cmd_table)->args[0])
-		return (SUCCESS);
-	if (ft_strncmp((*data->cmd_table)->args[0], "exit", 5) == 0)
-		return (myexit(data));
-	else if (ft_strncmp((*data->cmd_table)->args[0], "export", 6) == 0)
-		return (export(data));
-	else if (ft_strncmp((*data->cmd_table)->args[0], "cd", 3) == 0)
-		return (cd(data));
-	return (COMMAND_NOT_FOUND);
-}
 
 /**
  * The function reads user input, processes it for quotes, expands sequences, 

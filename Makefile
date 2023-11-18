@@ -20,6 +20,7 @@ LEXER_DIR = lexer/
 
 SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${MAIN_DIR}loop.c \
+		${SRC_DIR}${MAIN_DIR}signals.c \
 \
 		${SRC_DIR}${PARSER_DIR}parse_quotes.c \
 		${SRC_DIR}${PARSER_DIR}parse_special_characters.c \

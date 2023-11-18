@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/17 13:28:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/18 15:26:20 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,17 @@
 # include <stddef.h>
 # include <errno.h>	
 # include <dirent.h>
+# include <signal.h>
 
 int			main(int argc, char **argv, char **env);
+void		sigint(int signo);
+void		listen(void);
 
 /*Command execution*/
 int			count_pipes(t_shell *data);
 char		*find_path(t_shell *data, char *command);
 int			execute_command(t_shell *data);
+int			checkcmd(t_shell *data);
 int			is_builtin(t_shell *data, char *path, int stdin_fd, int *pipe_fd);
 int			set_redirections(t_shell *data, t_cmd_table *head);
 int			set_pipes(t_shell *data, t_cmd_table *head);
