@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/17 13:34:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/18 18:44:57 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	echo(t_shell *data, int newline)
 		newline = 0;
 		head = head->next;
 	}
+	if (head->next && ft_strncmp(head->sequence, " ", 1) == 0)
+		head = head->next;
 	while (head)
 	{
 		if (do_echo(&head, 0) == BREAK)

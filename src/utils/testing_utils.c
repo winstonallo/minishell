@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:16:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 15:49:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/18 18:40:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	print_quote_list(t_quotes **sequences)
 	t_quotes	*head;
 
 	head = *sequences;
+	printf("QUOTE LIST:\n");
 	while (head != NULL)
 	{
 		if (head->status == IN_DOUBLE_QUOTES)
@@ -63,6 +64,7 @@ void	print_cmd_tables(t_cmd_table **cmd_tables)
 	int			i;
 
 	i = 0;
+	printf("COMMAND TABLES:\n");
 	head = *cmd_tables;
 	while (head)
 	{
@@ -70,7 +72,7 @@ void	print_cmd_tables(t_cmd_table **cmd_tables)
 		{
 			i = -1;
 			while (head->args[++i])
-				printf("head->args[%d]: %s\n", i, head->args[i]);
+				printf("head->args[%d]: [%s]\n", i, head->args[i]);
 			if (head->infile != NO_FD)
 				printf("\nINFILE FD = %d\n", head->infile);
 			if (head->outfile != NO_FD)

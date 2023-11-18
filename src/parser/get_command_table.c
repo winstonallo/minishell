@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/15 14:51:37 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/18 18:41:34 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ char	**get_command_array(t_op *data, int j)
 			data = data->next->next;
 			continue ;
 		}
-		if (data->sequence && data->sequence[0])
+		if (data->sequence)
 			arr[++j] = ft_strdup(data->sequence);
+		else if (data->sequence && !data->sequence[0])
+			arr[++j] = ft_strdup("");
 		if (!arr[j])
 			return (free_array(arr), NULL);
 		data = data->next;

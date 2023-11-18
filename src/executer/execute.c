@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/18 15:43:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/18 20:19:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 		if (set_redirections(data, head) == -1)
 			exit (1);
 		check_permission(data, head, stdin_fd);
+		merge_args(head);
+		is_builtin(data, head->path, stdin_fd, NULL);
 		if (head->path)
 			execve(head->path, head->args, data->environment);
 		ft_putstr_fd(head->args[0], 2);
