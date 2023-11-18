@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/18 15:26:20 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/18 21:33:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int			checkcmd(t_shell *data);
 int			is_builtin(t_shell *data, char *path, int stdin_fd, int *pipe_fd);
 int			set_redirections(t_shell *data, t_cmd_table *head);
 int			set_pipes(t_shell *data, t_cmd_table *head);
+int			merge_args(t_cmd_table *cmd_table, int i);
 
 /* ******************************************************************** */
 /*								BUILT INS								*/
