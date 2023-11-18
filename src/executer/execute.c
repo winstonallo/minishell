@@ -6,11 +6,22 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/18 15:39:37 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/18 15:43:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static void	exit_handler(t_shell *data, int stdin_fd, DIR *check, int code)
+{
+	if (code)
+		data->exit = code;
+	close(stdin_fd);
+	wipe4real(data);
+	if (check)
+		closedir(check);
+	exit(data->exit);
+}
 
 static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
 {
@@ -22,11 +33,7 @@ static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(head->args[0], 2);
 		ft_putstr_fd(": is a directory\n", 2);
-		data->exit = 126;
-		closedir(check);
-		close(stdin_fd);
-		wipe4real(data);
-		exit(data->exit);
+		exit_handler(data, stdin_fd, check, 126);
 	}
 	else if (!data->validpath && access(head->args[0], X_OK) == -1)
 	{
@@ -34,11 +41,7 @@ static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
 		{
 			ft_putstr_fd("minishell: ", 2);
 			perror(head->args[0]);
-			data->exit = 126;
-			closedir(check);
-			close(stdin_fd);
-			wipe4real(data);
-			exit(data->exit);
+			exit_handler(data, stdin_fd, check, 126);
 		}
 		is_builtin(data, head->path, stdin_fd, NULL);
 	}
@@ -63,11 +66,9 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 		ft_putstr_fd(head->args[0], 2);
 		if (!data->exit)
 			perror(": failed to execute command");
-		close(stdin_fd);
-		wipe4real(data);
 		if (!data->exit)
 			data->exit = 1;
-		exit (data->exit);
+		exit_handler(data, stdin_fd, NULL, 0);
 	}
 	waitpid(pid, &status, 0);
 	data->exit = WEXITSTATUS(status);
@@ -94,8 +95,6 @@ void	child1(t_cmd_table *head, t_shell *data, int stdin_fd)
 			dup2(head->outfile, 1);
 		else
 			dup2(pipe_fd[1], 1);
-		if (head->infile != NO_FD)
-			dup2(head->infile, 0);
 		is_builtin(data, head->path, stdin_fd, pipe_fd);
 		execve(head->path, head->args, data->environment);
 		close(pipe_fd[1]);
