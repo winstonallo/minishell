@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/18 17:37:25 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/20 18:00:14 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <unistd.h>
 
 int	is_builtin(t_shell *data, char *path, int stdin_fd, int *pipe_fd)
 {
@@ -43,7 +44,7 @@ char	*find_path(t_shell *data, char *command)
 
 	head = *data->paths;
 	data->validpath = 0;
-	if (access(command, X_OK) == 0)
+	if (access(command, X_OK | R_OK) == 0)
 		return (data->validpath = 1, ft_strdup(command));
 	command = ft_strjoin("/", command);
 	if (!command)
@@ -53,7 +54,7 @@ char	*find_path(t_shell *data, char *command)
 		temp = ft_strjoin(head->path, command);
 		if (!temp)
 			return (data->validpath = MALLOC_ERROR, NULL);
-		if (access(temp, X_OK) == 0)
+		if (access(temp, X_OK | R_OK) == 0)
 			return (data->validpath = 1, free(command), temp);
 		free(temp);
 		head = head->next;
