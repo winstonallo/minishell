@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:18:44 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/10 14:46:32 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/20 21:47:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@ t_quotes	*quotenew(char *content, int status, unsigned long len)
 	new = malloc(sizeof(*new));
 	if (!new)
 		return (NULL);
-	new->sequence = ft_strndup(content, len);
-	if (!new->sequence)
-		return (free(new), NULL);
+	if (content)
+	{
+		new->sequence = ft_strndup(content, len);
+		if (!new->sequence)
+			return (free(new), NULL);
+	}	
+	else
+	 	new->sequence = NULL;
 	new->status = status;
 	new->next = NULL;
 	return (new);

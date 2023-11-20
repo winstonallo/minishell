@@ -6,11 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/10 14:47:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/20 23:15:14 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <readline/chardefs.h>
+#include <stddef.h>
 
 /**
  * The function `dquotes` adds a new quote sequence to the shell data structure
@@ -135,32 +137,122 @@ static int	uquote(char *unquoted_sequence, t_shell *data)
 	return (free_array(unquoted_array), i - 1);
 }
 
-/**
- * The function "parse_for_quotes" parses a string for quotes and performs
- *  different actions based on the type of quote encountered.
- * 
- * @param data A pointer to a structure of type t_shell.
- * 
- * @return the value of `data->exit`.
- */
-int	parse_for_quotes(t_shell *data)
+// /**
+//  * The function "parse_for_quotes" parses a string for quotes and performs
+//  *  different actions based on the type of quote encountered.
+//  * 
+//  * @param data A pointer to a structure of type t_shell.
+//  * 
+//  * @return the value of `data->exit`.
+//  */
+// int	parse_for_quotes(t_shell *data)
+// {
+// 	int			quote_status;
+// 	int			i;
+// 	char		*temp;
+
+// 	i = -1;
+// 	quote_status = 0;
+// 	while (data->raw_input[++i])
+// 	{
+// 		temp = &data->raw_input[i];
+// 		isquote(data->raw_input[i], &quote_status);
+// 		if (quote_status == IN_DOUBLE_QUOTES)
+// 			i += dquotes(temp + 1, data);
+// 		else if (quote_status == IN_SINGLE_QUOTES)
+// 			i += squotes(temp + 1, data);
+// 		else
+// 			i += uquote(temp, data);
+// 	}
+// 	return (data->exit);
+// }
+
+char	**get_token_array(t_shell *data)
 {
-	int			quote_status;
+	size_t	i;
+	size_t	j;
+	size_t	k;
+	int 	quote_status;
+	size_t	words;
+	char	**token_array;
+
+	words = 0;
+	quote_status = 0;
+	i = -1;
+	while (data->raw_input[++i])
+	{
+		isquote(data->raw_input[i], &quote_status);
+		if (quote_status == UNQUOTED && (data->raw_input[i] == ' '))
+		{
+			words++;
+			i++;
+		}
+	}
+	words++;
+	token_array = malloc((words + 1) * sizeof(char *));
+	if (!token_array)
+		return (NULL);
+	quote_status = 0;
+	i = -1;
+	j = 0;
+	while (++i < words)
+	{
+		k = j;
+		while (data->raw_input[j + 1])
+		{
+			isquote(data->raw_input[j], &quote_status);
+			if ((quote_status == UNQUOTED && data->raw_input[j] == ' ') || !data->raw_input[j])
+			{
+				j++;
+				token_array[i] = ft_strndup(&data->raw_input[k], j - k - 1);
+				break ;
+			}
+			j++;
+		}
+	}
+	token_array[i] = ft_strndup(&data->raw_input[k], j - k - 1);
+	token_array[++i] = NULL;
+	for (int i = 0; token_array[i]; i++)
+		printf("[%s]\n", token_array[i]);
+	return (NULL);
+}
+
+int	tokenize(t_shell *data)
+{
+	char		**args;
 	int			i;
+	int			j;
 	char		*temp;
+	int			quote_status;
+	t_quotes	*new;
 
 	i = -1;
 	quote_status = 0;
-	while (data->raw_input[++i])
+	get_token_array(data);
+	args = ft_split(data->raw_input, ' ');
+	if (!args)
+		return (-1);
+	while (args[++i])
 	{
-		temp = &data->raw_input[i];
-		isquote(data->raw_input[i], &quote_status);
-		if (quote_status == IN_DOUBLE_QUOTES)
-			i += dquotes(temp + 1, data);
-		else if (quote_status == IN_SINGLE_QUOTES)
-			i += squotes(temp + 1, data);
-		else
-			i += uquote(temp, data);
+		j = -1;
+		while (args[i][++j])
+		{
+			temp = &args[i][j];
+			isquote(args[i][j], &quote_status);
+			if (quote_status == IN_DOUBLE_QUOTES)
+				j += dquotes(temp + 1, data);
+			else if (quote_status == IN_SINGLE_QUOTES)
+				j += squotes(temp + 1, data);
+			else
+				j += uquote(temp, data);
+		}
+		if (args[i + 1])
+		{
+			new = quotenew(NULL, PUT_SPACE_HERE, 0);
+			if (!new)
+				return (-1);
+			quoteadd_back(data->sequences, new);
+		}
 	}
-	return (data->exit);
+	return (0);
 }

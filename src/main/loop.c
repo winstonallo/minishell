@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/20 19:19:06 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/20 22:29:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@
 int	read_input(t_shell *data)
 {
 	add_history(data->raw_input);
-	if (parse_for_quotes(data) == -1)
+	if (tokenize(data) == -1)
 		return (-1);
 	if (expand(data) == -1)
 		return (-1);
 	if (parse_special_char(data) == -1)
+		return (-1);
+	if (merge_args(data) == -1)
 		return (-1);
 	if (lexer(data) == -1)
 		return (-1);

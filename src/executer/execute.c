@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/20 19:07:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/20 20:58:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,10 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 		if (set_redirections(data, head) == -1)
 			exit (1);
 		check_permission(data, head, stdin_fd);
-		merge_args(head, 0);
 		if (head->path)
 			execve(head->path, head->args, data->environment);
-		ft_putstr_fd(head->args[0], 2);
-		if (!data->exit)
-			perror(": failed to execute command");
-		if (!data->exit)
-			data->exit = 1;
-		exit_handler(data, stdin_fd, NULL, 0);
+		data->exit = 1;
+		exit_handler(data, stdin_fd, NULL, data->exit);
 	}
 	waitpid(pid, &status, 0);
 	data->exit = WEXITSTATUS(status);
@@ -96,7 +91,6 @@ void	child1(t_cmd_table *head, t_shell *data, int stdin_fd)
 			dup2(head->outfile, 1);
 		else
 			dup2(pipe_fd[1], 1);
-		merge_args(head, 0);
 		is_builtin(data, head->path, stdin_fd, pipe_fd);
 		execve(head->path, head->args, data->environment);
 		close(pipe_fd[1]);

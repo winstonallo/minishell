@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:52:49 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/20 17:36:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/20 19:57:17 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define IN_DOUBLE_QUOTES 0x22
 # define IN_SINGLE_QUOTES 0x27
 # define UNQUOTED 0x00
+# define PUT_SPACE_HERE 6969
 # define PIPE 0x7c 
 # define IN_REDIR 0x3c
 # define OUT_REDIR 0x3e

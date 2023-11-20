@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:16:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 15:49:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/20 20:52:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	print_quote_list(t_quotes **sequences)
 	head = *sequences;
 	while (head != NULL)
 	{
+		if (head->status == PUT_SPACE_HERE)
+			printf("Space:))\n");
 		if (head->status == IN_DOUBLE_QUOTES)
 			printf("Double Quoted Sequence: %s\n", head->sequence);
 		else if (head->status == IN_SINGLE_QUOTES)
@@ -43,6 +45,8 @@ void	print_op_list(t_op **opps)
 			printf("Single Quoted Sequence: %s\n", head->sequence);
 		else if (head->status == UNQUOTED && !head->s_char)
 			printf("Unquoted sequence: %s\n", head->sequence);
+		else if (head->status == PUT_SPACE_HERE)
+			printf("SPACE\n");
 		else if (head->s_char == PIPE)
 			printf("Pipe character: %d\n", head->s_char);
 		else if (head->s_char == OUT_REDIR)

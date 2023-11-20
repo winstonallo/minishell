@@ -27,7 +27,7 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${PARSER_DIR}expand2.c \
 		${SRC_DIR}${PARSER_DIR}expand.c \
 		${SRC_DIR}${PARSER_DIR}get_command_table.c \
-		${SRC_DIR}${PARSER_DIR}prep_args.c \
+		${SRC_DIR}${PARSER_DIR}merge_args.c \
 \
 		${SRC_DIR}${UTILS_DIR}list_utils_quote_parsing.c \
 		${SRC_DIR}${UTILS_DIR}list_utils_special_char.c \
