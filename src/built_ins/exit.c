@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:49:20 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/18 21:31:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:43:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static void	gtfo(t_shell *data, int status, char *arg)
 {
 	if (arg && data->allocated)
 		free(arg);
-	data->exit = status;
+	if (status)
+		data->exit = status;
 	wipe4real(data);
 	printf("exit\n");
 	exit (data->exit);
