@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:43:39 by arthur            #+#    #+#             */
-/*   Updated: 2023/11/13 18:12:21 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/20 12:49:17 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	check_quotes(t_shell *data)
 	int	i;
 	int	status;
 
+	status = 0;
 	i = -1;
 	while (data->raw_input[++i])
 		isquote(data->raw_input[i], &status);
