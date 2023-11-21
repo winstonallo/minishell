@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/20 20:58:30 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 17:28:49 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int			checkcmd(t_shell *data);
 int			is_builtin(t_shell *data, char *path, int stdin_fd, int *pipe_fd);
 int			set_redirections(t_shell *data, t_cmd_table *head);
 int			set_pipes(t_shell *data, t_cmd_table *head);
-
 
 /* ******************************************************************** */
 /*								BUILT INS								*/
@@ -102,7 +101,7 @@ void		opadd_back(t_op **lst, t_op *new_node);
 //Special operator parsing
 //
 t_op		*opnew(char *content, int status, int op, unsigned long len);
-void		quoteadd_back(t_quotes **lst, t_quotes *new_node);
+int			quoteadd_back(t_quotes **lst, t_quotes *new_node);
 //
 //Command table
 //

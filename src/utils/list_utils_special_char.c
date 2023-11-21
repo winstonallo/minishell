@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:47:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 14:53:39 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 17:19:35 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_op	*opnew(char *content, int status, int op, unsigned long len)
 		delimiter = 1;
 	}
 	new->sequence = ft_strndup(content, len);
-	if (!new->sequence&& !delimiter)
+	if (!new->sequence && !delimiter)
 		return (free(new), NULL);
 	new->s_char = op;
 	new->status = status;

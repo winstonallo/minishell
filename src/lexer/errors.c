@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:43:39 by arthur            #+#    #+#             */
-/*   Updated: 2023/11/20 13:22:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 17:20:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	print_syntax_error(int s_char)
 	else if (s_char == PIPE)
 		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
 	else if (s_char == 0)
-		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token\
+			`newline'\n", 2);
 }
 
 static int	check_quotes(t_shell *data)

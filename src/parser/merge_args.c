@@ -6,15 +6,29 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 20:57:06 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 16:13:29 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 17:22:34 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_op	*get_next_token(t_op **head)
+static char	*add_to_word(char *merged_args, t_op *head)
 {
 	char	*temp;
+
+	temp = merged_args;
+	if (!merged_args)
+		merged_args = ft_strdup((head->sequence));
+	else
+		merged_args = ft_strjoin(merged_args, head->sequence);
+	if (!merged_args)
+		return (NULL);
+	free(temp);
+	return (merged_args);
+}
+
+static t_op	*get_next_token(t_op **head)
+{
 	char	*merged_args;
 	t_op	*new;
 
@@ -23,14 +37,7 @@ t_op	*get_next_token(t_op **head)
 		*head = (*head)->next;
 	while ((*head) && (*head)->status != PUT_SPACE_HERE)
 	{
-		temp = merged_args;
-		if (!merged_args)
-			merged_args = ft_strdup((*head)->sequence);
-		else
-			merged_args = ft_strjoin(merged_args, (*head)->sequence);
-		if (!merged_args)
-			return (NULL);
-		free(temp);
+		merged_args = add_to_word(merged_args, *head);
 		if (*head && (*head)->s_char)
 		{
 			new = opnew(NULL, 0, (*head)->s_char, 0);
@@ -52,7 +59,7 @@ int	merge_args(t_shell *data)
 	t_op	**new_list;
 	t_op	*new;
 	t_op	*head;
-	
+
 	new_list = malloc(sizeof(t_op));
 	if (!new_list)
 		return (-1);
@@ -69,4 +76,3 @@ int	merge_args(t_shell *data)
 	data->operators = new_list;
 	return (0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:18:44 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/20 21:47:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 17:29:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,30 @@ t_quotes	*quotenew(char *content, int status, unsigned long len)
 		new->sequence = ft_strndup(content, len);
 		if (!new->sequence)
 			return (free(new), NULL);
-	}	
+	}
 	else
-	 	new->sequence = NULL;
+		new->sequence = NULL;
 	new->status = status;
 	new->next = NULL;
 	return (new);
 }
 
-void	quoteadd_back(t_quotes **lst, t_quotes *new_node)
+int	quoteadd_back(t_quotes **lst, t_quotes *new_node)
 {
 	t_quotes	*current;
 
+	if (!new_node)
+		return (-1);
 	if (*lst == NULL)
 	{
 		*lst = new_node;
-		return ;
+		return (0);
 	}
 	current = *lst;
 	while (current->next != NULL)
 		current = current->next;
 	current->next = new_node;
+	return (0);
 }
 
 void	free_sequences(t_quotes **sequences)
