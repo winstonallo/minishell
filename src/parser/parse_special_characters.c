@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 18:35:55 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/20 20:52:08 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 12:56:07 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,13 +136,6 @@ int	parse_special_char(t_shell *data)
 		{
 			if (split_curr_sequence(t->sequence, data) == -1)
 				return (data->exit);
-		}
-		else if (t->status == PUT_SPACE_HERE)
-		{
-			new = opnew(NULL, t->status, 0, 0);
-			if (!new)
-				return (-1);
-			opadd_back(data->operators, new);
 		}
 		else
 		{

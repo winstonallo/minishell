@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/20 23:22:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:25:54 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,20 +173,19 @@ char	**get_token_array(t_shell *data)
 	size_t	j;
 	size_t	k;
 	int 	quote_status;
+	int		prev_status;
 	size_t	words;
 	char	**token_array;
 
 	words = 0;
-	quote_status = 0;
 	i = -1;
+	quote_status = 0;
 	while (data->raw_input[++i])
 	{
+		prev_status = quote_status;
 		isquote(data->raw_input[i], &quote_status);
-		if (quote_status == UNQUOTED && (data->raw_input[i] == ' '))
-		{
+		if ((quote_status == UNQUOTED || prev_status != quote_status) && (data->raw_input[i] == ' '))
 			words++;
-			i++;
-		}
 	}
 	words++;
 	token_array = malloc((words + 1) * sizeof(char *));
@@ -209,11 +208,10 @@ char	**get_token_array(t_shell *data)
 				token_array[i] = ft_strndup(&data->raw_input[k], j - k - 1);
 				break ;
 			}
-			if (data->raw_input[j + 1])
-				j++;
+			j++;
 		}
 	}
-	printf("words: %zu\n", words);
+	// printf("words: %zu\n", words);
 	token_array[i] = NULL;
 	// for (int i = 0; token_array[i]; i++)
 	// 	printf("[%s]\n", token_array[i]);
@@ -231,7 +229,6 @@ int	tokenize(t_shell *data)
 
 	i = -1;
 	quote_status = 0;
-	get_token_array(data);
 	args = get_token_array(data);
 	if (!args)
 		return (-1);
@@ -249,7 +246,7 @@ int	tokenize(t_shell *data)
 			else
 				j += uquote(temp, data);
 		}
-		if (args[i + 1])
+		if (args[i] && args[i + 1])
 		{
 			new = quotenew(NULL, PUT_SPACE_HERE, 0);
 			if (!new)

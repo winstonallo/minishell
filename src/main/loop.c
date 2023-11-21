@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/20 22:29:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:57:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,15 @@ int	read_input(t_shell *data)
 		return (-1);
 	if (merge_args(data) == -1)
 		return (-1);
+	printf("AFTER MERGING:\n\n");
+	print_op_list(data->operators);
 	if (lexer(data) == -1)
 		return (-1);
 	if (get_command_table(data) == -1)
 		return (-1);
 	if (checkcmd(data) != COMMAND_NOT_FOUND)
 		return (SUCCESS);
+	print_cmd_tables(data->cmd_table);
 	execute_command(data);
 	return (0);
 }

@@ -6,18 +6,42 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 20:57:06 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/20 22:29:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 15:01:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+t_op	*get_next_token(t_op **head)
+{
+	char	*temp;
+
+	temp = NULL;
+	if (*head && (*head)->status == PUT_SPACE_HERE)
+		*head = (*head)->next;
+	while ((*head) && (*head)->status != PUT_SPACE_HERE)
+	{
+		if (!temp)
+			temp = ft_strdup((*head)->sequence);
+		else
+			temp = ft_strjoin(temp, (*head)->next->sequence);
+		if (!temp)
+			return (NULL);
+		printf("new->sequence: %s\n", temp);
+		*head = (*head)->next;
+		if (!(*head) || (*head)->status == PUT_SPACE_HERE)
+			return (opnew(temp, 0, 0, ft_strlen(temp)));
+		else if ((*head)->s_char)
+			return (opnew(NULL, 0, (*head)->s_char, 0));
+	}
+	return (NULL);
+}
 
 int	merge_args(t_shell *data)
 {
 	t_op	**new_list;
 	t_op	*new;
 	t_op	*head;
-	char		*temp;
 	
 	new_list = malloc(sizeof(t_op));
 	if (!new_list)
@@ -26,36 +50,11 @@ int	merge_args(t_shell *data)
 	head = *data->operators;
 	while (head)
 	{
-		if (head->sequence)
-		{
-			temp = ft_strdup(head->sequence);
-			if (!temp)
-				return (-1);
-		}
-		while (head && head->status != PUT_SPACE_HERE && head->next && head->next->status != PUT_SPACE_HERE)
-		{
-			temp = ft_strjoin(temp, head->next->sequence);
-			if (!temp)
-				return (-1);
-			head = head->next;
-			if (!head || head->status == PUT_SPACE_HERE)
-			{
-				new = opnew(temp, 0, head->s_char, ft_strlen(temp));
-				if (!new)
-					return (-1);
-				opadd_back(new_list, new);
-				break ;
-			}
-		}
-		if (head)
-		{
-			new = opnew(temp, 0, head->s_char, ft_strlen(temp));
-			if (!new)
-				return (-1);
-			opadd_back(new_list, new);
-		}
-		if (head)
-			head = head->next;
+		new = get_next_token(&head);
+		if (!new)
+			break ;
+		printf("new->sequence: %s\n", new->sequence);
+		opadd_back(new_list, new);
 	}
 	data->operators = new_list;
 	return (0);

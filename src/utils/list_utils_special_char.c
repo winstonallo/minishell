@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:47:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/08 15:50:06 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:53:39 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,19 @@ void	opadd_back(t_op **lst, t_op *new_node)
 t_op	*opnew(char *content, int status, int op, unsigned long len)
 {
 	t_op	*new;
+	int		delimiter;
 
+	delimiter = 0;
 	new = malloc(sizeof(*new));
 	if (!new)
 		return (NULL);
+	if (!content)
+	{
+		new->sequence = NULL;
+		delimiter = 1;
+	}
 	new->sequence = ft_strndup(content, len);
-	if (!new->sequence)
+	if (!new->sequence&& !delimiter)
 		return (free(new), NULL);
 	new->s_char = op;
 	new->status = status;
