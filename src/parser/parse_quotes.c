@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 14:25:54 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 16:02:34 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,5 +254,6 @@ int	tokenize(t_shell *data)
 			quoteadd_back(data->sequences, new);
 		}
 	}
+	free_array(args);
 	return (0);
 }
