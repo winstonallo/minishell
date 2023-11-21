@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:53:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 18:03:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 23:07:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define STRUCTS_H
 
 # include "lists.h"
-#include <stddef.h>
+# include <stddef.h>
 
 typedef struct s_token
 {
@@ -22,6 +22,7 @@ typedef struct s_token
 	size_t				j;
 	size_t				k;
 	int					st;
+	char				**tokens;
 }	t_token;
 
 typedef struct s_shell
@@ -48,6 +49,5 @@ typedef struct s_shell
 	struct s_env		**env_list;
 	struct s_token		tok;
 }	t_shell;
-
 
 #endif

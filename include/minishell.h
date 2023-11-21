@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 17:28:49 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 23:18:58 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 int			main(int argc, char **argv, char **env);
 void		sigint(int signo);
 void		listen(void);
+int			loop_test(t_shell *data);
 
 /*Command execution*/
 int			count_pipes(t_shell *data);
@@ -82,12 +83,17 @@ int			merge_args(t_shell *data);
 char		*replace(char *str, t_shell *data);
 int			remove_escape(t_shell *data);
 int			get_command_table(t_shell *data);
+int			uquote(char *unquoted_sequence, t_shell *data);
+int			squotes(char *quoted_sequence, t_shell *data);
+int			dquotes(char *quoted_sequence, t_shell *data);
 
 /*Utils*/
 int			myisspace(char c);
 int			myisspacealnum(char c);
 int			isquote(char pos, int *status);
 int			lexer(t_shell *data);
+int			check_quotes(t_shell *data);
+int			init_vars(t_shell *data, size_t words);
 
 /* ******************************************************************** */
 /*								LIST UTILS								*/

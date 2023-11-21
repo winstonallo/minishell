@@ -1,5 +1,7 @@
 NAME = minishell
 
+TESTER_NAME = minishell
+
 OBJ_DIR = obj
 
 SRC_DIR = src/
@@ -28,6 +30,7 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${PARSER_DIR}expand.c \
 		${SRC_DIR}${PARSER_DIR}get_command_table.c \
 		${SRC_DIR}${PARSER_DIR}merge_args.c \
+		${SRC_DIR}${PARSER_DIR}get_tokens.c \
 \
 		${SRC_DIR}${UTILS_DIR}list_utils_quote_parsing.c \
 		${SRC_DIR}${UTILS_DIR}list_utils_special_char.c \
@@ -37,6 +40,7 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${UTILS_DIR}memory_management_arrays.c \
 		${SRC_DIR}${UTILS_DIR}memory_management_cleanup.c \
 		${SRC_DIR}${UTILS_DIR}parsing_utils.c \
+		${SRC_DIR}${UTILS_DIR}parsing_utils2.c \
 		${SRC_DIR}${UTILS_DIR}testing_utils.c \
 \
 		${SRC_DIR}${EXEC_DIR}commands.c \
@@ -59,12 +63,15 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${INIT_DIR}environment.c \
 \
 		${SRC_DIR}${LEXER_DIR}errors.c \
+		${SRC_DIR}${LEXER_DIR}lexer_utils.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -Iincludes -g
+
+# CFLAGS_TEST = -Wall -Wextra -Werror -Iincludes -g -D TEST_MODE=1 
 
 LDFLAGS = -L ./libft -lm -lft -lreadline
 
@@ -75,11 +82,20 @@ RM = rm -rf
 all: $(OBJ_DIR) $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT_OBJS)
-	printf "Compiling libft..."
-	$(MAKE) -C ./libft --no-print-directory
-	printf "\r\rCompiling minishell.."
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_OBJS) -o $(NAME) $(LDFLAGS)
-	printf "\rCompiling completed.\n"
+	@printf "Compiling libft..."
+	@$(MAKE) -C ./libft --no-print-directory
+	@printf "\r\rCompiling minishell.."
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_OBJS) -o $(NAME) $(LDFLAGS)
+	@printf "\rCompiling completed.\n"
+
+# tester: $(OBJ_DIR) $(NAME)
+
+# $(TESTER_NAME): $(OBJS) $(LIBFT_OBJS)
+# 	@printf "Compiling libft..."
+# 	@$(MAKE) -C ./libft --no-print-directory
+# 	@printf "\r\rCompiling minishell.."
+# 	@$(CC) $(CFLAGS_TEST) $(OBJS) $(LIBFT_OBJS) -o $(TESTER_NAME) $(LDFLAGS)
+# 	@printf "\rCompiling completed.\n"
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
@@ -108,7 +124,7 @@ generate_test:
 test: all
 	clear; valgrind --leak-check=full --track-origins=yes --track-fds=yes --show-reachable=yes --show-leak-kinds=all --error-limit=no --suppressions=./$(NAME).supp ./$(NAME)
 
-child_test: all
+child_test: tester
 	clear; valgrind --trace-children=yes --leak-check=full --track-origins=yes --track-fds=yes --show-reachable=yes --show-leak-kinds=all --error-limit=no --suppressions=./$(NAME).supp ./$(NAME)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re tester

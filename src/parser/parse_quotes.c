@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 20:44:55 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 23:19:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
  * 
  * @return the value of the variable `i`.
  */
-static int	dquotes(char *quoted_sequence, t_shell *data)
+int	dquotes(char *quoted_sequence, t_shell *data)
 {
 	size_t		i;
 	t_quotes	*new;
@@ -55,7 +55,7 @@ static int	dquotes(char *quoted_sequence, t_shell *data)
  * @return the index of the closing single quote character in the 
  * `quoted_sequence` string.
  */
-static int	squotes(char *quoted_sequence, t_shell *data)
+int	squotes(char *quoted_sequence, t_shell *data)
 {
 	size_t		i;
 	t_quotes	*new;
@@ -112,7 +112,7 @@ static int	split_args(char **unquoted_array, t_shell *data)
  * 
  * @return the value of `i - 1`.
  */
-static int	uquote(char *unquoted_sequence, t_shell *data)
+int	uquote(char *unquoted_sequence, t_shell *data)
 {
 	size_t		i;
 	int			status;
@@ -135,126 +135,4 @@ static int	uquote(char *unquoted_sequence, t_shell *data)
 	if (split_args(unquoted_array, data) == -1)
 		return (-1);
 	return (free_array(unquoted_array), i - 1);
-}
-
-static void	init_vars(t_shell *data)
-{
-	data->tok.i = -1;
-	data->tok.j = 0;
-	data->tok.st = 0;
-}
-
-static void	skip_whitespaces(t_shell *data, size_t *j, int *quote_status)
-{
-	printf("skipping whitespaces...\n");
-	while (data->raw_input[*j] && myisspace(data->raw_input[*j]))
-	{
-		isquote(data->raw_input[*j], quote_status);
-		*j += 1;	
-	}
-}
-
-static char	**fill_token_array(t_shell *d, size_t words, char **token_array)
-{
-	init_vars(d);
-	token_array = malloc((words + 1) * sizeof(char *));
-	if (!token_array)
-		return (NULL);
-	printf("words count: %zu\n", words);
-	while (++d->tok.i < words)
-	{
-		d->tok.k = d->tok.j;
-		while (d->tok.j < ft_strlen(d->raw_input))
-		{
-			isquote(d->raw_input[d->tok.j], &d->tok.st);
-			if ((d->tok.st == UNQUOTED && myisspace(d->raw_input[d->tok.j]))
-				|| !d->raw_input[d->tok.j + 1])
-			{
-				d->tok.j++;
-				if (!d->raw_input[d->tok.j])
-					d->tok.j++;
-				token_array[d->tok.i] = ft_strndup(&d->raw_input[d->tok.k],
-						d->tok.j - d->tok.k - 1);
-				break ;
-			}
-			d->tok.j++;
-		}
-		printf("token_array[%zu]: %s\n", d->tok.i, token_array[d->tok.i]);
-		if (d->tok.j < ft_strlen(d->raw_input))
-			skip_whitespaces(d, &d->tok.j, &d->tok.st);
-	}
-	token_array[d->tok.i] = NULL;
-	return (token_array);
-}
-
-char	**get_token_array(t_shell *data, size_t i)
-{
-	int		quote_status;
-	int		prev_status;
-	size_t	words;
-	char	**token_array;
-
-	words = 0;
-	quote_status = 0;
-	while (data->raw_input[++i])
-	{
-		prev_status = quote_status;
-		isquote(data->raw_input[i], &quote_status);
-		if ((quote_status == UNQUOTED || prev_status != quote_status)
-			&& (myisspace(data->raw_input[i])))
-			words++;
-		if (data->raw_input[i] && myisspace(data->raw_input[i]))
-			skip_whitespaces(data, &i, &quote_status);
-		printf("input[%zu]: %c\n", i, data->raw_input[i]);
-	}
-	words++;
-	token_array = NULL;
-	token_array = fill_token_array(data, words, token_array);
-	if (!token_array)
-		return (NULL);
-	return (token_array);
-}
-
-int	add_tokens_to_list(char **args, t_shell *data, int quote_status, size_t i)
-{
-	size_t		j;
-	char		*temp;
-
-	while (args[++i])
-	{
-		j = -1;
-		while (args[i][++j])
-		{
-			temp = &args[i][j];
-			isquote(args[i][j], &quote_status);
-			if (quote_status == IN_DOUBLE_QUOTES)
-				j += dquotes(temp + 1, data);
-			else if (quote_status == IN_SINGLE_QUOTES)
-				j += squotes(temp + 1, data);
-			else
-				j += uquote(temp, data);
-		}
-		if (args[i] && args[i + 1])
-		{
-			if (quoteadd_back(data->sequences,
-					quotenew(NULL, PUT_SPACE_HERE, 0)) == -1)
-				return (-1);
-		}
-	}
-	return (0);
-}
-
-int	tokenize(t_shell *data)
-{
-	char		**args;
-	int			quote_status;
-
-	quote_status = 0;
-	args = get_token_array(data, -1);
-	if (!args)
-		return (-1);
-	if (add_tokens_to_list(args, data, quote_status, -1) == -1)
-		return (-1);
-	free_array(args);
-	return (0);
 }
