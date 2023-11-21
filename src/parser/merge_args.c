@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 20:57:06 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 15:01:38 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 15:39:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_op	*get_next_token(t_op **head)
 {
 	char	*temp;
+	t_op	*new;
 
 	temp = NULL;
 	if (*head && (*head)->status == PUT_SPACE_HERE)
@@ -24,15 +25,18 @@ t_op	*get_next_token(t_op **head)
 		if (!temp)
 			temp = ft_strdup((*head)->sequence);
 		else
-			temp = ft_strjoin(temp, (*head)->next->sequence);
+			temp = ft_strjoin(temp, (*head)->sequence);
 		if (!temp)
 			return (NULL);
-		printf("new->sequence: %s\n", temp);
+		if (*head && (*head)->s_char)
+		{
+			new = opnew(NULL, 0, (*head)->s_char, 0);
+			*head = (*head)->next;
+			return (new);
+		}
 		*head = (*head)->next;
 		if (!(*head) || (*head)->status == PUT_SPACE_HERE)
 			return (opnew(temp, 0, 0, ft_strlen(temp)));
-		else if ((*head)->s_char)
-			return (opnew(NULL, 0, (*head)->s_char, 0));
 	}
 	return (NULL);
 }
@@ -53,7 +57,6 @@ int	merge_args(t_shell *data)
 		new = get_next_token(&head);
 		if (!new)
 			break ;
-		printf("new->sequence: %s\n", new->sequence);
 		opadd_back(new_list, new);
 	}
 	data->operators = new_list;

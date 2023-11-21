@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/20 20:58:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 15:47:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 		check_permission(data, head, stdin_fd);
 		if (head->path)
 			execve(head->path, head->args, data->environment);
-		data->exit = 1;
+		if (!data->exit)
+			data->exit = 1;
 		exit_handler(data, stdin_fd, NULL, data->exit);
 	}
 	waitpid(pid, &status, 0);
