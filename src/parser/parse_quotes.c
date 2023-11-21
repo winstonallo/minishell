@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 18:13:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:44:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,19 +144,30 @@ static void	init_vars(t_shell *data)
 	data->tok.st = 0;
 }
 
+static void	skip_whitespaces(t_shell *data, size_t *j, int *quote_status)
+{
+	printf("skipping whitespaces...\n");
+	while (data->raw_input[*j] && myisspace(data->raw_input[*j]))
+	{
+		isquote(data->raw_input[*j], quote_status);
+		*j += 1;	
+	}
+}
+
 static char	**fill_token_array(t_shell *d, size_t words, char **token_array)
 {
 	init_vars(d);
 	token_array = malloc((words + 1) * sizeof(char *));
 	if (!token_array)
 		return (NULL);
+	printf("words count: %zu\n", words);
 	while (++d->tok.i < words)
 	{
 		d->tok.k = d->tok.j;
-		while (d->raw_input[d->tok.j])
+		while (d->tok.j < ft_strlen(d->raw_input))
 		{
 			isquote(d->raw_input[d->tok.j], &d->tok.st);
-			if ((d->tok.st == UNQUOTED && d->raw_input[d->tok.j] == ' ')
+			if ((d->tok.st == UNQUOTED && myisspace(d->raw_input[d->tok.j]))
 				|| !d->raw_input[d->tok.j + 1])
 			{
 				d->tok.j++;
@@ -164,12 +175,13 @@ static char	**fill_token_array(t_shell *d, size_t words, char **token_array)
 					d->tok.j++;
 				token_array[d->tok.i] = ft_strndup(&d->raw_input[d->tok.k],
 						d->tok.j - d->tok.k - 1);
-				// while (d->raw_input[d->tok.j] && d->raw_input[d->tok.j] == ' ')
-				// 	d->tok.j++;
 				break ;
 			}
 			d->tok.j++;
 		}
+		printf("token_array[%zu]: %s\n", d->tok.i, token_array[d->tok.i]);
+		if (d->tok.j < ft_strlen(d->raw_input))
+			skip_whitespaces(d, &d->tok.j, &d->tok.st);
 	}
 	token_array[d->tok.i] = NULL;
 	return (token_array);
@@ -189,8 +201,11 @@ char	**get_token_array(t_shell *data, size_t i)
 		prev_status = quote_status;
 		isquote(data->raw_input[i], &quote_status);
 		if ((quote_status == UNQUOTED || prev_status != quote_status)
-			&& (data->raw_input[i] == ' '))
+			&& (myisspace(data->raw_input[i])))
 			words++;
+		if (data->raw_input[i] && myisspace(data->raw_input[i]))
+			skip_whitespaces(data, &i, &quote_status);
+		printf("input[%zu]: %c\n", i, data->raw_input[i]);
 	}
 	words++;
 	token_array = NULL;
