@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:19:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 09:15:51 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:34:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void free_array(char **arr)
 {
     size_t i = 0;
 
-    if (arr && arr[i])
+    if (arr && *arr)
     {
         while (arr[i])
         {

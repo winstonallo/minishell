@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:51:30 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/18 15:35:29 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:30:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	free_cmd_tables(t_cmd_table **cmd_tables)
 	t_cmd_table	*head;
 	t_cmd_table	*temp;
 
+	if (!cmd_tables)
+		return ;
 	head = *cmd_tables;
 	while (head)
 	{
