@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:11:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 23:19:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:02:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@ size_t *words)
 	}
 }
 
+/**
+ * The function `fill_token_array` takes a shell structure and the number of words as input, and fills
+ * an array with tokens from the raw input string.
+ * 
+ * @param d The parameter `d` is of type `t_shell*`, which is a pointer to a structure of type
+ * `t_shell`.
+ * @param words The parameter "words" represents the number of words in the input string.
+ * 
+ * @return a pointer to a character array (char **) called "tokens".
+ */
 static char	**fill_token_array(t_shell *d, size_t words)
 {
 	if (init_vars(d, words) == -1)
@@ -50,6 +60,8 @@ static char	**fill_token_array(t_shell *d, size_t words)
 					d->tok.j++;
 				d->tok.tokens[d->tok.i] = ft_strndup(&d->raw_input[d->tok.k],
 						d->tok.j - d->tok.k - 1);
+				if (!d->tok.tokens[d->tok.i])
+					return (free_array(d->tok.tokens), NULL);
 				break ;
 			}
 			d->tok.j++;

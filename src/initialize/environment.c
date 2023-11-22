@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:36:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 21:28:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:12:07 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int	get_environment(t_shell *data, size_t i, size_t j)
 		}
 		i++;
 	}
-	if (get_prompt(data, 0) == -1)
-		return (-1);
+	if (!TEST_MODE)
+		if (get_prompt(data, 0) == -1)
+			return (-1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 09:05:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:18:56 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ void		free_opps(t_op **operators);
 void		free_sequences(t_quotes **sequences);
 void		free_array_arrsize(char **arr, int arr_size);
 void		free_environment(t_env **env);
+void		free_env_lists(t_shell *data);
 void		free_cmd_tables(t_cmd_table **cmd_tables);
 
 #endif

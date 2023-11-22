@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:00:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 11:02:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:50:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	free_paths(t_path **stack_a)
 	while (current)
 	{
 		temp = current->next;
-		free(current->path);
+		if (current->path)
+			free(current->path);
 		free(current);
 		current = temp;
 	}

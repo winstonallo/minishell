@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:53:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 11:03:06 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:35:54 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ t_env	*envnew(char *name, char *content, unsigned long len)
 		return (NULL);
 	new = malloc(sizeof(*new));
 	if (!new)
-		return (NULL);
+		return (free(name), NULL);
 	new->name = name;
 	new->line = ft_strndup(content, len);
 	if (!new->line)
-		return (free(new), NULL);
+		return (free(new), free(name), NULL);
 	new->next = NULL;
 	return (new);
 }

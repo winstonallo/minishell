@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 23:19:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:05:23 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,9 @@ int	uquote(char *unquoted_sequence, t_shell *data)
 		return (-1);
 	unquoted_array = ft_split(temp, ' ');
 	if (!unquoted_array)
-		return (-1);
+		return (free(temp), -1);
 	free(temp);
 	if (split_args(unquoted_array, data) == -1)
-		return (-1);
+		return (free_array(unquoted_array), -1);
 	return (free_array(unquoted_array), i - 1);
 }

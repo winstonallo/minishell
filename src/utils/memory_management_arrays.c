@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:19:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 21:34:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:34:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ void free_array(char **arr)
             free(arr[i]);
             i++;
         }
-        free(arr);
     }
+	if (arr)
+        free(arr);
 }
 
 

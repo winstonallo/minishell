@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_paths.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:12:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/09 13:55:43 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/22 22:51:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	store_paths(t_path **paths, char *path, t_shell *data)
 
 	new = pathnew(path);
 	if (!new)
-		return (free_paths(paths), -1);
+		return (-1);
 	pathadd_back(paths, new);
 	return (data->exit);
 }
@@ -61,7 +61,7 @@ int	get_paths(t_path **paths, t_shell *data)
 			while (temp[++i])
 			{
 				if (store_paths(paths, temp[i], data) == -1)
-					return (-1);
+					return (free_array(temp), -1);
 			}
 			free(temp);
 		}

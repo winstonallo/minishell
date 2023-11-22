@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 08:42:24 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 09:10:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:25:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,20 @@
  */
 static int	read_input_test(t_shell *data)
 {
-	add_history(data->raw_input);
-	if (tokenize(data) == -1)
+	if (tokenize(data) <= 0)
 		return (-1);
-	if (expand(data) == -1)
-		return (-1);
-	if (parse_special_char(data) == -1)
-		return (-1);
-	if (merge_args(data) == -1)
-		return (-1);
-	if (lexer(data) == -1)
-		return (-1);
-	if (get_command_table(data) == -1)
-		return (-1);
-	if (checkcmd(data) != COMMAND_NOT_FOUND)
-		return (SUCCESS);
+	// if (expand(data) == -1)
+	// 	return (-1);
+	// if (parse_special_char(data) == -1)
+	// 	return (-1);
+	// if (merge_args(data) == -1)
+	// 	return (-1);
+	// if (lexer(data) == -1)
+	// 	return (-1);
+	// if (get_command_table(data) == -1)
+	// 	return (-1);
+	// if (checkcmd(data) != COMMAND_NOT_FOUND)
+	// 	return (SUCCESS);
 	return (0);
 }
 
@@ -73,14 +72,14 @@ static int	check_status_test(t_shell *data)
 int	loop_test(t_shell *data, char *input)
 {
 	if (initialize_sequences(data) == -1)
-		return (data->exit);
+		return (EXIT);
 	data->raw_input = ft_strdup(input);
 	if (!data->raw_input)
 		return (myexit(data));
 	if (!data->raw_input[0])
 		return (wipe(data), 0);
 	if (read_input_test(data) == -1)
-		wipe(data);
+		return (EXIT);
 	if (check_status_test(data) == EXIT)
 		return (EXIT);
 	wipe(data);
