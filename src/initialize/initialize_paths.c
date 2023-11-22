@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:12:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 22:51:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 00:03:07 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,17 @@
  * 
  * @return the value of `data->exit`.
  */
-static int	store_paths(t_path **paths, char *path, t_shell *data)
+static int	store_paths(t_shell *data, char *path)
 {
 	t_path	*new;
 
+	if (!path)
+		return (-1);
 	new = pathnew(path);
 	if (!new)
-		return (-1);
-	pathadd_back(paths, new);
-	return (data->exit);
+		return (free(path), -1);
+	pathadd_back(data->paths, new);
+	return (0);
 }
 
 /**
@@ -43,7 +45,7 @@ static int	store_paths(t_path **paths, char *path, t_shell *data)
  * @return an integer value. If the function executes successfully, 
  * it will return 0. If there is an error, it will return -1.
  */
-int	get_paths(t_path **paths, t_shell *data)
+int	get_paths(t_shell *data)
 {
 	t_env	*head;
 	char	**temp;
@@ -60,10 +62,11 @@ int	get_paths(t_path **paths, t_shell *data)
 				return (-1);
 			while (temp[++i])
 			{
-				if (store_paths(paths, temp[i], data) == -1)
+				if (store_paths(data, ft_strdup(temp[i])) == -1)
 					return (free_array(temp), -1);
 			}
-			free(temp);
+			free_array(temp);
+			break ;
 		}
 		head = head->next;
 	}

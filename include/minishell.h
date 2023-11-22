@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 22:18:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:40:31 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int			initialize_command_table(t_shell *data);
 /* **********************************************************************/
 //
 int			get_environment(t_shell *data, size_t i, size_t j);
-int			get_paths(t_path **paths, t_shell *data);
+int			get_paths(t_shell *data);
 int			get_prompt(t_shell *data, size_t i);
 
 /*Parsing*/
