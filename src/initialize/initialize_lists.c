@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/13 18:10:22 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 09:17:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	initialize_sequences(t_shell *data)
 	if (!data->cmd_table)
 		return (wipe4real(data), -1);
 	*data->cmd_table = NULL;
+	(*data->cmd_table)->args = NULL;
 	data->temp = NULL;
 	data->validexit = 1;
 	data->allocated = 0;

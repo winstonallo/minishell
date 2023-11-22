@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:18:44 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 17:29:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 09:12:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,17 @@ void	free_sequences(t_quotes **sequences)
 	t_quotes	*current;
 	t_quotes	*next;
 
-	current = *sequences;
-	while (current)
+	if (sequences && *sequences)
 	{
-		next = current->next;
-		free(current->sequence);
-		free(current);
-		current = next;
+		current = *sequences;
+		while (current)
+		{
+			next = current->next;
+			free(current->sequence);
+			free(current);
+			current = next;
+		}
 	}
-	free(sequences);
+	if (sequences)
+		free(sequences);
 }

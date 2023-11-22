@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 08:47:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 09:05:34 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 int			main(int argc, char **argv, char **env);
 void		sigint(int signo);
 void		listen(void);
-int			loop_test(t_shell *data, char **input);
+int			loop_test(t_shell *data, char *input);
 
 /*Command execution*/
 int			count_pipes(t_shell *data);

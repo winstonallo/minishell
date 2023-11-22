@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 08:42:24 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 08:56:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 09:10:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	read_input_test(t_shell *data)
 		return (-1);
 	if (checkcmd(data) != COMMAND_NOT_FOUND)
 		return (SUCCESS);
-	execute_command(data);
 	return (0);
 }
 
@@ -71,32 +70,11 @@ static int	check_status_test(t_shell *data)
  * the value of `data->exit`. If none of the conditions are true, the function
  * will return 0.
  */
-int	loop_test(t_shell *data, char **input)
+int	loop_test(t_shell *data, char *input)
 {
-	char	*temp;
-	int		i;
-	
-	i = 0;
-	temp = NULL;
 	if (initialize_sequences(data) == -1)
 		return (data->exit);
-	while (input[++i])
-	{
-		data->raw_input = NULL;
-		data->raw_input = ft_strjoin(data->raw_input, input[i]);
-		if (!data->raw_input)
-			return (-1);
-		freeze(temp);
-		temp = data->raw_input;
-		if (input[i + 1])
-		{
-			data->raw_input = ft_strjoin(data->raw_input, " ");
-			if (!data->raw_input)
-				return (free(temp), 1);
-			freeze(temp);
-			temp = data->raw_input;
-		}
-	}
+	data->raw_input = ft_strdup(input);
 	if (!data->raw_input)
 		return (myexit(data));
 	if (!data->raw_input[0])

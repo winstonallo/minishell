@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:47:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 17:19:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 09:11:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	free_opps(t_op **opps)
 	t_op	*current;
 	t_op	*next;
 
-	if (*opps)
+	if (opps && *opps)
 	{
 		current = *opps;
 		while (current)

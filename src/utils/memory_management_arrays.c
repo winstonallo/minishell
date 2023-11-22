@@ -6,28 +6,28 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:19:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 14:28:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 09:15:51 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	free_array(char **arr)
+void free_array(char **arr)
 {
-	size_t	i;
+    size_t i = 0;
 
-	i = 0;
-	if (arr)
-	{
-		while (arr[i])
-		{
-			free(arr[i]);
-			if (arr[i])
-				i++;
-		}
-		free(arr);
-	}
+    if (arr && arr[i])
+    {
+        while (arr[i])
+        {
+            free(arr[i]);
+            i++;
+        }
+        free(arr);
+    }
 }
+
+
 
 void	free_array_arrsize(char **arr, int arr_size)
 {

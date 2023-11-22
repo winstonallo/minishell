@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:00:40 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 08:49:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 09:04:54 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **env)
 	get_paths(data.paths, &data);
 	listen();
 	if (TEST_MODE)
-		loop_test(&data, argv);
+		loop_test(&data, argv[1]);
 	else
 		if (loop(&data) == EXIT)
 			return (wipe4real(&data), 0);
