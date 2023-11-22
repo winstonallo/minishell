@@ -6,15 +6,16 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:52:49 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 23:06:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/22 08:34:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
-// # ifndef TEST_MODE
-// #  define TEST_MODE 0
-// # endif
+
+# ifndef TEST_MODE
+#  define TEST_MODE 0
+# endif
 
 # define EXIT 1789
 # define IN_DOUBLE_QUOTES 0x22

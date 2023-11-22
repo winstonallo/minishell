@@ -1,6 +1,6 @@
 NAME = minishell
 
-TESTER_NAME = minishell
+TEST_NAME = minishell_test
 
 OBJ_DIR = obj
 
@@ -22,6 +22,7 @@ LEXER_DIR = lexer/
 
 SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${MAIN_DIR}loop.c \
+		${SRC_DIR}${MAIN_DIR}loop_test.c \
 		${SRC_DIR}${MAIN_DIR}signals.c \
 \
 		${SRC_DIR}${PARSER_DIR}parse_quotes.c \
@@ -112,7 +113,7 @@ clean:
 	$(RM) $(OBJ_DIR)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(TEST_NAME)
 
 re: fclean all
 
@@ -127,5 +128,14 @@ test: all
 
 child_test: tester
 	clear; valgrind --trace-children=yes --leak-check=full --track-origins=yes --track-fds=yes --show-reachable=yes --show-leak-kinds=all --error-limit=no --suppressions=./$(NAME).supp ./$(NAME)
+
+funcheck: $(OBJ_DIR) $(TEST_NAME)
+
+$(TEST_NAME): $(OBJS) $(LIBFT_OBJS)
+	@printf "Compiling libft..."
+	@$(MAKE) -C ./libft --no-print-directory
+	@printf "\r\rCompiling minishell.."
+	@$(CC) $(CFLAGS) -D TEST_MODE=1 $(OBJS) $(LIBFT_OBJS) -o $(TEST_NAME) $(LDFLAGS)
+	@printf "\rCompiling completed.\n"
 
 .PHONY: all clean fclean re tester
