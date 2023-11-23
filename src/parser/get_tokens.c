@@ -6,31 +6,32 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:11:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 02:12:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 02:59:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	skip_whitespaces(t_shell *data, size_t *j, int *quote_status,
-size_t *words)
-{
-	int	prev_status;
+// static void	skip_whitespaces(t_shell *data, size_t *j, int *quote_status,
+// size_t *words)
+// {
+// 	int	prev_status;
 
-	prev_status = 0;
-	while (data->raw_input[*j] && myisspace(data->raw_input[*j]))
-	{
-		if (*j > 0)
-			isquote(data->raw_input[*j - 1], &prev_status);
-		else
-			prev_status = *quote_status;
-		isquote(data->raw_input[*j], quote_status);
-		if ((quote_status == UNQUOTED || (prev_status != *quote_status))
-			&& (myisspace(data->raw_input[*j]) || !data->raw_input[*j]))
-			*words += 1;
-		*j += 1;
-	}
-}
+// 	prev_status = 0;
+// 	while (data->raw_input[*j] && myisspace(data->raw_input[*j]))
+// 	{
+// 		if (*j > 0)
+// 			isquote(data->raw_input[*j - 1], &prev_status);
+// 		else
+// 			prev_status = *quote_status;
+// 		isquote(data->raw_input[*j], quote_status);
+// 		if ((quote_status == UNQUOTED/*  || (prev_status != *quote_status) */)
+// 			&& (myisspace(data->raw_input[*j])/*  || !data->raw_input[*j] */)
+// 			&& words)
+// 			*words += 1;
+// 		*j += 1;
+// 	}
+// }
 
 /**
  * The function `fill_token_array` takes a shell structure and the number of words as input, and fills
@@ -66,12 +67,8 @@ static char	**fill_token_array(t_shell *d, size_t words)
 			}
 			d->tok.j++;
 		}
-		if (d->tok.j < ft_strlen(d->raw_input))
-			skip_whitespaces(d, &d->tok.j, &d->tok.st, NULL);
 	}
 	d->tok.tokens[d->tok.i] = NULL;
-	for (int i = 0; d->tok.tokens[i]; i++)
-		printf("%s\n", d->tok.tokens[i]);
 	return (d->tok.tokens);
 }
 
@@ -89,13 +86,10 @@ char	**get_token_array(t_shell *data, size_t i)
 		prev_status = quote_status;
 		isquote(data->raw_input[i], &quote_status);
 		if ((quote_status == UNQUOTED || prev_status != quote_status)
-			&& (myisspace(data->raw_input[i])))
+			&& (myisspace(data->raw_input[i]) || !data->raw_input[i + 1]))
 			words++;
-		if (data->raw_input[i] && myisspace(data->raw_input[i]))
-			skip_whitespaces(data, &i, &quote_status, &words);
 	}
-	words++;
-	//token_array = NULL;
+	token_array = NULL;
 	token_array = fill_token_array(data, words);
 	if (!token_array)
 		return (NULL);
