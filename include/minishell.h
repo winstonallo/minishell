@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 03:48:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:58:23 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void		heredoc(t_cmd_table *head, t_shell *data);
 /* **********************************************************************/
 
 //built_ins.c
+int			update_pwd(t_shell *data);
 int			cd(t_shell *data, int i);
 int			pwd(t_shell *data);
 int			echo(t_shell *data, int newline);

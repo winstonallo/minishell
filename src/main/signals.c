@@ -6,7 +6,7 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 15:24:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 14:29:34 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/23 15:12:32 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	sigint(int signo)
 		g_sig = CTRL_C;
 		write(STDERR_FILENO, "\n", 1);
 		rl_on_new_line();
-		//rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }

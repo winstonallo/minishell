@@ -6,11 +6,30 @@
 /*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:29:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 14:53:32 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/23 15:13:31 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	update_pwd(t_shell *data)
+{
+	t_env	*head;
+
+	head = *data->env_list;
+	while (head)
+	{
+		if (!ft_strncmp(head->name, "PWD", ft_strlen(head->name) + 1))
+		{
+			free(head->line);
+			head->line = getcwd(NULL, 0);
+			if (!head->line)
+				return (FAILURE);
+		}
+		head = head->next;
+	}
+	return (SUCCESS);
+}
 
 static char	*get_homedir(t_shell *data)
 {
@@ -26,7 +45,6 @@ static char	*get_homedir(t_shell *data)
 	return (NULL);
 }
 
-
 /**
  * The function `cd` changes the current directory in a shell program and 
  * updates the prompt.
@@ -41,7 +59,7 @@ int	cd(t_shell *data, int i)
 		data->exit = FAILURE;
 		return (ft_putstr_fd("cd: too many arguments\n", 2), FAILURE);
 	}
-	else if (i == 1 || !ft_strncmp((*data->cmd_table)->args[1], "~", 2) )
+	else if (i == 1 || !ft_strncmp((*data->cmd_table)->args[1], "~", 2))
 	{
 		if (chdir(get_homedir(data)) == -1)
 		{

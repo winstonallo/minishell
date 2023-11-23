@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils_cmd_table.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:51:30 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 03:46:21 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:13:06 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	free_cmd_tables(t_cmd_table **cmd_tables)
 			close(head->infile);
 		if (head->outfile > 0)
 			close(head->outfile);
-		
 		head = head->next;
 		free(temp);
 	}

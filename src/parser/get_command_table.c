@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command_table.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 04:13:13 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:08:17 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,7 @@ int	initialize_redirections(t_op *data, t_cmd_table **cmd_table, int o, int i)
 		else if (h->s_char == IN_REDIR && h->status == UNQUOTED)
 			i = open(h->next->sequence, O_RDONLY);
 		else if (h->s_char == HEREDOC && h->status == UNQUOTED)
-		{
-			i = open("heredoc", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 			temp = ft_strdup(h->next->sequence);
-		}
 		h = h->next;
 	}
 	new = cmdnew(o, i, 0, temp);
