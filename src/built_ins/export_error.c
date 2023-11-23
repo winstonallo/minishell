@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 17:32:48 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/17 10:37:54 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/19 17:40:01 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @return 1 if the string "arg" contains any of the characters '-', '*', 
  * or '/', and 0 otherwise.
  */
-int	ft_issign(char *arg)
+static int	issign(char *arg)
 {
 	if (ft_strchr(arg, '-') != NULL)
 		return (1);
@@ -47,7 +47,7 @@ int	export_error(char *arg, int argname)
 		return (ft_putendl_fd(" not a valid identifier", 2), 1);
 	else if (ft_strchr(arg, '=') == NULL)
 	{
-		if (ft_issign(arg) != 0 && argname)
+		if (issign(arg) != 0 && argname)
 			return (ft_putendl_fd(" not a valid identifier", 2), 1);
 		if ((ft_isdigit(arg[0])) && argname)
 			return (ft_putendl_fd(" not a valid identifier", 2), 1);
