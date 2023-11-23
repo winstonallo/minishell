@@ -6,40 +6,43 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:11:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 03:15:21 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 03:20:01 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// static void	skip_whitespaces(t_shell *data, size_t *j, int *quote_status,
-// size_t *words)
-// {
-// 	int	prev_status;
+//baustelle nix ganz funktionieren
+void	skip_whitespaces(t_shell *data, size_t *j, int *quote_status,
+size_t *words)
+{
+	int	prev_status;
 
-// 	prev_status = 0;
-// 	while (data->raw_input[*j] && myisspace(data->raw_input[*j]))
-// 	{
-// 		if (*j > 0)
-// 			isquote(data->raw_input[*j - 1], &prev_status);
-// 		else
-// 			prev_status = *quote_status;
-// 		isquote(data->raw_input[*j], quote_status);
-// 		if ((quote_status == UNQUOTED/*  || (prev_status != *quote_status) */)
-// 			&& (myisspace(data->raw_input[*j])/*  || !data->raw_input[*j] */)
-// 			&& words)
-// 			*words += 1;
-// 		*j += 1;
-// 	}
-// }
+	prev_status = 0;
+	while (data->raw_input[*j] && myisspace(data->raw_input[*j]))
+	{
+		if (*j > 0)
+			isquote(data->raw_input[*j - 1], &prev_status);
+		else
+			prev_status = *quote_status;
+		isquote(data->raw_input[*j], quote_status);
+		if ((quote_status == UNQUOTED)
+			&& (myisspace(data->raw_input[*j]))
+			&& words)
+			*words += 1;
+		*j += 1;
+	}
+}
 
-/**
- * The function `fill_token_array` takes a shell structure and the number of words as input, and fills
+/**The function `fill_token_array` takes a shell structure and the number 
+of words as input, and fills
  * an array with tokens from the raw input string.
  * 
- * @param d The parameter `d` is of type `t_shell*`, which is a pointer to a structure of type
+ * @param d The parameter `d` is of type `t_shell*`, which is a pointer 
+ 	to a structure of type
  * `t_shell`.
- * @param words The parameter "words" represents the number of words in the input string.
+ * @param words The parameter "words" represents the number of words in the 
+ 	input string.
  * 
  * @return a pointer to a character array (char **) called "tokens".
  */
