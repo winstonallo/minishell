@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:11:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 22:02:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 02:12:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static char	**fill_token_array(t_shell *d, size_t words)
 			skip_whitespaces(d, &d->tok.j, &d->tok.st, NULL);
 	}
 	d->tok.tokens[d->tok.i] = NULL;
+	for (int i = 0; d->tok.tokens[i]; i++)
+		printf("%s\n", d->tok.tokens[i]);
 	return (d->tok.tokens);
 }
 
@@ -93,7 +95,7 @@ char	**get_token_array(t_shell *data, size_t i)
 			skip_whitespaces(data, &i, &quote_status, &words);
 	}
 	words++;
-	token_array = NULL;
+	//token_array = NULL;
 	token_array = fill_token_array(data, words);
 	if (!token_array)
 		return (NULL);
@@ -105,7 +107,7 @@ int	add_tokens_to_list(char **args, t_shell *data, int quote_status, size_t i)
 	size_t		j;
 	char		*temp;
 
-	while (args[++i])
+	while (++i < data->tok.words)
 	{
 		j = -1;
 		while (args[i][++j])
@@ -119,7 +121,7 @@ int	add_tokens_to_list(char **args, t_shell *data, int quote_status, size_t i)
 			else
 				j += uquote(temp, data);
 		}
-		if (args[i] && args[i + 1])
+		if (args[i])
 		{
 			if (quoteadd_back(data->sequences,
 					quotenew(NULL, PUT_SPACE_HERE, 0)) == -1)

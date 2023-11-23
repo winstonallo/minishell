@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:53:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 23:07:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 02:08:21 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@
 
 typedef struct s_token
 {
+	int					st;
 	size_t				i;
 	size_t				j;
 	size_t				k;
-	int					st;
+	size_t				words;
 	char				**tokens;
 }	t_token;
 
