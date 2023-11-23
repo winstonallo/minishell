@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 18:35:55 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 12:56:07 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 00:58:57 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,13 @@ int	split_curr_sequence(char *seq, t_shell *d)
 			if ((isop(&seq[j], &j, d) || !seq[j]))
 			{
 				if (add_node_special_char(&seq[i], j - i, d, 0) == -1)
-					return (free_opps(d->operators), d->exit);
+					return (-1);
 			}
 		}
 		if (isop(&seq[j], &j, d))
 		{
 			if (add_node_special_char(NULL, 0, d, d->s_char_tmp) == -1)
-				return (free_opps(d->operators), d->exit);
+				return (-1);
 			j++;
 		}
 	}

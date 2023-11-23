@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:47:59 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 09:11:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 00:59:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,10 @@ t_op	*opnew(char *content, int status, int op, unsigned long len)
 	if (!new)
 		return (NULL);
 	if (!content)
-	{
-		new->sequence = NULL;
 		delimiter = 1;
-	}
 	new->sequence = ft_strndup(content, len);
 	if (!new->sequence && !delimiter)
-		return (free(new), NULL);
+		return (freeze(new), NULL);
 	new->s_char = op;
 	new->status = status;
 	new->next = NULL;
@@ -61,10 +58,11 @@ void	free_opps(t_op **opps)
 		while (current)
 		{
 			next = current->next;
-			free(current->sequence);
-			free(current);
+			if (current && current->sequence)
+				freeze(current->sequence);
+			freeze(current);
 			current = next;
 		}
 	}
-	free(opps);
+	freeze(opps);
 }

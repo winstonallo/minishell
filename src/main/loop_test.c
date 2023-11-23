@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 08:42:24 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 22:25:55 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 00:29:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
  */
 static int	read_input_test(t_shell *data)
 {
-	if (tokenize(data) <= 0)
+	if (tokenize(data) == -1)
 		return (-1);
-	// if (expand(data) == -1)
-	// 	return (-1);
-	// if (parse_special_char(data) == -1)
-	// 	return (-1);
+	if (expand(data) == -1)
+		return (-1);
+	if (parse_special_char(data) == -1)
+		return (-1);
 	// if (merge_args(data) == -1)
 	// 	return (-1);
 	// if (lexer(data) == -1)
@@ -82,6 +82,5 @@ int	loop_test(t_shell *data, char *input)
 		return (EXIT);
 	if (check_status_test(data) == EXIT)
 		return (EXIT);
-	wipe(data);
 	return (0);
 }
