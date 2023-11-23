@@ -6,14 +6,14 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:51:30 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 22:28:49 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 03:46:21 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /*List utils functions, just need different ones based on list name & content*/
-t_cmd_table	*cmdnew(int outfile, int infile, int pepi)
+t_cmd_table	*cmdnew(int outfile, int infile, int pepi, char	*eof)
 {
 	t_cmd_table	*new;
 
@@ -26,6 +26,7 @@ t_cmd_table	*cmdnew(int outfile, int infile, int pepi)
 	new->infile = infile;
 	new->pipe = pepi;
 	new->next = NULL;
+	new->heredoc = eof;
 	return (new);
 }
 
@@ -59,12 +60,13 @@ void	free_cmd_tables(t_cmd_table **cmd_tables)
 		temp = head;
 		if (head->args)
 			free_array(head->args);
-		if (head->path)
-			free(head->path);
+		freeze(head->path);
+		freeze(head->heredoc);
 		if (head->infile > 0)
 			close(head->infile);
 		if (head->outfile > 0)
 			close(head->outfile);
+		
 		head = head->next;
 		free(temp);
 	}

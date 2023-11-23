@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 23:40:31 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 03:48:02 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int			checkcmd(t_shell *data);
 int			is_builtin(t_shell *data, char *path, int stdin_fd, int *pipe_fd);
 int			set_redirections(t_shell *data, t_cmd_table *head);
 int			set_pipes(t_shell *data, t_cmd_table *head);
-void		heredoc(char *eof);
+void		heredoc(t_cmd_table *head, t_shell *data);
 
 /* ******************************************************************** */
 /*								BUILT INS								*/
@@ -112,7 +112,7 @@ int			quoteadd_back(t_quotes **lst, t_quotes *new_node);
 //
 //Command table
 //
-t_cmd_table	*cmdnew(int outfile, int infile, int pepi);
+t_cmd_table	*cmdnew(int outfile, int infile, int pepi, char *eof);
 void		cmdadd_back(t_cmd_table **lst, t_cmd_table *new_node);
 //
 //Executable paths list

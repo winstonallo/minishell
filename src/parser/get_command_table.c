@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 03:17:14 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 04:13:13 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,10 @@ int	initialize_redirections(t_op *data, t_cmd_table **cmd_table, int o, int i)
 {
 	t_op		*h;
 	t_cmd_table	*new;
+	char		*temp;
 
 	h = data;
+	temp = NULL;
 	while (h && h->s_char != PIPE)
 	{
 		if (h->s_char == OUT_REDIR && h->status == UNQUOTED)
@@ -94,9 +96,14 @@ int	initialize_redirections(t_op *data, t_cmd_table **cmd_table, int o, int i)
 			o = open(h->next->sequence, O_CREAT | O_APPEND | O_RDWR, 0000644);
 		else if (h->s_char == IN_REDIR && h->status == UNQUOTED)
 			i = open(h->next->sequence, O_RDONLY);
+		else if (h->s_char == HEREDOC && h->status == UNQUOTED)
+		{
+			i = open("heredoc", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+			temp = ft_strdup(h->next->sequence);
+		}
 		h = h->next;
 	}
-	new = cmdnew(o, i, 0);
+	new = cmdnew(o, i, 0, temp);
 	if (!new)
 		return (close(i), close(o), -1);
 	cmdadd_back(cmd_table, new);
@@ -118,7 +125,7 @@ int	add_delimiter(t_shell *data)
 {
 	t_cmd_table	*new;
 
-	new = cmdnew(NO_FD, NO_FD, PIPE);
+	new = cmdnew(NO_FD, NO_FD, PIPE, NULL);
 	if (!new)
 		return (-1);
 	cmdadd_back(data->cmd_table, new);

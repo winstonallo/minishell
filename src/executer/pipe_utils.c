@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 13:52:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/20 17:43:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 04:13:34 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static int	redirect_output(t_shell *data, int output_fd)
 
 int	set_redirections(t_shell *data, t_cmd_table *head)
 {
+	if (head->heredoc)
+		heredoc(head, data);
 	if (head->infile != NO_FD)
 		if (redirect_input(data, head->infile) == -1)
 			return (-1);

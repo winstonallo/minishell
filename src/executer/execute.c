@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 03:02:40 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 03:48:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	child1(t_cmd_table *head, t_shell *data, int stdin_fd)
 			dup2(head->outfile, 1);
 		else
 			dup2(pipe_fd[1], 1);
+		if (head->heredoc)
+			heredoc(head, data);
 		is_builtin(data, head->path, stdin_fd, pipe_fd);
 		execve(head->path, head->args, data->environment);
 		close(pipe_fd[1]);
