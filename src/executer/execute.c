@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 20:53:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 01:58:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 			data->exit = 1;
 		exit_handler(data, stdin_fd, NULL, data->exit);
 	}
-	close(stdin_fd);
 	waitpid(pid, &status, 0);
 	data->exit = WEXITSTATUS(status);
 	return (0);
@@ -131,6 +130,7 @@ int	execute_command(t_shell *data)
 		if (head && head->pipe)
 			head = head->next;
 	}
+	close(stdin_fd);
 	if (child2(head, data, stdin_fd) == -1)
 		return (close(stdin_fd), -1);
 	dup2(stdin_fd, 0);
