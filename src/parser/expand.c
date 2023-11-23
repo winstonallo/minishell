@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:08:07 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 00:24:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:43:37 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*replace(char *str, t_shell *data)
 	}
 	while (head)
 	{
-		if (ft_strncmp(str, head->name, ft_strlen(str)) == 0)
+		if (ft_strncmp(str, head->name, ft_strlen(str) + 1) == 0)
 		{
 			ret = ft_strdup(head->line);
 			if (!ret)

@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:29:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 01:08:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:53:32 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static char	*get_homedir(t_shell *data)
+{
+	t_env	*head;
+
+	head = *data->env_list;
+	while (head)
+	{
+		if (ft_strncmp(head->name, "HOME", 5) == 0)
+			return (head->line);
+		head = head->next;
+	}
+	return (NULL);
+}
+
 
 /**
  * The function `cd` changes the current directory in a shell program and 
@@ -26,16 +41,16 @@ int	cd(t_shell *data, int i)
 		data->exit = FAILURE;
 		return (ft_putstr_fd("cd: too many arguments\n", 2), FAILURE);
 	}
-	else if (i == 1)
+	else if (i == 1 || !ft_strncmp((*data->cmd_table)->args[1], "~", 2) )
 	{
-		if (chdir((*data->cmd_table)->args[1]) == -1)
+		if (chdir(get_homedir(data)) == -1)
 		{
 			perror("minishell: cd");
 			data->exit = FAILURE;
 			return (FAILURE);
 		}
 	}
-	if (chdir((*data->cmd_table)->args[1]) == -1)
+	else if (chdir((*data->cmd_table)->args[1]) == -1)
 	{
 		perror("minishell: cd");
 		data->exit = FAILURE;
