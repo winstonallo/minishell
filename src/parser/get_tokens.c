@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:11:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 02:59:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/23 03:15:21 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int	tokenize(t_shell *data)
 	if (!args)
 		return (-1);
 	if (add_tokens_to_list(args, data, quote_status, -1) == -1)
-		return (-1);
+		return (free_array(args), -1);
 	free_array(args);
 	return (0);
 }
