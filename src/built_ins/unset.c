@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 21:47:41 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/26 22:00:25 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/26 22:44:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,5 @@ void	unset(t_shell *data)
 
 	i = 0;
 	while ((*data->cmd_table)->args[++i])
-	{
 		remove_arg(data, (*data->cmd_table)->args[i]);
-	}
 }
