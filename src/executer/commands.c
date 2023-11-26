@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 15:06:32 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/26 22:02:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int	checkcmd(t_shell *data)
 		return (myexit(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "export", 6) == 0)
 		return (export(data));
-	else if (ft_strncmp((*data->cmd_table)->args[0], "cd", 3) == 0)
+	else if (!ft_strncmp((*data->cmd_table)->args[0], "unset", ft_strlen("unset") + 1))
+		return (unset(data), 0);
+	else if (!ft_strncmp((*data->cmd_table)->args[0], "cd", ft_strlen("cd") + 1))
 		return (cd(data, 0), update_pwd(data));
 	return (data->exit = COMMAND_NOT_FOUND);
 }
