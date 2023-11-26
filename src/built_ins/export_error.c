@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 17:32:48 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/19 17:40:01 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/26 22:39:05 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ static int	issign(char *arg)
 	return (0);
 }
 
+static void	print_error(char *identifier)
+{
+	ft_putstr_fd("minishell: export: `", 2);
+	ft_putstr_fd(identifier, 2);
+	ft_putendl_fd("': not a valid identifier", 2);
+}
+
 /*
  * The function checks if a given argument is a valid identifier
  *  for exporting in C programming language.
@@ -41,16 +48,16 @@ static int	issign(char *arg)
  */
 int	export_error(char *arg, int argname)
 {
-	if ((ft_strchr(arg, '=') != NULL) && arg[2] == '\0')
-		return (ft_putendl_fd(" not a valid identifier", 2), 1);
+	if (!ft_isalpha(arg[0]))
+		return (print_error(arg), 1);
 	else if (ft_strnstr(arg, "-=", ft_strlen(arg)) != 0)
-		return (ft_putendl_fd(" not a valid identifier", 2), 1);
+		return (print_error(arg), 1);
 	else if (ft_strchr(arg, '=') == NULL)
 	{
 		if (issign(arg) != 0 && argname)
-			return (ft_putendl_fd(" not a valid identifier", 2), 1);
+			return (print_error(arg), 1);
 		if ((ft_isdigit(arg[0])) && argname)
-			return (ft_putendl_fd(" not a valid identifier", 2), 1);
+			return (print_error(arg), 1);
 		return (2);
 	}
 	return (0);
