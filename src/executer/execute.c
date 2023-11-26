@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/26 21:44:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/26 22:59:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
 			perror(head->args[0]);
 			exit_handler(data, stdin_fd, check, 126);
 		}
-		is_builtin(data, head->path, stdin_fd, NULL);
+		is_builtin(data, head, stdin_fd, NULL);
 	}
 }
 
@@ -96,7 +96,7 @@ void	child1(t_cmd_table *head, t_shell *data, int stdin_fd)
 		else
 			dup2(pipe_fd[1], 1);
 		heredoc(head, data);
-		is_builtin(data, head->path, stdin_fd, pipe_fd);
+		is_builtin(data, head, stdin_fd, pipe_fd);
 		execve(head->path, head->args, data->environment);
 		close(pipe_fd[1]);
 		ft_putstr_fd(data->command_path, 2);

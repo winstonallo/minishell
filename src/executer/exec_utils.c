@@ -6,23 +6,23 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/20 18:00:14 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/26 23:00:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <unistd.h>
 
-int	is_builtin(t_shell *data, char *path, int stdin_fd, int *pipe_fd)
+int	is_builtin(t_shell *data, t_cmd_table *head, int stdin_fd, int *pipe_fd)
 {
-	data->exit = find_command(data);
+	data->exit = find_command(data, head);
 	if (data->exit == SUCCESS)
 	{
 		close(stdin_fd);
 		if (pipe_fd)
 			close(pipe_fd[1]);
-		if (path)
-			free(path);
+		if (head->path)
+			free(head->path);
 		wipe4real(data);
 		exit(data->exit);
 	}

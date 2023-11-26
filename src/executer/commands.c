@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/26 22:02:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/26 23:00:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	checkcmd(t_shell *data)
  * the command is not found.
  * @return either SUCCESS or FAILURE.
  */
-int	find_command(t_shell *data)
+int	find_command(t_shell *data, t_cmd_table *head)
 {
 	if (!data->cmd_table || !*data->cmd_table || !(*data->cmd_table)->args
 		|| !(*data->cmd_table)->args[0])
@@ -44,7 +44,7 @@ int	find_command(t_shell *data)
 	else if (ft_strncmp((*data->cmd_table)->args[0], "pwd", 4) == 0)
 		return (pwd(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "echo", 5) == 0)
-		return (echo(data, 1));
+		return (echo(head, 1));
 	else
 		return (data->exit = COMMAND_NOT_FOUND);
 	return (FAILURE);

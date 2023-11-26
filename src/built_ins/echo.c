@@ -6,60 +6,59 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/17 13:34:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/26 23:04:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	do_echo(t_op **head, int skipped)
-{
-	if ((*head)->s_char == PIPE)
-		return (BREAK);
-	if ((*head)->s_char && (*head)->next)
-	{
-		if ((*head)->next->s_char)
-		{
-			*head = (*head)->next->next->next;
-			skipped = 1;
-		}
-		if ((*head)->next->next)
-			*head = (*head)->next->next;
-		else if (!(*head)->next)
-			return (BREAK);
-	}
-	if ((*head)->sequence)
-		printf("%s", (*head)->sequence);
-	if ((*head)->status == UNQUOTED && (*head)->next && (*head)->next->status
-		== UNQUOTED)
-		printf(" ");
-	if (!skipped)
-		*head = (*head)->next;
-	return (0);
-}
+// int	do_echo(t_cmd_table **head, int skipped)
+// {
+// 	if ((*head)->s_char == PIPE)
+// 		return (BREAK);
+// 	if ((*head)->s_char && (*head)->next)
+// 	{
+// 		if ((*head)->next->s_char)
+// 		{
+// 			*head = (*head)->next->next->next;
+// 			skipped = 1;
+// 		}
+// 		if ((*head)->next->next)
+// 			*head = (*head)->next->next;
+// 		else if (!(*head)->next)
+// 			return (BREAK);
+// 	}
+// 	if ((*head)->sequence)
+// 		printf("%s", (*head)->sequence);
+// 	if ((*head)->status == UNQUOTED && (*head)->next && (*head)->next->status
+// 		== UNQUOTED)
+// 		printf(" ");
+// 	if (!skipped)
+// 		*head = (*head)->next;
+// 	return (0);
+// }
 
 /**
  * The function "echo" prints out the sequences stored in a linked list,
  * with the option to omit a newline character at the end.
  */
-int	echo(t_shell *data, int newline)
+int	echo(t_cmd_table *head, int newline)
 {
-	t_op		*head;
+	int	i;
 
-	if ((*data->operators)->next)
-		head = (*data->operators)->next;
-	else
+	i = 0;
+	if (!head->args[1])
 		return (printf("\n"), SUCCESS);
-	if (head->sequence
-		&& ft_strncmp(head->sequence, "-n", 3) == 0)
+	if (ft_strncmp(head->args[1], "-n", 3) == 0)
 	{
 		newline = 0;
-		head = head->next;
+		i++;
 	}
-	while (head)
+	while (head->args[++i])
 	{
-		if (do_echo(&head, 0) == BREAK)
-			break ;
+		printf("%s", head->args[i]);
+		if (head->args[i + 1])
+			printf(" ");
 	}
 	if (newline)
 		printf("\n");

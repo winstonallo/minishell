@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/26 22:00:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/26 23:04:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int			count_pipes(t_shell *data);
 char		*find_path(t_shell *data, char *command);
 int			execute_command(t_shell *data);
 int			checkcmd(t_shell *data);
-int			is_builtin(t_shell *data, char *path, int stdin_fd, int *pipe_fd);
+int			is_builtin(t_shell *data, t_cmd_table *head, int stdin_fd, int *pipe_fd);
 int			set_redirections(t_shell *data, t_cmd_table *head);
 int			set_pipes(t_shell *data, t_cmd_table *head);
 void		heredoc(t_cmd_table *head, t_shell *data);
@@ -45,7 +45,7 @@ void		heredoc(t_cmd_table *head, t_shell *data);
 int			update_pwd(t_shell *data);
 int			cd(t_shell *data, int i);
 int			pwd(t_shell *data);
-int			echo(t_shell *data, int newline);
+int			echo(t_cmd_table *head, int newline);
 int			export(t_shell *data);
 int			myexit(t_shell *data);
 void		unset(t_shell *data);
@@ -129,7 +129,7 @@ void		envadd_back(t_env **lst, t_env *new_node);
 
 /*Input reading*/
 int			loop(t_shell *data);
-int			find_command(t_shell *data);
+int			find_command(t_shell *data, t_cmd_table *head);
 int			expand(t_shell *data);
 
 /*Testing utils*/
