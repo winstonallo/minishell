@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 14:58:23 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/26 21:43:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 int			main(int argc, char **argv, char **env);
 void		sigint(int signo);
-void		listen(void);
+void		listen(t_shell *data, int sig_mode);
 int			loop_test(t_shell *data, char *input);
 
 /*Command execution*/

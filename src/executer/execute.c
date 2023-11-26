@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 15:07:29 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/26 21:44:56 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <signal.h>
 
 static void	exit_handler(t_shell *data, int stdin_fd, DIR *check, int code)
 {
@@ -58,6 +59,7 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 	pid = fork();
 	if (!pid)
 	{
+		listen(data, CHILD);
 		if (set_redirections(data, head) == -1)
 			exit (1);
 		check_permission(data, head, stdin_fd);
@@ -87,6 +89,7 @@ void	child1(t_cmd_table *head, t_shell *data, int stdin_fd)
 	pid = fork();
 	if (!pid)
 	{
+		listen(data, CHILD);
 		close(pipe_fd[0]);
 		if (head->outfile != NO_FD)
 			dup2(head->outfile, 1);

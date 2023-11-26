@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 15:24:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 15:12:32 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/26 21:45:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,38 @@ volatile sig_atomic_t	g_sig = 0;
 
 void	sigint(int signo)
 {
-	if (signo)
+	if (signo == SIGINT)
 	{
 		g_sig = CTRL_C;
 		write(STDERR_FILENO, "\n", 1);
 		rl_on_new_line();
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
 
-void	listen(void)
+void	listen(t_shell *data, int sig_mode)
 {
-	struct sigaction	sig;
-
-	sig.sa_flags = 0;
-	sig.sa_handler = sigint;
-	sigemptyset(&sig.sa_mask);
-	sigaction(SIGINT, &sig, NULL);
+	if (!data)
+		return ;
+	if (sig_mode == INTERACTIVE)
+	{
+		signal(SIGINT, &sigint);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (sig_mode == NON_INTERACTIVE)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (sig_mode == CHILD)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+	}
+	else if (sig_mode == HEREDOC)
+	{
+		signal(SIGINT, NULL);
+		signal(SIGQUIT, SIG_IGN);
+	}
 }

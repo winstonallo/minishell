@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 01:15:14 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:43:41 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ int	loop(t_shell *data)
 	{
 		if (initialize_sequences(data) == -1)
 			return (data->exit);
+		listen(data, INTERACTIVE);
 		data->raw_input = readline(data->prompt);
+		listen(data, NON_INTERACTIVE);
 		if (!data->raw_input)
 			return (myexit(data));
 		if (!data->raw_input[0])

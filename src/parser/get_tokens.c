@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:11:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 03:20:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:15:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ size_t *words)
 		else
 			prev_status = *quote_status;
 		isquote(data->raw_input[*j], quote_status);
-		if ((quote_status == UNQUOTED)
-			&& (myisspace(data->raw_input[*j]))
+		if ((*quote_status == UNQUOTED)
+			&& myisspace(data->raw_input[*j])
 			&& words)
 			*words += 1;
 		*j += 1;
@@ -66,6 +66,8 @@ static char	**fill_token_array(t_shell *d, size_t words)
 						d->tok.j - d->tok.k - 1);
 				if (!d->tok.tokens[d->tok.i])
 					return (free_array(d->tok.tokens), NULL);
+				// if (d->raw_input[d->tok.j])
+				// 	skip_whitespaces(d, &d->tok.j, &d->tok.st, NULL);
 				break ;
 			}
 			d->tok.j++;
@@ -91,6 +93,7 @@ char	**get_token_array(t_shell *data, size_t i)
 		if ((quote_status == UNQUOTED || prev_status != quote_status)
 			&& (myisspace(data->raw_input[i]) || !data->raw_input[i + 1]))
 			words++;
+		// skip_whitespaces(data, &i, &quote_status, &words);
 	}
 	token_array = NULL;
 	token_array = fill_token_array(data, words);

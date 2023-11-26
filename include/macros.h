@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:52:49 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 08:34:29 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:40:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@
 # define HEREDOC 0x3c3c
 # define SPECIAL_CHAR 999999
 # define NO_FD 0
+
+# define INTERACTIVE 19283612
+# define CHILD 1273
+# define NON_INTERACTIVE 123423408
+# define HEREDOCS 129783
 
 # define SUCCESS 0
 # define FAILURE 1
