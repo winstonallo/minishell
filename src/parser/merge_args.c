@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 20:57:06 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 17:22:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:27:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ static char	*add_to_word(char *merged_args, t_op *head)
 	temp = merged_args;
 	if (!merged_args)
 		merged_args = ft_strdup((head->sequence));
-	else
+	else if (head && head->sequence)
 		merged_args = ft_strjoin(merged_args, head->sequence);
 	if (!merged_args)
-		return (NULL);
-	free(temp);
-	return (merged_args);
+		return (freeze(merged_args), freeze(temp), NULL);
+	return (freeze(temp), merged_args);
 }
 
 static t_op	*get_next_token(t_op **head)
@@ -41,13 +40,17 @@ static t_op	*get_next_token(t_op **head)
 		if (*head && (*head)->s_char)
 		{
 			new = opnew(NULL, 0, (*head)->s_char, 0);
+			if (!new)
+				return (freeze(merged_args), NULL);
 			*head = (*head)->next;
-			return (new);
+			return (freeze(merged_args), new); 
 		}
 		*head = (*head)->next;
 		if (!(*head) || (*head)->status == PUT_SPACE_HERE)
 		{
 			new = opnew(merged_args, 0, 0, ft_strlen(merged_args));
+			if (!new)
+				return (freeze(merged_args), NULL);
 			return (free(merged_args), new);
 		}
 	}
