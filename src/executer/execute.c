@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/26 22:59:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 11:30:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
 		ft_putstr_fd(": is a directory\n", 2);
 		exit_handler(data, stdin_fd, check, 126);
 	}
-	else if (!data->validpath && access(head->args[0], X_OK) == -1)
+	else if (!data->validpath && access(head->args[0], X_OK | R_OK) == -1)
 	{
 		if (errno == EACCES)
 		{
@@ -92,7 +92,10 @@ void	child1(t_cmd_table *head, t_shell *data, int stdin_fd)
 		listen(data, CHILD);
 		close(pipe_fd[0]);
 		if (head->outfile != NO_FD)
-			dup2(head->outfile, 1);
+		{
+			if (dup2(head->outfile, 1) == -1)
+				exit(1);
+		}	
 		else
 			dup2(pipe_fd[1], 1);
 		heredoc(head, data);

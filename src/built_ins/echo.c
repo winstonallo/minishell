@@ -6,37 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/26 23:04:24 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 11:16:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// int	do_echo(t_cmd_table **head, int skipped)
-// {
-// 	if ((*head)->s_char == PIPE)
-// 		return (BREAK);
-// 	if ((*head)->s_char && (*head)->next)
-// 	{
-// 		if ((*head)->next->s_char)
-// 		{
-// 			*head = (*head)->next->next->next;
-// 			skipped = 1;
-// 		}
-// 		if ((*head)->next->next)
-// 			*head = (*head)->next->next;
-// 		else if (!(*head)->next)
-// 			return (BREAK);
-// 	}
-// 	if ((*head)->sequence)
-// 		printf("%s", (*head)->sequence);
-// 	if ((*head)->status == UNQUOTED && (*head)->next && (*head)->next->status
-// 		== UNQUOTED)
-// 		printf(" ");
-// 	if (!skipped)
-// 		*head = (*head)->next;
-// 	return (0);
-// }
 
 /**
  * The function "echo" prints out the sequences stored in a linked list,
