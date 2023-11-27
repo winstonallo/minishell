@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 11:30:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:50:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,30 @@ static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
 	}
 }
 
+void	wait_for_children(t_shell *data)
+{
+	t_cmd_table	*head;
+	int			status;
+
+	head = *data->cmd_table;
+	while (head)
+	{
+		waitpid(head->pid, &status, 0);
+		head = head->next;
+	}
+	if (WIFEXITED(status))
+		data->exit = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		data->exit = WTERMSIG(status) + 128;
+}
+
 static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 {
-	pid_t	pid;
-	int		status;
-
 	head->path = find_path(data, head->args[0]);
 	if (data->validpath == MALLOC_ERROR)
 		return (-1);
-	pid = fork();
-	if (!pid)
+	head->pid = fork();
+	if (!head->pid)
 	{
 		listen(data, CHILD);
 		if (set_redirections(data, head) == -1)
@@ -69,8 +83,6 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 			data->exit = 1;
 		exit_handler(data, stdin_fd, NULL, data->exit);
 	}
-	waitpid(pid, &status, 0);
-	data->exit = WEXITSTATUS(status);
 	return (0);
 }
 
@@ -81,13 +93,12 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
  */
 void	child1(t_cmd_table *head, t_shell *data, int stdin_fd)
 {
-	pid_t	pid;
 	int		pipe_fd[2];
 
 	if (pipe(pipe_fd) == -1)
 		exit (0);
-	pid = fork();
-	if (!pid)
+	head->pid = fork();
+	if (!head->pid)
 	{
 		listen(data, CHILD);
 		close(pipe_fd[0]);
@@ -141,5 +152,6 @@ int	execute_command(t_shell *data)
 		return (close(stdin_fd), -1);
 	dup2(stdin_fd, 0);
 	close(stdin_fd);
+	wait_for_children(data);
 	return (0);
 }

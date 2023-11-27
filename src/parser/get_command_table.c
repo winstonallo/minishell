@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command_table.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 15:08:17 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/27 11:51:37 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	initialize_redirections(t_op *data, t_cmd_table **cmd_table, int o, int i)
 		else if (h->s_char == APPEND && h->status == UNQUOTED)
 			o = open(h->next->sequence, O_CREAT | O_APPEND | O_RDWR, 0000644);
 		else if (h->s_char == IN_REDIR && h->status == UNQUOTED)
-			i = open(h->next->sequence, O_RDONLY);
+			i = open_infile(h->next->sequence);
 		else if (h->s_char == HEREDOC && h->status == UNQUOTED)
 			temp = ft_strdup(h->next->sequence);
 		h = h->next;

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/26 23:04:06 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 11:48:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int			isquote(char pos, int *status);
 int			lexer(t_shell *data);
 int			check_quotes(t_shell *data);
 int			init_vars(t_shell *data, size_t words);
+int			open_infile(char *path);
 
 /* ******************************************************************** */
 /*								LIST UTILS								*/

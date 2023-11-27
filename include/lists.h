@@ -6,13 +6,14 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:54:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/26 20:15:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:50:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LISTS_H
 # define LISTS_H
 
+#include <sys/types.h>
 typedef struct s_env
 {
 	char			*name;
@@ -48,6 +49,7 @@ typedef struct s_cmd_table
 	int					outfile;
 	int					infile;
 	int					pipe;
+	pid_t				pid;
 	char				*heredoc;
 	struct s_cmd_table	*next;
 }	t_cmd_table;

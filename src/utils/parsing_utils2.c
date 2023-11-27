@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:17:40 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 02:08:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 11:52:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,18 @@ int	init_vars(t_shell *data, size_t words)
 	if (!data->tok.tokens)
 		return (-1);
 	return (0);
+}
+
+int			open_infile(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(path, 2);
+		perror(": ");
+	}
+	return (fd);
 }
