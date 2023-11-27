@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 17:08:16 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 18:59:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,11 @@ char	**fill_array(size_t *size, char *seq, size_t *pos, t_shell *data)
 	arr = malloc((*size + 1) * sizeof(char *));
 	if (!arr)
 		return (NULL);
-	printf("---new_word---\n");
 	while (++i < *size)
 	{
 		arr[i] = get_next_word(seq, pos);
 		if (!arr[i])
 			return (free(arr), NULL);
-		printf("arr[%zu]: |%s|\n", i, arr[i]);
 		if (arr[i][0] == '$' && (isalnum(arr[i][1])))
 			arr[i] = replace(arr[i], data);
 		*pos += 1;
