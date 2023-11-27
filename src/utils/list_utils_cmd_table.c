@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils_cmd_table.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:51:30 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 15:13:06 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/27 15:12:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_cmd_table	*cmdnew(int outfile, int infile, int pepi, char	*eof)
 	new->infile = infile;
 	new->pipe = pepi;
 	new->next = NULL;
+	new->pid = NOTACHILD;
 	new->heredoc = eof;
 	return (new);
 }

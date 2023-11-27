@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 15:06:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:12:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
 	}
 }
 
-void	wait_for_children(t_shell *data)
+static void	wait_for_children(t_shell *data)
 {
 	t_cmd_table	*head;
 	int			status;
@@ -45,7 +45,8 @@ void	wait_for_children(t_shell *data)
 	head = *data->cmd_table;
 	while (head)
 	{
-		waitpid(head->pid, &status, 0);
+		if (head->pid != NOTACHILD)
+			waitpid(head->pid, &status, 0);
 		head = head->next;
 	}
 	if (WIFEXITED(status))

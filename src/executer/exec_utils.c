@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 15:06:38 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:10:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ int	is_builtin(t_shell *data, t_cmd_table *head, int stdin_fd, int *pipe_fd)
 		close(stdin_fd);
 		if (pipe_fd)
 			close(pipe_fd[1]);
-		if (head->path)
-			free(head->path);
 		wipe4real(data);
 		exit(data->exit);
 	}
