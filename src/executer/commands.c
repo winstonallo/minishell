@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/26 23:00:52 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 11:35:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,13 @@ int	checkcmd(t_shell *data)
  */
 int	find_command(t_shell *data, t_cmd_table *head)
 {
-	if (!data->cmd_table || !*data->cmd_table || !(*data->cmd_table)->args
-		|| !(*data->cmd_table)->args[0])
+	if (!head || !head->args || !head->args[0])
 		return (0);
-	if (ft_strncmp((*data->cmd_table)->args[0], "env", 4) == 0)
+	if (!ft_strncmp(head->args[0], "env", 4))
 		return (env(data));
-	else if (ft_strncmp((*data->cmd_table)->args[0], "pwd", 4) == 0)
+	else if (!ft_strncmp(head->args[0], "pwd", 4))
 		return (pwd(data));
-	else if (ft_strncmp((*data->cmd_table)->args[0], "echo", 5) == 0)
+	else if (!ft_strncmp(head->args[0], "echo", 5))
 		return (echo(head, 1));
 	else
 		return (data->exit = COMMAND_NOT_FOUND);
