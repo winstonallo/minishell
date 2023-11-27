@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 11:48:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:06:54 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ int			count_pipes(t_shell *data);
 char		*find_path(t_shell *data, char *command);
 int			execute_command(t_shell *data);
 int			checkcmd(t_shell *data);
-int			is_builtin(t_shell *data, t_cmd_table *head, int stdin_fd, int *pipe_fd);
+int			is_builtin(t_shell *data, t_cmd_table *head, int stdin_fd,
+				int *pipe_fd);
+void		exit_handler(t_shell *data, int stdin_fd, DIR *check, int code);
+void		close_pipe_init_fd(int *pipe_fd);
 int			set_redirections(t_shell *data, t_cmd_table *head);
 int			set_pipes(t_shell *data, t_cmd_table *head);
 void		heredoc(t_cmd_table *head, t_shell *data);

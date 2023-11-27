@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:17:40 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 11:52:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:01:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	init_vars(t_shell *data, size_t words)
 	return (0);
 }
 
-int			open_infile(char *path)
+int	open_infile(char *path)
 {
 	int	fd;
 

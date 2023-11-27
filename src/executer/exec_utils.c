@@ -6,12 +6,30 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/26 23:00:24 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:06:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <unistd.h>
+
+void	exit_handler(t_shell *data, int stdin_fd, DIR *check, int code)
+{
+	if (code)
+		data->exit = code;
+	close(stdin_fd);
+	wipe4real(data);
+	if (check)
+		closedir(check);
+	exit(data->exit);
+}
+
+void	close_pipe_init_fd(int *pipe_fd)
+{
+	close(pipe_fd[1]);
+	dup2(pipe_fd[0], 0);
+	close(pipe_fd[0]);
+}
 
 int	is_builtin(t_shell *data, t_cmd_table *head, int stdin_fd, int *pipe_fd)
 {

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 20:57:06 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/26 22:54:13 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:02:46 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static t_op	*get_next_token(t_op **head)
 		{
 			new = opnew(NULL, 0, (*head)->s_char, 0);
 			*head = (*head)->next;
-			return (freeze(merged_args), new); 
+			return (freeze(merged_args), new);
 		}
 		*head = (*head)->next;
 		if (!(*head) || (*head)->s_char || (*head)->status == PUT_SPACE_HERE)

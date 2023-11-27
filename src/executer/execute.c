@@ -6,23 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 14:50:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:06:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <signal.h>
-
-static void	exit_handler(t_shell *data, int stdin_fd, DIR *check, int code)
-{
-	if (code)
-		data->exit = code;
-	close(stdin_fd);
-	wipe4real(data);
-	if (check)
-		closedir(check);
-	exit(data->exit);
-}
 
 static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
 {
@@ -96,7 +85,7 @@ void	child1(t_cmd_table *head, t_shell *data, int stdin_fd)
 	int		pipe_fd[2];
 
 	if (pipe(pipe_fd) == -1)
-		exit (0);
+		exit (1);
 	head->pid = fork();
 	if (!head->pid)
 	{
@@ -106,7 +95,7 @@ void	child1(t_cmd_table *head, t_shell *data, int stdin_fd)
 		{
 			if (dup2(head->outfile, 1) == -1)
 				exit(1);
-		}	
+		}
 		else
 			dup2(pipe_fd[1], 1);
 		heredoc(head, data);
@@ -115,12 +104,9 @@ void	child1(t_cmd_table *head, t_shell *data, int stdin_fd)
 		close(pipe_fd[1]);
 		ft_putstr_fd(data->command_path, 2);
 		perror("minishell: failed to execute command");
-		wipe(data);
-		exit(1);
+		exit_handler(data, stdin_fd, NULL, 1);
 	}
-	close(pipe_fd[1]);
-	dup2(pipe_fd[0], 0);
-	close(pipe_fd[0]);
+	close_pipe_init_fd(pipe_fd);
 }
 
 /**

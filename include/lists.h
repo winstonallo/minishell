@@ -6,14 +6,15 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:54:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 13:50:47 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:58:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LISTS_H
 # define LISTS_H
 
-#include <sys/types.h>
+# include <sys/types.h>
+
 typedef struct s_env
 {
 	char			*name;

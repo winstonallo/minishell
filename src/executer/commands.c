@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 11:35:16 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:03:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	checkcmd(t_shell *data)
 		return (myexit(data));
 	else if (ft_strncmp((*data->cmd_table)->args[0], "export", 6) == 0)
 		return (export(data));
-	else if (!ft_strncmp((*data->cmd_table)->args[0], "unset", ft_strlen("unset") + 1))
+	else if (!ft_strncmp((*data->cmd_table)->args[0], "unset", 6))
 		return (unset(data), 0);
-	else if (!ft_strncmp((*data->cmd_table)->args[0], "cd", ft_strlen("cd") + 1))
+	else if (!ft_strncmp((*data->cmd_table)->args[0], "cd", 3))
 		return (cd(data, 0), update_pwd(data));
 	return (data->exit = COMMAND_NOT_FOUND);
 }
