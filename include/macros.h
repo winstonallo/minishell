@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:52:49 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 15:11:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/28 10:28:31 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 # define UNQUOTED 0x00
 # define PUT_SPACE_HERE 6969
 # define PIPE 0x7c 
-# define IN_REDIR 0x3c
-# define OUT_REDIR 0x3e
-# define APPEND 0x3e3e
-# define HEREDOC 0x3c3c
+# define IN_REDIR 1
+# define OUT_REDIR 2
+# define APPEND 3
+# define HEREDOC 4
 # define SPECIAL_CHAR 999999
 # define NO_FD 0
 # define NOTACHILD 123456789

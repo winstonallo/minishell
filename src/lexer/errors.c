@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:43:39 by arthur            #+#    #+#             */
-/*   Updated: 2023/11/21 23:13:30 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/28 10:29:03 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static int	check_unexpected_token(t_shell *data)
 	head = *data->operators;
 	while (head)
 	{
-		if (head->s_char && head->next && head->next->s_char)
+		if (head->s_char == PIPE && head->next && head->next->s_char &&
+			head->next->s_char == PIPE)
 		{
 			data->exit = 2;
 			return (print_syntax_error(head->next->s_char), -1);
