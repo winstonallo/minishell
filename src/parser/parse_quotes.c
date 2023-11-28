@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/28 13:09:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/28 13:48:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	dquotes(char *quoted_sequence, t_shell *data)
 	t_quotes	*new;
 
 	i = 0;
-	while (quoted_sequence[i] != '\"')
+	while (quoted_sequence[i] && quoted_sequence[i] != '\"')
 		i++;
 	new = quotenew(quoted_sequence, IN_DOUBLE_QUOTES, i);
 	if (!new)
@@ -60,7 +60,7 @@ int	squotes(char *quoted_sequence, t_shell *data)
 	t_quotes	*new;
 
 	i = 0;
-	while (quoted_sequence[i] != '\'')
+	while (quoted_sequence[i] && quoted_sequence[i] != '\'')
 		i++;
 	new = quotenew(quoted_sequence, IN_SINGLE_QUOTES, i);
 	if (!new)

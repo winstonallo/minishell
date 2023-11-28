@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:11:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/28 13:24:17 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:09:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	add_tokens_to_list(t_quotes **list, t_shell *data)
 	head = *list;
 	while (head)
 	{
-		if (head->sequence[0] == '"')
+		if (head->sequence[0] && head->sequence[0] == '"')
 			dquotes(head->sequence + 1, data);
 		else if (head->sequence[0] == '\'')
 			squotes(head->sequence + 1, data);
@@ -137,6 +137,7 @@ t_quotes	**get_token_list(t_shell *data, size_t i)
 		return (NULL);
 	*list = NULL;
 	pos = 0;
+	quote_status = 0;
 	isquote(data->raw_input[0], &quote_status);
 	while (data->raw_input[++i])
 	{
@@ -151,8 +152,14 @@ t_quotes	**get_token_list(t_shell *data, size_t i)
 				return (NULL);
 			quoteadd_back(list, new);
 			pos = i;
+			printf("data->raw_input[%zu]: [%c]\n", i, data->raw_input[i]);
 		}
+		if (!data->raw_input[i])
+			break ;
 	}
+	printf("hello\n");
+	print_quote_list(list);
+	printf("\nafter merging: \n");
 	return (list);
 }
 
@@ -164,5 +171,6 @@ int	tokenize(t_shell *data)
 		return (-1);
 	temp_list = get_token_list(data, -1);
 	add_tokens_to_list(temp_list, data);
+	free_sequences(temp_list);
 	return (0);
 }
