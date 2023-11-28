@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:11:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/28 14:09:52 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:46:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,15 +151,12 @@ t_quotes	**get_token_list(t_shell *data, size_t i)
 			if (!new)
 				return (NULL);
 			quoteadd_back(list, new);
-			pos = i;
-			printf("data->raw_input[%zu]: [%c]\n", i, data->raw_input[i]);
+			while (pos < i)
+				isquote(data->raw_input[pos++], &quote_status);
 		}
 		if (!data->raw_input[i])
 			break ;
 	}
-	printf("hello\n");
-	print_quote_list(list);
-	printf("\nafter merging: \n");
 	return (list);
 }
 
