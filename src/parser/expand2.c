@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 18:59:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:31:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ static char	*get_next_word(char *seq, size_t *pos)
 	char	*ret;
 
 	i = *pos;
-	if (seq[i] == '$')
+	if (seq[i] == '$' && !ft_isalnum(seq[i + 1]))
+		while (seq[i] && (seq[i] != '$' || !ft_isalnum(seq[i])))
+			i++;
+	else if (seq[i] == '$')
 	{
 		i++;
 		while (ft_isalnum(seq[i]))
