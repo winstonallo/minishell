@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/28 11:54:30 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 13:54:54 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <math.h>
 #include <signal.h>
 
 static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
@@ -23,7 +24,8 @@ static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(head->args[0], 2);
 		ft_putstr_fd(": is a directory\n", 2);
-		exit_handler(data, stdin_fd, check, 126);
+		data->exit = 126;
+		exit_handler(data, stdin_fd, check, head);
 	}
 	else if (!data->validpath && access(head->args[0], X_OK | R_OK) == -1)
 	{
@@ -31,10 +33,12 @@ static void	check_permission(t_shell *data, t_cmd_table *head, int stdin_fd)
 		{
 			ft_putstr_fd("minishell: ", 2);
 			perror(head->args[0]);
-			exit_handler(data, stdin_fd, check, 126);
+			data->exit = 126;
+			exit_handler(data, stdin_fd, check, head);
 		}
-		is_builtin(data, head, stdin_fd, NULL);
 	}
+	else
+		data->exit = is_builtin(data, head, stdin_fd, NULL);
 }
 
 static void	wait_for_children(t_shell *data)
@@ -71,7 +75,7 @@ static int	child2(t_cmd_table *head, t_shell *data, int stdin_fd)
 			execve(head->path, head->args, data->environment);
 		if (!data->exit)
 			data->exit = 1;
-		exit_handler(data, stdin_fd, NULL, data->exit);
+		exit_handler(data, stdin_fd, NULL, head);
 	}
 	return (0);
 }
@@ -100,12 +104,10 @@ void	child1(t_cmd_table *head, t_shell *data, int stdin_fd)
 		else
 			dup2(pipe_fd[1], 1);
 		heredoc(head, data);
-		is_builtin(data, head, stdin_fd, pipe_fd);
+		check_permission(data, head, stdin_fd);
 		execve(head->path, head->args, data->environment);
 		close(pipe_fd[1]);
-		ft_putstr_fd(data->command_path, 2);
-		perror("minishell: failed to execute command");
-		exit_handler(data, stdin_fd, NULL, 1);
+		exit_handler(data, stdin_fd, NULL, head);
 	}
 	close_pipe_init_fd(pipe_fd);
 }
@@ -128,8 +130,6 @@ int	execute_command(t_shell *data)
 	while (++i < pipes)
 	{
 		head->path = find_path(data, head->args[0]);
-		if (!head->path)
-			return (-1);
 		child1(head, data, stdin_fd);
 		head = head->next;
 		if (head && head->pipe)
