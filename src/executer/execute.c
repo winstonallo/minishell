@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 18:13:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:18:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ static void	check_permission(t_shell *data, t_cmd_table *head)
 			data->exit = 126;
 			exit_handler(data, check, head);
 		}
-	}
-	else
-		data->exit = is_builtin(data, head, NULL);
+	}	
+	data->exit = is_builtin(data, head, NULL);
 }
 
 static void	wait_for_children(t_shell *data)
@@ -62,9 +61,9 @@ static void	wait_for_children(t_shell *data)
 
 int	is_unpipeable(char *cmd)
 {
-	if (ft_strncmp(cmd, "exit", 5) == 0)
+	if (!ft_strncmp(cmd, "exit", 5))
 		return (1);
-	else if (ft_strncmp(cmd, "export", 6) == 0)
+	else if (!ft_strncmp(cmd, "export", 7))
 		return (1);
 	else if (!ft_strncmp(cmd, "unset", 6))
 		return (1);
