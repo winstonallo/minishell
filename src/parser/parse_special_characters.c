@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 18:35:55 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 20:08:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 20:49:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,23 @@ int	isop(char *s, size_t *j, t_shell *data)
 int	add_node_special_char(char *seq, size_t len, t_shell *data, int status)
 {
 	t_op	*new;
+	char	*temp;
+	char	*temptemp;
 
-	new = opnew(seq, UNQUOTED, status, len);
+	if (len < 0)
+		return (-1);
+	temp = ft_strndup(seq, len);
+	if (!temp)
+		return (-1);
+	temptemp = ft_strtrim(temp, "<>|");
+	free(temp);
+	if (!temptemp && !status)
+		return (-1);
+	new = opnew(temptemp, UNQUOTED, status, len);
 	if (!new)
 		return (-1);
 	opadd_back(data->operators, new);
-	data->s_char_tmp = 0;
+	free(temptemp);
 	return (0);
 }
 
@@ -106,10 +117,11 @@ int	split_curr_sequence(char *seq, t_shell *d)
 					return (-1);
 			}
 		}
-		if (isop(&seq[j], &j, d))
+		if (d->s_char_tmp)
 		{
 			if (add_node_special_char(NULL, 0, d, d->s_char_tmp) == -1)
 				return (-1);
+			d->s_char_tmp = 0;
 			j++;
 		}
 	}
