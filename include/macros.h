@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:52:49 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/28 10:28:31 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/29 23:55:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
+
+extern int		g_sig;
 
 # ifndef TEST_MODE
 #  define TEST_MODE 0
@@ -30,6 +32,7 @@
 # define SPECIAL_CHAR 999999
 # define NO_FD 0
 # define NOTACHILD 123456789
+# define HEREDOCINT 1203861
 
 # define INTERACTIVE 19283612
 # define CHILD 1273

@@ -6,13 +6,14 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 22:28:32 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:56:35 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <math.h>
 #include <signal.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 static void	check_permission(t_shell *data, t_cmd_table *head)
@@ -74,7 +75,7 @@ static int	child2(t_cmd_table *head, t_shell *data)
 			exit (1);
 		checkcmds(head, data, NULL);
 		check_permission(data, head);
-		if (head->path)
+		if (head->path && head->infile != HEREDOCINT)
 			execve(head->path, head->args, data->environment);
 		if (!data->exit)
 			data->exit = 1;
@@ -135,15 +136,14 @@ int	execute_command(t_shell *data)
 		head->path = find_path(data, head->args[0]);
 		child1(head, data);
 		if (head->heredoc)
-			unlink("heredoc");
+			unlink(".temp_heredoc");
 		head = head->next;
 		if (head && head->pipe)
 			head = head->next;
 	}
 	if (child2(head, data) == -1)
 		return (close(data->stdin_fd), -1);
-	if (head->heredoc)
-		unlink("heredoc");
+	unlink(".temp_heredoc");
 	dup2(data->stdin_fd, 0);
 	close(data->stdin_fd);
 	wait_for_children(data);

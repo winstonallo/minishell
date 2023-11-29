@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 22:49:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:58:56 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	exit_handler(t_shell *data, DIR *check, t_cmd_table *head)
 	}
 	if (head->infile != NO_FD)
 		close(head->infile);
+	unlink(".temp_heredoc");
 	close(data->stdin_fd);
 	wipe4real(data);
 	if (check)
@@ -38,7 +39,8 @@ void	close_pipe_init_fd(int *pipe_fd)
 
 int	is_builtin(t_shell *data, t_cmd_table *head, int *pipe_fd)
 {
-	data->exit = find_command(data, head);
+	if (head->infile != HEREDOCINT)
+		data->exit = find_command(data, head);
 	if (data->exit == SUCCESS)
 	{
 		close(data->stdin_fd);

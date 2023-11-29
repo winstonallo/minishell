@@ -6,14 +6,15 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 15:24:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 22:46:47 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:49:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <signal.h>
+#include <sys/ioctl.h>
 
-volatile sig_atomic_t	g_sig = 0;
+int	g_sig = 0;
 
 void	sigint(int signo)
 {
@@ -31,7 +32,7 @@ void	heredox(int status)
 	if (status == SIGINT)
 	{
 		g_sig = CTRL_C;
-		write(STDERR_FILENO, "\n", 1);
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 	}
