@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:41:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/28 11:40:33 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:37:07 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ size_t	count_words(char *seq)
 		{
 			ret++;
 			i++;
-			while (seq[i] && seq[i] != '$' && !myisspacealnum(seq[i]))
+			while (seq[i] && seq[i] != '$' && (ft_isalnum(seq[i] || seq[i] == '?')))
 				i++;
 		}
 		else
@@ -66,16 +66,16 @@ static char	*get_next_word(char *seq, size_t *pos)
 	char	*ret;
 
 	i = *pos;
-	if (seq[i] == '$' && !ft_isalnum(seq[i + 1]))
+	if (seq[i] && seq[i] == '$' && !ft_isalnum(seq[i + 1]) && seq[i + 1] != '?')
 		while (seq[i] && (seq[i] != '$' || !ft_isalnum(seq[i])))
 			i++;
 	else if (seq[i] == '$')
 	{
 		i++;
-		while (ft_isalnum(seq[i]))
+		while (ft_isalnum(seq[i]) || seq[i] == '?')
 			i++;
 	}
-	else
+	else if (seq[i])
 	{
 		while (seq[i] && seq[i] != '$')
 			i++;
