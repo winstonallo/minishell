@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 17:00:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:49:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	exit_handler(t_shell *data, DIR *check, t_cmd_table *head)
 		ft_putstr_fd(head->args[0], 2);
 		ft_putendl_fd(": command not found", 2);
 	}
+	if (head->infile != NO_FD)
+		close(head->infile);
 	close(data->stdin_fd);
 	wipe4real(data);
 	if (check)

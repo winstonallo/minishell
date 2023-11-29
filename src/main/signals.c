@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 15:24:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 18:24:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:46:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ void	sigint(int signo)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+	}
+}
+void	heredox(int status)
+{
+	if (status == SIGINT)
+	{
+		g_sig = CTRL_C;
+		write(STDERR_FILENO, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
 	}
 }
 
@@ -48,7 +58,7 @@ void	listen(t_shell *data, int sig_mode)
 	}
 	else if (sig_mode == HEREDOC)
 	{
-		signal(SIGINT, NULL);
+		signal(SIGINT, &heredox);
 		signal(SIGQUIT, SIG_IGN);
 	}
 }
