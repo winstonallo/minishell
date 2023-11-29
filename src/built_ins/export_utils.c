@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:43:40 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/09 14:10:01 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/29 14:52:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	update_env_list(t_shell *data)
 	if (!new_line)
 		return (-1);
 	if (compare_env(data, new_line) == 1)
-		free_array(new_line);
+		return (free_array(new_line), 0);
 	else if (compare_env(data, new_line) == -1)
 		return (-1);
 	if (add_arg_to_env(data, new_line) == -1)
