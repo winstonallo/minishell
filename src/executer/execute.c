@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 18:18:55 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 20:07:39 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	checkcmds(t_cmd_table *head, t_shell *data, int *pipe_fd)
 
 static int	child2(t_cmd_table *head, t_shell *data)
 {
+	if (!head)
+		return (-1);
 	head->path = find_path(data, head->args[0]);
 	if (data->validpath == MALLOC_ERROR)
 		return (-1);
