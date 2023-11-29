@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 15:24:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 16:52:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:24:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	listen(t_shell *data, int sig_mode)
 	else if (sig_mode == CHILD)
 	{
 		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (sig_mode == HEREDOC)
 	{
