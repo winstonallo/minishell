@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:53:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 20:55:33 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:08:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 typedef struct s_token
 {
 	int					st;
+	int					prev_st;
 	size_t				i;
 	size_t				j;
 	size_t				k;
 	size_t				words;
 	char				**tokens;
+	struct s_quotes		**pars_temp_list;
 }	t_token;
 
 typedef struct s_shell

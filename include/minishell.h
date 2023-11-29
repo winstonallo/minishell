@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 17:00:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:01:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void		exit_handler(t_shell *data, DIR *check, t_cmd_table *head);
 void		close_pipe_init_fd(int *pipe_fd);
 int			set_redirections(t_shell *data, t_cmd_table *head);
 int			set_pipes(t_shell *data, t_cmd_table *head);
+int			is_unpipeable(char *cmd);
+void		checkcmds(t_cmd_table *head, t_shell *data, int *pipe_fd);
 void		heredoc(t_cmd_table *head, t_shell *data);
 
 /* ******************************************************************** */
