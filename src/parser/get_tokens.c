@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:11:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 21:12:46 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:02:58 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int	add_tokens_to_list(t_quotes **list, t_shell *data)
 			squotes(head->sequence + 1, data);
 		else
 			uquote(head->sequence, data);
+		// printf("head->sequence: [%s]\n", head->sequence);
 		if (head->next && (head->next->sequence[0] == ' '
-				|| head->sequence[ft_strlen(head->sequence) - 1] == ' '))
+				|| head->sequence[ft_strlen(head->sequence) - 1] == ' ' || head->sequence[0] == ' '))
 		{
 			if (quoteadd_back(data->sequences,
 					quotenew(NULL, PUT_SPACE_HERE, 0)) == -1)
