@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 16:22:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:06:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	checkcmd(t_shell *data)
 		return (unset(data), 0);
 	else if (!ft_strncmp((*data->cmd_table)->args[0], "cd", 3))
 		return (cd(data, 0), update_pwd(data));
-	return (data->exit = COMMAND_NOT_FOUND);
+	data->exit = COMMAND_NOT_FOUND;
+	return (0);
 }
 
 /**

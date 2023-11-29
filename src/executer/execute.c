@@ -6,13 +6,14 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 17:00:30 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:13:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <math.h>
 #include <signal.h>
+#include <unistd.h>
 
 static void	check_permission(t_shell *data, t_cmd_table *head)
 {
@@ -59,6 +60,33 @@ static void	wait_for_children(t_shell *data)
 		data->exit = WTERMSIG(status) + 128;
 }
 
+int	is_unpipeable(char *cmd)
+{
+	if (ft_strncmp(cmd, "exit", 5) == 0)
+		return (1);
+	else if (ft_strncmp(cmd, "export", 6) == 0)
+		return (1);
+	else if (!ft_strncmp(cmd, "unset", 6))
+		return (1);
+	else if (!ft_strncmp(cmd, "cd", 3))
+		return (1);
+	return (0);
+}
+
+void	checkcmds(t_cmd_table *head, t_shell *data, int *pipe_fd)
+{
+	if (is_unpipeable(head->args[0]))
+	{
+		data->exit = 0;
+		if (pipe_fd)
+		{
+			close(pipe_fd[0]);
+			close(pipe_fd[1]);
+		}	
+		exit_handler(data, NULL, head);
+	}
+}
+
 static int	child2(t_cmd_table *head, t_shell *data)
 {
 	head->path = find_path(data, head->args[0]);
@@ -70,6 +98,7 @@ static int	child2(t_cmd_table *head, t_shell *data)
 		listen(data, CHILD);
 		if (set_redirections(data, head) == -1)
 			exit (1);
+		checkcmds(head, data, NULL);
 		check_permission(data, head);
 		if (head->path)
 			execve(head->path, head->args, data->environment);
@@ -95,6 +124,7 @@ void	child1(t_cmd_table *head, t_shell *data)
 	if (!head->pid)
 	{
 		listen(data, CHILD);
+		checkcmds(head, data, pipe_fd);
 		close(pipe_fd[0]);
 		if (head->outfile != NO_FD)
 		{
