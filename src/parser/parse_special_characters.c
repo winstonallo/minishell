@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 18:35:55 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 20:49:26 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 20:52:02 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,8 @@ int	add_node_special_char(char *seq, size_t len, t_shell *data, int status)
  * 
  * @return the value of `d->exit`.
  */
-int	split_curr_sequence(char *seq, t_shell *d)
+int	split_curr_sequence(char *seq, t_shell *d, size_t i, size_t j)
 {
-	size_t	i;
-	size_t	j;
-
-	i = -1;
-	j = 0;
 	while (seq && seq[++i] && seq[j])
 	{
 		i = j;
@@ -146,7 +141,7 @@ int	parse_special_char(t_shell *data)
 	{
 		if (t->status == UNQUOTED)
 		{
-			if (split_curr_sequence(t->sequence, data) == -1)
+			if (split_curr_sequence(t->sequence, data, -1, 0) == -1)
 				return (data->exit);
 		}
 		else
