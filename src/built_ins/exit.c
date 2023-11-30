@@ -6,13 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:49:20 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 12:42:10 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 13:51:13 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	gtfo(t_shell *data, int status, char *arg)
+static void	gtfo(t_shell *data, long status, char *arg)
 {
 	if (arg && data->allocated)
 		free(arg);
@@ -60,9 +60,10 @@ static char	*get_arg(char **args, t_shell *data, int j, int sign)
 	return (0);
 }
 
-static void	num_arg(t_shell *data, char *arg)
+static int	num_arg(t_shell *data, char *arg)
 {
 	int	i;
+	int	ret;
 
 	i = -1;
 	while ((*data->cmd_table)->args[1][++i])
@@ -75,11 +76,14 @@ static void	num_arg(t_shell *data, char *arg)
 			gtfo(data, 2, arg);
 		}
 	}
+	ret = ft_atoi(arg);
+	return (ret % 255);
 }
 
 int	myexit(t_shell *data)
 {
 	char	*arg;
+	int		ret;
 
 	if (!*data->cmd_table || !(*data->cmd_table)->args[1])
 		gtfo(data, 0, NULL);
@@ -96,8 +100,8 @@ int	myexit(t_shell *data)
 		return (FAILURE);
 	if ((*data->cmd_table)->args[1])
 	{
-		num_arg(data, arg);
-		gtfo(data, ft_atoi(arg) % 256, arg);
+		ret = num_arg(data, arg);
+		gtfo(data, ret, arg);
 	}
 	wipe4real(data);
 	printf("exit\n");

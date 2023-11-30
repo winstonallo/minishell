@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 12:51:25 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 13:36:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	init_things(t_shell *data)
 	data->stdin_fd = NO_FD;
 	data->failure_status = 0;
 	data->builtin_executed = 0;
+	data->validpath = 0;
 }
 
 /**
