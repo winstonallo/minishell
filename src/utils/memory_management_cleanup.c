@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:11:17 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 23:44:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 02:53:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	wipe4real(t_shell *data)
 	free_paths(data->paths);
 	free_environment(data->env_list);
 	freeze(data->prompt);
+	freeze(data->cwd);
+	close(data->stdin_fd);
 	wipe(data);
 }
 

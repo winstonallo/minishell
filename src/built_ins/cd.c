@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:29:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 20:55:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 02:49:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	update_pwd(t_shell *data)
 	{
 		if (!ft_strncmp(head->name, "PWD", ft_strlen(head->name) + 1))
 		{
-			free(head->line);
+			freeze(head->line);
 			head->line = getcwd(NULL, 0);
 			if (!head->line)
 				return (FAILURE);
