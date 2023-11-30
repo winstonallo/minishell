@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:54:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 08:22:23 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 09:29:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_cmd_table
 	char				*path;
 	int					outfile;
 	int					infile;
+	int					isoutredir;
+	int					isinredir;
 	int					pipe;
 	pid_t				pid;
 	char				*heredoc;

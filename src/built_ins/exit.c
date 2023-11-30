@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:49:20 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/21 23:06:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 10:37:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ static void	gtfo(t_shell *data, int status, char *arg)
 	exit (data->exit);
 }
 
+static void	exit_num_arg(t_shell *data)
+{
+	ft_putstr_fd("minishell: exit: ", 2);
+	ft_putstr_fd((*data->cmd_table)->args[1], 2);
+	ft_putstr_fd(": numeric argument required\n", 2);
+	gtfo(data, 2, NULL);
+}
+
 static char	*get_arg(char **args, t_shell *data, int j, int sign)
 {
 	if (!args[1])
@@ -33,6 +41,8 @@ static char	*get_arg(char **args, t_shell *data, int j, int sign)
 			sign = 3;
 		else if (args[1][j] == '-' && !sign)
 			sign = 9;
+		if (!ft_isdigit(args[1][j]) && args[1][j] != '+' && args[1][j] != '-')
+			exit_num_arg(data);
 	}
 	if (!sign && args[2])
 	{

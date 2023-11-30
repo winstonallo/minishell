@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 08:38:47 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 09:38:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,8 @@ void	child1(t_cmd_table *head, t_shell *data)
 		listen(data, CHILD);
 		checkcmds(head, data, pipe_fd);
 		close(pipe_fd[0]);
-		if (set_redirections(data, head) == -1)
-			exit_handler(data, NULL, head);
-		else if (dup2(pipe_fd[1], 1) == -1)
+		set_redirections(data, head);
+		if (!head->isoutredir && dup2(pipe_fd[1], 1) == -1)
 			exit_handler(data, NULL, head);
 		check_permission(data, head, pipe_fd);
 		if (head->path && head->infile != HEREDOCINT && head->args
@@ -140,15 +139,12 @@ int	execute_command(t_shell *data)
 	{
 		head->path = find_path(data, head->args[0]);
 		child1(head, data);
-		if (head->heredoc)
-			unlink(".temp_heredoc");
 		head = head->next;
 		if (head && head->pipe)
 			head = head->next;
 	}
 	if (child2(head, data) == -1)
 		return (close(data->stdin_fd), -1);
-	unlink(".temp_heredoc");
 	dup2(data->stdin_fd, 0);
 	close(data->stdin_fd);
 	wait_for_children(data);

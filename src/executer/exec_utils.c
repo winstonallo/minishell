@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 08:39:08 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 09:28:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ void	exit_handler(t_shell *data, DIR *check, t_cmd_table *head)
 
 void	close_pipe_init_fd(int *pipe_fd, t_cmd_table *head)
 {
+	if (!head)
+		return ;
 	close(pipe_fd[1]);
-	if (head->next && head->next->infile != NO_FD)
-		if (dup2(pipe_fd[0], 0) == -1)
-			return ;
+	if (dup2(pipe_fd[0], 0) == -1)
+		return ;
 	close(pipe_fd[0]);
 }
 

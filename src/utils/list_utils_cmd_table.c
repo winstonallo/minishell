@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:51:30 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 00:46:22 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 09:30:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_cmd_table	*cmdnew(int outfile, int infile, int pepi, char	*eof)
 	new->next = NULL;
 	new->pid = NOTACHILD;
 	new->heredoc = eof;
+	new->isoutredir = 0;
+	new->isinredir = 0;
 	return (new);
 }
 

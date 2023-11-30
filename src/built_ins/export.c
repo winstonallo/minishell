@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:52:25 by arthur            #+#    #+#             */
-/*   Updated: 2023/11/30 05:19:21 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/30 10:37:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,50 +30,77 @@
 
 // 	t_ if (*head == NULL || (*head)->next == NULL) return ;
 // }
-void	print_sorted_env(t_env *head)
+void	print_sorted_env(t_env **head)
 {
 	t_env	*temp;
 
-	temp = head;
+	temp = *head;
 	while (temp)
 	{
 		printf("declare -x %s=%s\n", temp->name, temp->line);
 		temp = temp->next;
 	}
 }
+
+t_env	*get_next_node(t_env **list, t_env *last)
+{
+	t_env	*head;
+	t_env	*next;
+
+	next = NULL;
+	head = *list;
+	while (head)
+	{
+		if (strcmp(head->name, last->name) > 0)
+		{
+			if (next == NULL || strcmp(head->name, next->name) < 0)
+				next = head;
+		}
+		head = head->next;
+	}
+	if (!next)
+		return (NULL);
+	return (envnew(ft_strdup(next->name), next->line, ft_strlen(next->line)));
+}
+
+t_env	*get_smallest_node(t_env **list)
+{
+	t_env	*head;
+	t_env	*smallest;
+
+	smallest = NULL;
+	head = *list;
+	while (head)
+	{
+		if (smallest == NULL || strcmp(head->name, smallest->name) < 0)
+			smallest = head;
+		head = head->next;
+	}
+	if (!smallest)
+		return (NULL);
+	return (envnew(ft_strdup(smallest->name), smallest->line,
+			ft_strlen(smallest->line)));
+}
+
 int	export_env(t_shell *data)
 {
-	t_env	*current;
-	t_env	*temp;
-	t_env	*sorted_list;
-	t_env	*head;
+	t_env	*new;
+	int		i;
+	int		size;
 
-	head = *data->env_list;
-	if (head == NULL || head->next == NULL)
-		return (1);
-	sorted_list = NULL;
-	while (head != NULL)
+	i = 0;
+	new = get_smallest_node(data->env_list);
+	if (!new)
+		return (-1);
+	size = envsize(data->env_list);
+	envadd_back(data->sorted_env, new);
+	while (++i <= size)
 	{
-		current = head;
-		head = current->next;
-		if (sorted_list == NULL || sorted_list->name[0] >= current->name[0])
-		{
-			current->next = sorted_list;
-			sorted_list = current;
-		}
-		else
-		{
-			temp = sorted_list;
-			while (temp->next != NULL && temp->next->name[0] < current->name[0])
-			{
-				temp = temp->next;
-			}
-			current->next = temp->next;
-			temp->next = current;
-		}
+		new = get_next_node(data->env_list, new);
+		if (!new)
+			break ;
+		envadd_back(data->sorted_env, new);
 	}
-	head = sorted_list;
-	print_sorted_env(head);
 	return (0);
 }
 
@@ -83,17 +110,17 @@ int	export(t_shell *data)
 	char	**arg;
 	int		argname;
 
-	i = 1;
+	i = 0;
 	arg = (*data->cmd_table)->args;
 	if ((*data->cmd_table)->next)
 		return (COMMAND_NOT_FOUND);
 	if (!arg[1])
 	{
-		export_env(data);
+		print_sorted_env(data->sorted_env);
 		return (SUCCESS);
 	}
 	argname = 1;
-	while (arg[i])
+	while (arg[++i])
 	{
 		if (export_error(arg[i], argname) == 1)
 			return (data->exit = FAILURE);
@@ -102,7 +129,6 @@ int	export(t_shell *data)
 		else if (update_env_list(data) != 0)
 			return (data->exit = FAILURE);
 		argname = 0;
-		i++;
 	}
 	return (SUCCESS);
 }

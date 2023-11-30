@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:53:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 08:23:06 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 10:19:34 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_shell
 	struct s_cmd_table	**cmd_table;
 	struct s_cmd_table	*cmd_head;
 	struct s_env		**env_list;
+	struct s_env		**sorted_env;
 	struct s_token		tok;
 }	t_shell;
 
