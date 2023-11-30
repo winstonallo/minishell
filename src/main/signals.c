@@ -6,11 +6,12 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 15:24:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/28 11:30:41 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:24:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <signal.h>
 
 volatile sig_atomic_t	g_sig = 0;
 
@@ -43,7 +44,7 @@ void	listen(t_shell *data, int sig_mode)
 	else if (sig_mode == CHILD)
 	{
 		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (sig_mode == HEREDOC)
 	{

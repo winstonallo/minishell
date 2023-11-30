@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:42:54 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/23 14:29:27 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/28 13:48:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	dquotes(char *quoted_sequence, t_shell *data)
 	t_quotes	*new;
 
 	i = 0;
-	while (quoted_sequence[i] != '\"')
+	while (quoted_sequence[i] && quoted_sequence[i] != '\"')
 		i++;
 	new = quotenew(quoted_sequence, IN_DOUBLE_QUOTES, i);
 	if (!new)
@@ -60,7 +60,7 @@ int	squotes(char *quoted_sequence, t_shell *data)
 	t_quotes	*new;
 
 	i = 0;
-	while (quoted_sequence[i] != '\'')
+	while (quoted_sequence[i] && quoted_sequence[i] != '\'')
 		i++;
 	new = quotenew(quoted_sequence, IN_SINGLE_QUOTES, i);
 	if (!new)
@@ -96,6 +96,12 @@ static int	split_args(char **unquoted_array, t_shell *data)
 		if (!new)
 			return (-1);
 		quoteadd_back(data->sequences, new);
+		if (unquoted_array[i + 1])
+		{
+			if (quoteadd_back(data->sequences,
+					quotenew(NULL, PUT_SPACE_HERE, 0)) == -1)
+				return (-1);
+		}
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/28 10:25:59 by arthur           ###   ########.fr       */
+/*   Updated: 2023/11/29 18:06:40 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int	read_input(t_shell *data)
 		return (-1);
 	if (get_command_table(data) == -1)
 		return (-1);
-	if (checkcmd(data) != COMMAND_NOT_FOUND)
-		return (SUCCESS);
+	checkcmd(data);
 	execute_command(data);
 	return (0);
 }
@@ -45,13 +44,7 @@ int	read_input(t_shell *data)
  */
 int	check_status(t_shell *data)
 {
-	if (data->exit == COMMAND_NOT_FOUND)
-	{
-		ft_putstr_fd(data->raw_input, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		return (COMMAND_NOT_FOUND);
-	}
-	else if (data->exit == EXIT)
+	if (data->exit == EXIT)
 		return (EXIT);
 	return (data->exit);
 }

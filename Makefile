@@ -119,7 +119,7 @@ fclean: clean
 re: fclean all
 
 run: all
-	clear; ./$(NAME)
+	./$(NAME)
 
 generate_test:
 	valgrind --leak-check=full --show-reachable=yes --error-limit=no --gen-suppressions=all --log-file=$(NAME).log ./$(NAME)
