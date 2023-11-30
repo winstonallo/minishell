@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:11:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/28 11:26:37 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 01:26:23 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ char	**get_token_array(t_shell *data, size_t i)
 			words++;
 	}
 	token_array = NULL;
-	printf("word count: %zu\n", words);
 	token_array = fill_token_array(data, words);
 	if (!token_array)
 		return (NULL);
