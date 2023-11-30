@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:11:17 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 10:56:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:11:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	wipe4real(t_shell *data)
 int	wipe(t_shell *data)
 {
 	freeze(data->raw_input);
-	free_array(data->environment);
 	if (data->operators)
 		free_opps(data->operators);
 	if (data->sequences)

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:53:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 10:57:14 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:08:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ char	**get_env_array(t_shell *data)
 		free(temp);
 		head = head->next;
 	}
-	arr[++i] = NULL;
+	arr[i] = NULL;
 	return (arr);
 }

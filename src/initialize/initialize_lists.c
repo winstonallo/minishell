@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 10:44:31 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:10:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ int	initialize_sequences(t_shell *data)
 		return (freeze(data->sequences), freeze(data->operators), -1);
 	*data->cmd_table = NULL;
 	return (data->exit);
+	data->updated_env = get_env_array(data);
+	if (!data->updated_env)
+		return (-1);
 }
 
 /**
