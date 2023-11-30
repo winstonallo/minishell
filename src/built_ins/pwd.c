@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:30:13 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/17 13:33:57 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 02:16:56 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int	pwd(t_shell *data)
 	if (!data->cwd)
 		exit(FAILURE);
 	printf("%s\n", data->cwd);
+	wipe4real(data);
 	exit(SUCCESS);
 }

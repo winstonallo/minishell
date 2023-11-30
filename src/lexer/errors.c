@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:43:39 by arthur            #+#    #+#             */
-/*   Updated: 2023/11/28 11:35:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 02:05:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ static void	print_syntax_error(int s_char)
 	else if (s_char == PIPE)
 		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
 	else if (s_char == 0)
-		ft_putstr_fd("minishell: syntax error near unexpected token\
-			`newline'\n", 2);
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token", 2);
+		ft_putendl_fd(" `newline'", 2);
+	}
 }
 
 static int	check_unexpected_token(t_shell *data)
@@ -30,6 +32,11 @@ static int	check_unexpected_token(t_shell *data)
 	t_op	*head;
 
 	head = *data->operators;
+	if (head->s_char == PIPE)
+	{
+		data->exit = 2;
+		return (print_syntax_error(head->s_char), -1);
+	}
 	while (head)
 	{
 		if (head->s_char == PIPE && head->next && head->next->s_char

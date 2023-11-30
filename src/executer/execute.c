@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 01:38:14 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 02:24:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	check_permission(t_shell *data, t_cmd_table *head)
 {
 	DIR		*check;
 
+	if (!head->args || !head->args[0])
+		return ;
 	check = opendir(head->args[0]);
 	if (check)
 	{
@@ -72,10 +74,13 @@ static int	child2(t_cmd_table *head, t_shell *data)
 	{
 		listen(data, CHILD);
 		if (set_redirections(data, head) == -1)
-			exit (1);
+		{
+			data->exit = 1;
+			exit_handler(data, NULL, head);
+		}	
 		checkcmds(head, data, NULL);
 		check_permission(data, head);
-		if (head->path && head->infile != HEREDOCINT)
+		if (head->path && head->infile != HEREDOCINT && head->args && head->args[0])
 			execve(head->path, head->args, data->environment);
 		if (!data->exit)
 			data->exit = 1;
@@ -107,7 +112,8 @@ void	child1(t_cmd_table *head, t_shell *data)
 		else if (dup2(pipe_fd[1], 1) == -1)
 			exit_handler(data, NULL, head);
 		check_permission(data, head);
-		execve(head->path, head->args, data->environment);
+		if (head->path && head->infile != HEREDOCINT && head->args && head->args[0])
+			execve(head->path, head->args, data->environment);
 		close(pipe_fd[1]);
 		exit_handler(data, NULL, head);
 	}

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 00:45:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 02:19:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@ void	exit_handler(t_shell *data, DIR *check, t_cmd_table *head)
 {
 	if (data->exit == COMMAND_NOT_FOUND)
 	{
-		ft_putstr_fd(head->args[0], 2);
-		ft_putendl_fd(": command not found", 2);
+		if (head->args && head->args[0])
+		{
+			ft_putstr_fd(head->args[0], 2);
+			ft_putendl_fd(": command not found", 2);
+		}
+		else
+			data->exit = 0;
 	}
 	if (head->infile != NO_FD && head->infile != HEREDOCINT)
 		close(head->infile);
@@ -67,6 +72,8 @@ char	*find_path(t_shell *data, char *command)
 
 	head = *data->paths;
 	data->validpath = 0;
+	if (!command)
+		return (NULL);
 	if (access(command, X_OK | R_OK) == 0)
 		return (data->validpath = 1, ft_strdup(command));
 	command = ft_strjoin("/", command);
