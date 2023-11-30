@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:39:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 05:09:40 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 05:33:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	heredoc(t_cmd_table *head, t_shell *data)
 		return ;
 	if (data && head->heredoc)
 	{
-		data->exit = 0;
+		if (data->exit == COMMAND_NOT_FOUND)
+			data->exit = 0;
 		if (do_heredoc(head, data))
 		{
 			data->exit = 130;
