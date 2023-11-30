@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:11:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 06:31:38 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 07:45:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ t_quotes	**get_token_list(t_shell *data, size_t i, size_t pos, int qu_stat)
 {
 	if (init_token_vars(data) == -1)
 		return (NULL);
-	isquote(data->raw_input[0], &qu_stat);
+	if (isquote(data->raw_input[0], &qu_stat))
+		i++;
 	while (data->raw_input[++i])
 	{
 		data->tok.prev_st = qu_stat;

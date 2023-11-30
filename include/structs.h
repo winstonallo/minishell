@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:53:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 21:08:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 08:23:06 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_shell
 	int					sig_mode;
 	int					builtin_executed;
 	int					pipe_fd[2];
+	struct s_dox		**dox;
 	struct s_quotes		**sequences;
 	struct s_path		**paths;
 	struct s_op			**operators;

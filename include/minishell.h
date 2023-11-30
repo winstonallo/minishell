@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 06:29:16 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 08:59:48 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int			execute_command(t_shell *data);
 int			checkcmd(t_shell *data);
 int			is_builtin(t_shell *data, t_cmd_table *head, int *pipe_fd);
 void		exit_handler(t_shell *data, DIR *check, t_cmd_table *head);
-void		close_pipe_init_fd(int *pipe_fd);
+void		close_pipe_init_fd(int *pipe_fd, t_cmd_table *head);
 int			set_redirections(t_shell *data, t_cmd_table *head);
 int			set_pipes(t_shell *data, t_cmd_table *head);
 int			is_unpipeable(char *cmd);
 void		checkcmds(t_cmd_table *head, t_shell *data, int *pipe_fd);
-void		heredoc(t_cmd_table *head, t_shell *data);
-char		*expand_heredoc(t_shell *data, char *line);
+void		heredoc(t_cmd_table *head, t_shell *data, int id);
+char		*expand_heredoc(t_shell *data, char *line, size_t i, size_t pos);
 char		*get_unexpanded_value(char *str, t_shell *data);
 
 /* ******************************************************************** */
@@ -114,6 +114,10 @@ int			open_infile(char *path);
 t_quotes	*quotenew(char *content, int status, unsigned long len);
 void		opadd_back(t_op **lst, t_op *new_node);
 //
+int			doxadd_back(t_dox **lst, t_dox *new_node);
+t_dox		*doxnew(char *content);
+void		free_dox(t_dox **stack_a);
+
 //Special operator parsing
 //
 t_op		*opnew(char *content, int status, int op, unsigned long len);

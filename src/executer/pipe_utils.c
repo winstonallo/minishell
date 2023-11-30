@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 13:52:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 05:52:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 08:38:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	permission_denied_outfile(t_shell *data)
 		{
 			temp += 2;
 			break ;
-		}	
+		}
 		temp++;
 	}
 	temp = ft_strtrim(temp, " >");
@@ -72,18 +72,16 @@ void	permission_denied_outfile(t_shell *data)
 
 int	set_redirections(t_shell *data, t_cmd_table *head)
 {
-	if (head->heredoc)
-		heredoc(head, data);
 	if (head->infile != 0 && head->infile != HEREDOCINT)
 		if (redirect_input(data, head->infile) == -1 || head->infile == -1)
 			return (-1);
 	if (head->outfile != 0)
 	{
 		if (redirect_output(data, head->outfile) == -1 || head->outfile == -1)
-			{
-				permission_denied_outfile(data);
-				return (-1);
-			}		
-	}	
+		{
+			permission_denied_outfile(data);
+			return (-1);
+		}
+	}
 	return (0);
 }

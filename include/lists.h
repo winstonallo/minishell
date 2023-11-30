@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:54:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 14:58:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 08:22:23 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define LISTS_H
 
 # include <sys/types.h>
+
+typedef struct s_dox
+{
+	char			*name;
+	struct s_dox	*next;
+}	t_dox;
 
 typedef struct s_env
 {

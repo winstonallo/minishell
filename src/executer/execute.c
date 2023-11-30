@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 05:56:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 08:38:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	child1(t_cmd_table *head, t_shell *data)
 		listen(data, CHILD);
 		checkcmds(head, data, pipe_fd);
 		close(pipe_fd[0]);
-		heredoc(head, data);
 		if (set_redirections(data, head) == -1)
 			exit_handler(data, NULL, head);
 		else if (dup2(pipe_fd[1], 1) == -1)
@@ -120,7 +119,7 @@ void	child1(t_cmd_table *head, t_shell *data)
 		close(pipe_fd[1]);
 		exit_handler(data, NULL, head);
 	}
-	close_pipe_init_fd(pipe_fd);
+	close_pipe_init_fd(pipe_fd, head);
 }
 
 /**

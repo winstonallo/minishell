@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 04:51:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 08:44:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	initialize_lists(t_shell *data)
 	*data->paths = NULL;
 	data->temp = NULL;
 	data->prompt = NULL;
+	data->dox = NULL;
 	data->exit = 0;
 	return (0);
 }

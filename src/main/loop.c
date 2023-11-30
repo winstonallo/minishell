@@ -6,11 +6,33 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 04:50:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 08:43:50 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	heredocs(t_shell *data)
+{
+	t_cmd_table	*head;
+	int			id;
+
+	free_dox(data->dox);
+	data->dox = malloc(sizeof(t_dox **));
+	if (!data->dox)
+		return (-1);
+	*data->dox = NULL;
+	head = *data->cmd_table;
+	id = 0;
+	while (head)
+	{
+		if (head->heredoc)
+			heredoc(head, data, id);
+		head = head->next;
+		id++;
+	}
+	return (0);
+}
 
 /**
  * The function reads user input, processes it for quotes, expands sequences, 
@@ -33,9 +55,9 @@ int	read_input(t_shell *data)
 	if (get_command_table(data) == -1)
 		return (-1);
 	checkcmd(data);
+	heredocs(data);
 	if (!data->builtin_executed)
 		execute_command(data);
-	unlink(".temp_heredoc");
 	return (0);
 }
 

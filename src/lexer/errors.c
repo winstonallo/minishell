@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:43:39 by arthur            #+#    #+#             */
-/*   Updated: 2023/11/30 04:30:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 06:58:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	check_unexpected_token(t_shell *data, t_op *head)
 			data->exit = 2;
 			return (print_syntax_error(head->next->s_char), -1);
 		}
-		else if (head->s_char && !head->next)
+		else if (head->s_char && (!head->next || head->next->s_char == PIPE))
 		{
 			data->exit = 2;
 			return (print_syntax_error(0), -1);

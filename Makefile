@@ -44,6 +44,7 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${UTILS_DIR}parsing_utils.c \
 		${SRC_DIR}${UTILS_DIR}parsing_utils2.c \
 		${SRC_DIR}${UTILS_DIR}testing_utils.c \
+		${SRC_DIR}${UTILS_DIR}list_utils_heredoc.c \
 \
 		${SRC_DIR}${EXEC_DIR}commands.c \
 		${SRC_DIR}${EXEC_DIR}execute.c \
