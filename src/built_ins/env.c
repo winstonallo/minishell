@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:31:47 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/17 13:33:33 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 03:09:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ int	env(t_shell *data)
 		head = head->next;
 	}
 	data->exit = 0;
-	exit (data->exit);
+	return (SUCCESS);
 }

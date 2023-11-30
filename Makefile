@@ -50,6 +50,7 @@ SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${EXEC_DIR}pipe.c \
 		${SRC_DIR}${EXEC_DIR}exec_utils.c \
 		${SRC_DIR}${EXEC_DIR}heredoc.c \
+		${SRC_DIR}${EXEC_DIR}randomassshit.c \
 \
 		${SRC_DIR}${BUILT_INS}export_utils.c \
 		${SRC_DIR}${BUILT_INS}export_error.c \
@@ -119,7 +120,7 @@ fclean: clean
 re: fclean all
 
 run: all
-	clear; ./$(NAME)
+	./$(NAME)
 
 generate_test:
 	valgrind --leak-check=full --show-reachable=yes --error-limit=no --gen-suppressions=all --log-file=$(NAME).log ./$(NAME)

@@ -6,7 +6,7 @@
 /*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 03:50:35 by sstanfel         ###   ########.fr       */
+/*   Updated: 2023/11/30 03:53:17 by sstanfel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ int	echo(t_cmd_table *head, int newline)
 	}
 	if (newline)
 		printf("\n");
-	exit(SUCCESS);
+	return (SUCCESS);
 }

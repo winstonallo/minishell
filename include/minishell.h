@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 12:56:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 03:12:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ int			count_pipes(t_shell *data);
 char		*find_path(t_shell *data, char *command);
 int			execute_command(t_shell *data);
 int			checkcmd(t_shell *data);
-int			is_builtin(t_shell *data, t_cmd_table *head, int stdin_fd,
-				int *pipe_fd);
-void		exit_handler(t_shell *data, int stdin_fd, DIR *check, t_cmd_table *head);
+int			is_builtin(t_shell *data, t_cmd_table *head, int *pipe_fd);
+void		exit_handler(t_shell *data, DIR *check, t_cmd_table *head);
 void		close_pipe_init_fd(int *pipe_fd);
 int			set_redirections(t_shell *data, t_cmd_table *head);
 int			set_pipes(t_shell *data, t_cmd_table *head);
+int			is_unpipeable(char *cmd);
+void		checkcmds(t_cmd_table *head, t_shell *data, int *pipe_fd);
 void		heredoc(t_cmd_table *head, t_shell *data);
 
 /* ******************************************************************** */
@@ -52,9 +53,9 @@ int			echo(t_cmd_table *head, int newline);
 int			export(t_shell *data);
 int			myexit(t_shell *data);
 void		unset(t_shell *data);
+int			env(t_shell *data);
 
 //export.c
-int			env(t_shell *data);
 //export_utils.c
 int			update_env_list(t_shell *data);
 //export_error.c

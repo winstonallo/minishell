@@ -6,21 +6,29 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 13:38:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 03:11:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <unistd.h>
 
-void	exit_handler(t_shell *data, int stdin_fd, DIR *check, t_cmd_table *head)
+void	exit_handler(t_shell *data, DIR *check, t_cmd_table *head)
 {
 	if (data->exit == COMMAND_NOT_FOUND)
 	{
-		ft_putstr_fd(head->args[0], 2);
-		ft_putendl_fd(": command not found", 2);
+		if (head->args && head->args[0])
+		{
+			ft_putstr_fd(head->args[0], 2);
+			ft_putendl_fd(": command not found", 2);
+		}
+		else
+			data->exit = 0;
 	}
-	close(stdin_fd);
+	if (head->infile != NO_FD && head->infile != HEREDOCINT)
+		close(head->infile);
+	unlink(".temp_heredoc");
+	close(data->stdin_fd);
 	wipe4real(data);
 	if (check)
 		closedir(check);
@@ -34,14 +42,18 @@ void	close_pipe_init_fd(int *pipe_fd)
 	close(pipe_fd[0]);
 }
 
-int	is_builtin(t_shell *data, t_cmd_table *head, int stdin_fd, int *pipe_fd)
+int	is_builtin(t_shell *data, t_cmd_table *head, int *pipe_fd)
 {
-	data->exit = find_command(data, head);
+	if (head->infile != HEREDOCINT)
+		data->exit = find_command(data, head);
 	if (data->exit == SUCCESS)
 	{
-		close(stdin_fd);
+		close(data->stdin_fd);
 		if (pipe_fd)
+		{
 			close(pipe_fd[1]);
+			close(pipe_fd[0]);
+		}
 		wipe4real(data);
 		exit(data->exit);
 	}
@@ -63,6 +75,8 @@ char	*find_path(t_shell *data, char *command)
 
 	head = *data->paths;
 	data->validpath = 0;
+	if (!command)
+		return (NULL);
 	if (access(command, X_OK | R_OK) == 0)
 		return (data->validpath = 1, ft_strdup(command));
 	command = ft_strjoin("/", command);

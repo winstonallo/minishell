@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:52:25 by arthur            #+#    #+#             */
-/*   Updated: 2023/11/18 15:41:08 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:31:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ int	export(t_shell *data)
 
 	i = 1;
 	arg = (*data->cmd_table)->args;
+	if ((*data->cmd_table)->next)
+		return (COMMAND_NOT_FOUND);
+	if (!arg[1])
+		return (0);
 	argname = 1;
 	while (arg[i])
 	{

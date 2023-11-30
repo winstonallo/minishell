@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 12:58:33 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:33:13 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ int	read_input(t_shell *data)
 		return (-1);
 	if (get_command_table(data) == -1)
 		return (-1);
-	if (checkcmd(data) != COMMAND_NOT_FOUND)
-		return (SUCCESS);
-	execute_command(data);
+	checkcmd(data);
+	if (!data->builtin_executed)
+		execute_command(data);
+	unlink(".temp_heredoc");
 	return (0);
 }
 
