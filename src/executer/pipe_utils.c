@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 13:52:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 23:56:58 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 04:43:20 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ int	set_redirections(t_shell *data, t_cmd_table *head)
 {
 	if (head->heredoc)
 		heredoc(head, data);
-	if (head->infile != NO_FD && head->infile != HEREDOCINT)
-		if (redirect_input(data, head->infile) == -1)
+	if (head->infile > 0 && head->infile != HEREDOCINT)
+		if (redirect_input(data, head->infile) == -1 || head->infile == -1)
 			return (-1);
-	if (head->outfile != NO_FD)
-		if (redirect_output(data, head->outfile) == -1)
+	if (head->outfile > 0)
+		if (redirect_output(data, head->outfile) == -1 || head->outfile == -1)
 			return (-1);
 	return (0);
 }

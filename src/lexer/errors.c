@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:43:39 by arthur            #+#    #+#             */
-/*   Updated: 2023/11/30 02:42:26 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 04:30:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@ static void	print_syntax_error(int s_char)
 	}
 }
 
-static int	check_unexpected_token(t_shell *data)
+static int	check_unexpected_token(t_shell *data, t_op *head)
 {
-	t_op	*head;
-
-	head = *data->operators;
 	if (!head)
 		return (0);
 	if (head->s_char == PIPE)
@@ -59,7 +56,10 @@ static int	check_unexpected_token(t_shell *data)
 
 int	lexer(t_shell *data)
 {
-	if (check_unexpected_token(data) == -1)
+	t_op	*head;
+
+	head = *data->operators;
+	if (check_unexpected_token(data, head) == -1)
 		return (-1);
 	return (0);
 }

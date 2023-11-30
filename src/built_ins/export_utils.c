@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:43:40 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/30 01:46:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 04:10:52 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ int	compare_env(t_shell *data, char **new_line)
 			temp->line = ft_strdup(new_line[1]);
 			if (!temp->line)
 				return (-1);
-			return (1);
+			break ;
 		}
 		temp = temp->next;
 	}
+	if (update_paths(data, new_line[0]) == -1)
+		return (-1);
 	return (0);
 }
 

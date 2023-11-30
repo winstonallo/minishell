@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 23:33:13 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 04:50:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,14 @@ int	loop(t_shell *data)
 		listen(data, INTERACTIVE);
 		data->raw_input = readline(data->prompt);
 		listen(data, NON_INTERACTIVE);
+		if (g_sig == CTRL_C)
+			data->exit = 130;
 		if (!data->raw_input)
 			return (myexit(data));
-		if (!data->raw_input[0])
-		{
-			wipe(data);
+		if (!data->raw_input[0] && wipe(data))
 			continue ;
-		}
-		if (read_input(data) == -1)
-		{
-			wipe(data);
+		if (read_input(data) == -1 && wipe(data))
 			continue ;
-		}
 		if (check_status(data) == EXIT)
 			return (EXIT);
 		wipe(data);

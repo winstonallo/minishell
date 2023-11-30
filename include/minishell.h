@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 03:12:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 04:50:03 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void		cmdadd_back(t_cmd_table **lst, t_cmd_table *new_node);
 //Executable paths list
 //
 t_path		*pathnew(char *content);
+int			update_paths(t_shell *data, char *line);
 void		pathadd_back(t_path **lst, t_path *new_node);
 //
 //Environment list
@@ -144,7 +145,7 @@ void		print_cmd_tables(t_cmd_table **cmd_tables);
 
 /*Memory*/
 void		free_paths(t_path **stack_a);
-void		wipe(t_shell *data);
+int			wipe(t_shell *data);
 void		wipe4real(t_shell *data);
 void		free_array(char **arr);
 void		free_opps(t_op **operators);

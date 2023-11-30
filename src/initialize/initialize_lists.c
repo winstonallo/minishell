@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 02:51:06 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 04:51:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	initialize_sequences(t_shell *data)
 	data->s_char_tmp = 0;
 	data->cmd_table = NULL;
 	data->cwd = NULL;
+	data->stdin_fd = NO_FD;
 	data->builtin_executed = 0;
 	data->sequences = malloc(sizeof(t_quotes **));
 	if (!data->sequences)

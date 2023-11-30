@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:17:40 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 15:01:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 04:41:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	open_infile(char *path)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(path, 2);
 		perror(": ");
+		return (-1);
 	}
 	return (fd);
 }

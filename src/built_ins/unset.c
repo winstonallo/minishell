@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 21:47:41 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 21:02:49 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 04:34:37 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,28 @@ static void	remove_arg(t_shell *data, char *arg)
 {
 	t_env	*head;
 	t_env	*temp;
-	t_env	*to_remove;
 
-	head = *data->env_list;
 	temp = NULL;
-	while (head)
+	head = *data->env_list;
+	if (head != NULL && !ft_strncmp(arg, head->name, ft_strlen(arg) + 1))
 	{
-		if (!ft_strncmp(arg, head->name, ft_strlen(arg) + 1))
-		{
-			to_remove = head;
-			if (temp)
-				temp->next = to_remove->next;
-			else
-				*data->env_list = to_remove->next;
-			free(to_remove);
-		}
+		*data->env_list = head->next;
+		free(head->name);
+		free(head->line);
+		free(head);
+		return ;
+	}
+	while (head != NULL && ft_strncmp(arg, head->name, ft_strlen(arg) + 1) != 0)
+	{
 		temp = head;
 		head = head->next;
 	}
+	if (head == NULL)
+		return ;
+	temp->next = head->next;
+	free(head->name);
+	free(head->line);
+	free(head);
 }
 
 void	unset(t_shell *data)
@@ -43,5 +47,11 @@ void	unset(t_shell *data)
 	i = 0;
 	while ((*data->cmd_table)->args[++i])
 		remove_arg(data, (*data->cmd_table)->args[i]);
-	get_paths(data);
+	i = 0;
+	while ((*data->cmd_table)->args[++i])
+	{
+		if (!ft_strncmp((*data->cmd_table)->args[i], "PATH",
+				ft_strlen("PATH") + 1))
+			update_paths(data, (*data->cmd_table)->args[i]);
+	}
 }

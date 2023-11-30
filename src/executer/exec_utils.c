@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 03:11:18 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 04:39:21 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	exit_handler(t_shell *data, DIR *check, t_cmd_table *head)
 		else
 			data->exit = 0;
 	}
-	if (head->infile != NO_FD && head->infile != HEREDOCINT)
+	if (head->infile >= 0 && head->infile != HEREDOCINT)
 		close(head->infile);
 	unlink(".temp_heredoc");
 	close(data->stdin_fd);

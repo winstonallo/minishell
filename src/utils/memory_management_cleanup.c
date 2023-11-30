@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:11:17 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 02:53:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 04:51:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ void	wipe4real(t_shell *data)
 	free_environment(data->env_list);
 	freeze(data->prompt);
 	freeze(data->cwd);
-	close(data->stdin_fd);
+	if (data->stdin_fd != NO_FD)
+		close(data->stdin_fd);
 	wipe(data);
 }
 
-void	wipe(t_shell *data)
+int	wipe(t_shell *data)
 {
 	freeze(data->raw_input);
 	if (data->operators)
@@ -37,4 +38,5 @@ void	wipe(t_shell *data)
 		free_sequences(data->sequences);
 	if (data->cmd_table)
 		free_cmd_tables(data->cmd_table);
+	return (1);
 }

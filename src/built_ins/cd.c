@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:29:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 02:57:33 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 04:31:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	update_old_pwd(t_shell *data, char *oldpwd)
 {
 	t_env	*head;
-	
+
 	head = *data->env_list;
 	while (head)
 	{

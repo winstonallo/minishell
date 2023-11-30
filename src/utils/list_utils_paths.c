@@ -6,11 +6,25 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:00:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/22 23:55:49 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 04:10:59 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	update_paths(t_shell *data, char *line)
+{
+	if (!ft_strncmp(line, "PATH", ft_strlen("PATH") + 1))
+	{
+		free_paths(data->paths);
+		data->paths = malloc(sizeof(t_path **));
+		if (!data->paths)
+			return (-1);
+		*data->paths = NULL;
+		get_paths(data);
+	}
+	return (0);
+}
 
 t_path	*pathnew(char *content)
 {
