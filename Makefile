@@ -77,8 +77,6 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -Iincludes -g
 
-# CFLAGS_TEST = -Wall -Wextra -Werror -Iincludes -g -D TEST_MODE=1 
-
 LDFLAGS = -L ./libft -lm -lft -lreadline
 
 RM = rm -rf
@@ -93,15 +91,6 @@ $(NAME): $(OBJS) $(LIBFT_OBJS)
 	@printf "\r\rCompiling minishell.."
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_OBJS) -o $(NAME) $(LDFLAGS)
 	@printf "\rCompiling completed.\n"
-
-# tester: $(OBJ_DIR) $(NAME)
-
-# $(TESTER_NAME): $(OBJS) $(LIBFT_OBJS)
-# 	@printf "Compiling libft..."
-# 	@$(MAKE) -C ./libft --no-print-directory
-# 	@printf "\r\rCompiling minishell.."
-# 	@$(CC) $(CFLAGS_TEST) $(OBJS) $(LIBFT_OBJS) -o $(TESTER_NAME) $(LDFLAGS)
-# 	@printf "\rCompiling completed.\n"
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
@@ -121,25 +110,4 @@ fclean: clean
 
 re: fclean all
 
-run: all
-	./$(NAME)
-
-generate_test:
-	valgrind --leak-check=full --show-reachable=yes --error-limit=no --gen-suppressions=all --log-file=$(NAME).log ./$(NAME)
-
-test: all
-	clear; valgrind --leak-check=full --track-origins=yes --track-fds=yes --show-reachable=yes --show-leak-kinds=all --error-limit=no --suppressions=./$(NAME).supp ./$(NAME)
-
-child_test: tester
-	clear; valgrind --trace-children=yes --leak-check=full --track-origins=yes --track-fds=yes --show-reachable=yes --show-leak-kinds=all --error-limit=no --suppressions=./$(NAME).supp ./$(NAME)
-
-funcheck: $(OBJ_DIR) $(TEST_NAME)
-
-$(TEST_NAME): $(OBJS) $(LIBFT_OBJS)
-	@printf "Compiling libft..."
-	@$(MAKE) -C ./libft --no-print-directory
-	@printf "\r\rCompiling minishell.."
-	@$(CC) $(CFLAGS) -D TEST_MODE=1 $(OBJS) $(LIBFT_OBJS) -o $(TEST_NAME) $(LDFLAGS)
-	@printf "\rCompiling completed.\n"
-
-.PHONY: all clean fclean re tester
+.PHONY: all clean fclean re
