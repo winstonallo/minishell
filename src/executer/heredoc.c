@@ -6,12 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:39:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 01:31:32 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 05:09:40 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <signal.h>
 
 void	print_heredoc_error(char *eof, int j)
 {
@@ -22,12 +21,23 @@ void	print_heredoc_error(char *eof, int j)
 	ft_putstr_fd("')\n", 2);
 }
 
+static char	*write_to_doc(t_shell *data, char *line, int file)
+{
+	char	*temp;
+	
+	temp = expand_heredoc(data, line);
+	if (!temp)
+		return (NULL);
+	ft_putendl_fd(temp, file);
+	return (temp);
+}
+
 static int	do_heredoc(t_cmd_table *head, t_shell *data)
 {
 	char		*line;
 	static int	j = 0;
 
-	while (1)
+	while (++j)
 	{
 		listen(data, HEREDOC);
 		head->infile = open(".temp_heredoc", O_CREAT | O_WRONLY
@@ -44,9 +54,9 @@ static int	do_heredoc(t_cmd_table *head, t_shell *data)
 		}
 		if (!ft_strncmp(line, head->heredoc, ft_strlen(head->heredoc) + 1))
 			break ;
-		ft_putendl_fd(line, head->infile);
-		free(line);
-		j++;
+		line = write_to_doc(data, line, head->infile);
+		if (!line)
+			break ;
 	}
 	return (free(line), close(head->infile), 0);
 }
@@ -57,6 +67,7 @@ void	heredoc(t_cmd_table *head, t_shell *data)
 		return ;
 	if (data && head->heredoc)
 	{
+		data->exit = 0;
 		if (do_heredoc(head, data))
 		{
 			data->exit = 130;

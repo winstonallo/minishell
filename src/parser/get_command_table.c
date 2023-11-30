@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 11:51:37 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 05:17:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,15 @@ char	**get_command_array(t_op *data, int j)
  * @return an integer value. If the function is successful, it returns 0. 
  * If there is an error, it returns -1.
  */
-int	initialize_redirections(t_op *data, t_cmd_table **cmd_table, int o, int i)
+int	initialize_redirections(t_op *data, t_cmd_table **cmd_t, t_shell *d, int i)
 {
 	t_op		*h;
 	t_cmd_table	*new;
 	char		*temp;
+	int			o;
 
 	h = data;
+	o = 0;
 	temp = NULL;
 	while (h && h->s_char != PIPE)
 	{
@@ -97,13 +99,13 @@ int	initialize_redirections(t_op *data, t_cmd_table **cmd_table, int o, int i)
 		else if (h->s_char == IN_REDIR && h->status == UNQUOTED)
 			i = open_infile(h->next->sequence);
 		else if (h->s_char == HEREDOC && h->status == UNQUOTED)
-			temp = ft_strdup(h->next->sequence);
+			temp = get_unexpanded_value(h->next->sequence, d);
 		h = h->next;
 	}
 	new = cmdnew(o, i, 0, temp);
 	if (!new)
 		return (close(i), close(o), -1);
-	cmdadd_back(cmd_table, new);
+	cmdadd_back(cmd_t, new);
 	return (0);
 }
 
@@ -145,7 +147,7 @@ int	get_command_table(t_shell *data)
 	op_head = *data->operators;
 	while (op_head)
 	{
-		if (initialize_redirections(op_head, data->cmd_table, 0, 0) == -1)
+		if (initialize_redirections(op_head, data->cmd_table, data, 0) == -1)
 			return (data->exit = FAILURE, -1);
 		data->cmd_head = *data->cmd_table;
 		while (data->cmd_head->args || data->cmd_head->pipe == PIPE)

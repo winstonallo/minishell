@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 04:50:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 05:15:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ int			set_pipes(t_shell *data, t_cmd_table *head);
 int			is_unpipeable(char *cmd);
 void		checkcmds(t_cmd_table *head, t_shell *data, int *pipe_fd);
 void		heredoc(t_cmd_table *head, t_shell *data);
+char		*expand_heredoc(t_shell *data, char *line);
+char		*get_unexpanded_value(char *str, t_shell *data);
+
+
 
 /* ******************************************************************** */
 /*								BUILT INS								*/
