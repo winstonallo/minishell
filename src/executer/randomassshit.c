@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 21:00:57 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 01:55:58 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:13:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	checkcmds(t_cmd_table *head, t_shell *data, int *pipe_fd)
 			close(pipe_fd[0]);
 			close(pipe_fd[1]);
 		}
-		exit_handler(data, NULL, head);
+		return ;
 	}
 }

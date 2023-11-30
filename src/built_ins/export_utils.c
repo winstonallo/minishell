@@ -6,11 +6,22 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:43:40 by sstanfel          #+#    #+#             */
-/*   Updated: 2023/11/30 04:10:52 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:29:17 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	maxlen(char **new_line, char *name)
+{
+	int	max_len;
+
+	if (ft_strlen(new_line[0]) > ft_strlen(name))
+		max_len = ft_strlen(new_line[0]);
+	else
+		max_len = ft_strlen(name);
+	return (max_len);
+}
 
 /**
  * The function `compare_env` compares the name of an environment variable with
@@ -26,10 +37,7 @@ int	compare_env(t_shell *data, char **new_line)
 	int		max_len;
 
 	temp = *data->env_list;
-	if (ft_strlen(new_line[0]) > ft_strlen(temp->name))
-		max_len = ft_strlen(new_line[0]);
-	else
-		max_len = ft_strlen(temp->name);
+	max_len = maxlen(new_line, temp->name);
 	while (temp)
 	{
 		if ((ft_strncmp(temp->name, new_line[0], max_len)) == 0)
@@ -38,7 +46,7 @@ int	compare_env(t_shell *data, char **new_line)
 			temp->line = ft_strdup(new_line[1]);
 			if (!temp->line)
 				return (-1);
-			break ;
+			return (update_paths(data, temp->line), 1) ;
 		}
 		temp = temp->next;
 	}
