@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:49:20 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 12:16:39 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:42:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	myexit(t_shell *data)
 {
 	char	*arg;
 
-	if (!*data->cmd_table)
+	if (!*data->cmd_table || !(*data->cmd_table)->args[1])
 		gtfo(data, 0, NULL);
 	if ((*data->cmd_table)->next)
 		return (0);

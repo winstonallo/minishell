@@ -6,13 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:43:39 by arthur            #+#    #+#             */
-/*   Updated: 2023/11/30 06:58:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:45:51 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	print_syntax_error(int s_char)
+void	print_syntax_error(int s_char)
 {
 	if (s_char == IN_REDIR)
 		ft_putstr_fd("minishell: syntax error near unexpected token `<'\n", 2);
@@ -59,6 +59,8 @@ int	lexer(t_shell *data)
 	t_op	*head;
 
 	head = *data->operators;
+	if (check_schar(data))
+		return (-1);
 	if (check_unexpected_token(data, head) == -1)
 		return (-1);
 	return (0);

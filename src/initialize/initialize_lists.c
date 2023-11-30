@@ -6,17 +6,13 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 21:41:10 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 12:10:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:51:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/**
- * The function initializes sequences, operators, cmd_table, temp, and 
- * s_char_tmp variables in the t_shell struct and returns the exit status.
- */
-int	initialize_sequences(t_shell *data)
+static void	init_things(t_shell *data)
 {
 	data->temp = NULL;
 	data->validexit = 1;
@@ -27,6 +23,15 @@ int	initialize_sequences(t_shell *data)
 	data->stdin_fd = NO_FD;
 	data->failure_status = 0;
 	data->builtin_executed = 0;
+}
+
+/**
+ * The function initializes sequences, operators, cmd_table, temp, and 
+ * s_char_tmp variables in the t_shell struct and returns the exit status.
+ */
+int	initialize_sequences(t_shell *data)
+{
+	init_things(data);
 	data->sequences = malloc(sizeof(t_quotes **));
 	if (!data->sequences)
 		return (-1);
@@ -42,6 +47,8 @@ int	initialize_sequences(t_shell *data)
 	return (data->exit);
 	data->updated_env = get_env_array(data);
 	if (!data->updated_env)
+		return (-1);
+	if (export_env(data) == -1)
 		return (-1);
 }
 

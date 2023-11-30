@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 10:52:26 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 13:05:29 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char		*get_unexpanded_value(char *str, t_shell *data);
 int			update_pwd(t_shell *data);
 int			cd(t_shell *data, int i);
 int			pwd(t_shell *data);
-int			echo(t_cmd_table *head, int newline);
+int			echo(t_cmd_table *head, int newline, int i);
 int			export(t_shell *data);
 int			myexit(t_shell *data);
 void		unset(t_shell *data);
@@ -98,6 +98,7 @@ int			uquote(char *unquoted_sequence, t_shell *data);
 int			squotes(char *quoted_sequence, t_shell *data);
 int			dquotes(char *quoted_sequence, t_shell *data);
 char		**get_env_array(t_shell *data);
+void		print_syntax_error(int s_char);
 
 /*Utils*/
 int			myisspace(char c);
@@ -107,6 +108,7 @@ int			lexer(t_shell *data);
 int			check_quotes(t_shell *data);
 int			init_vars(t_shell *data, size_t words);
 int			open_infile(char *path);
+int			check_schar(t_shell *data);
 
 /* ******************************************************************** */
 /*								LIST UTILS								*/
