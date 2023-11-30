@@ -1,0 +1,16 @@
+compile_flags.txt
+include
+inv_perm
+libft
+Makefile
+minishell
+minishell.dSYM
+minishell.supp
+minishell_tester
+notes
+obj
+out
+out2
+README.md
+src
+test1.c

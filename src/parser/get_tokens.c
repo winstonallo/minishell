@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:11:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 22:14:21 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 06:31:38 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	add_tokens_to_list(t_quotes **list, t_shell *data)
 {
 	t_quotes	*head;
 
+	if (!list)
+		return (-1);
 	head = *list;
 	while (head)
 	{
@@ -49,8 +51,6 @@ static int	init_token_vars(t_shell *data)
 
 t_quotes	**get_token_list(t_shell *data, size_t i, size_t pos, int qu_stat)
 {
-	t_quotes	*new;
-
 	if (init_token_vars(data) == -1)
 		return (NULL);
 	isquote(data->raw_input[0], &qu_stat);
@@ -62,10 +62,9 @@ t_quotes	**get_token_list(t_shell *data, size_t i, size_t pos, int qu_stat)
 		{
 			if (!data->raw_input[i + 1] || (data->tok.prev_st && !qu_stat))
 				i++;
-			new = quotenew(&data->raw_input[pos], 0, i - pos);
-			if (!new)
-				return (NULL);
-			quoteadd_back(data->tok.pars_temp_list, new);
+			if (quoteadd_back(data->tok.pars_temp_list,
+					quotenew(&data->raw_input[pos], 0, i - pos)) == -1)
+				return (free_sequences(data->tok.pars_temp_list), NULL);
 			while (pos < i - 1)
 				isquote(data->raw_input[pos++], &qu_stat);
 			pos++;

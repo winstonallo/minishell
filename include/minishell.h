@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 05:15:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 06:29:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void		checkcmds(t_cmd_table *head, t_shell *data, int *pipe_fd);
 void		heredoc(t_cmd_table *head, t_shell *data);
 char		*expand_heredoc(t_shell *data, char *line);
 char		*get_unexpanded_value(char *str, t_shell *data);
-
-
 
 /* ******************************************************************** */
 /*								BUILT INS								*/

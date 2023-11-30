@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 13:52:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 04:43:20 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 05:52:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,44 @@ static int	redirect_output(t_shell *data, int output_fd)
 	return (data->exit);
 }
 
+void	permission_denied_outfile(t_shell *data)
+{
+	char	*temp;
+
+	temp = data->raw_input;
+	while (*temp)
+	{
+		if (*temp == '>')
+		{
+			temp += 2;
+			break ;
+		}	
+		temp++;
+	}
+	temp = ft_strtrim(temp, " >");
+	if (!temp)
+		temp = "outfile" ;
+	ft_putstr_fd("minishell: ", 2);
+	write(2, temp, ft_strlen(temp));
+	ft_putendl_fd(": Permission Denied", 2);
+	free(temp);
+	data->exit = 1;
+}
+
 int	set_redirections(t_shell *data, t_cmd_table *head)
 {
 	if (head->heredoc)
 		heredoc(head, data);
-	if (head->infile > 0 && head->infile != HEREDOCINT)
+	if (head->infile != 0 && head->infile != HEREDOCINT)
 		if (redirect_input(data, head->infile) == -1 || head->infile == -1)
 			return (-1);
-	if (head->outfile > 0)
+	if (head->outfile != 0)
+	{
 		if (redirect_output(data, head->outfile) == -1 || head->outfile == -1)
-			return (-1);
+			{
+				permission_denied_outfile(data);
+				return (-1);
+			}		
+	}	
 	return (0);
 }

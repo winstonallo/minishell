@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 18:35:55 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 20:52:02 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 06:26:35 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ int	add_node_special_char(char *seq, size_t len, t_shell *data, int status)
 	if (!temp)
 		return (-1);
 	temptemp = ft_strtrim(temp, "<>|");
-	free(temp);
 	if (!temptemp && !status)
-		return (-1);
+		return (freeze(temp), -1);
+	freeze(temp);
 	new = opnew(temptemp, UNQUOTED, status, len);
 	if (!new)
-		return (-1);
+		return (freeze(temptemp), freeze(temp), -1);
 	opadd_back(data->operators, new);
-	free(temptemp);
+	freeze(temptemp);
 	return (0);
 }
 
