@@ -6,11 +6,30 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:29:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 02:49:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 02:57:33 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static int	update_old_pwd(t_shell *data, char *oldpwd)
+{
+	t_env	*head;
+	
+	head = *data->env_list;
+	while (head)
+	{
+		if (!ft_strncmp(head->name, "OLDPWD", ft_strlen(head->name) + 1))
+		{
+			freeze(head->line);
+			head->line = ft_strdup(oldpwd);
+			if (!head->line)
+				return (FAILURE);
+		}
+		head = head->next;
+	}
+	return (SUCCESS);
+}
 
 int	update_pwd(t_shell *data)
 {
@@ -21,6 +40,7 @@ int	update_pwd(t_shell *data)
 	{
 		if (!ft_strncmp(head->name, "PWD", ft_strlen(head->name) + 1))
 		{
+			update_old_pwd(data, head->line);
 			freeze(head->line);
 			head->line = getcwd(NULL, 0);
 			if (!head->line)

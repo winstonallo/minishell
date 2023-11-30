@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:09:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 20:56:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 03:12:23 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	find_command(t_shell *data, t_cmd_table *head)
 	else if (!ft_strncmp(head->args[0], "pwd", 4))
 		return (pwd(data));
 	else if (!ft_strncmp(head->args[0], "echo", 5))
-		return (echo(head, 1, data));
+		return (echo(head, 1));
 	else
 		return (COMMAND_NOT_FOUND);
 	return (FAILURE);

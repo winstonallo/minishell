@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 02:24:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 03:00:51 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-static void	check_permission(t_shell *data, t_cmd_table *head)
+static void	check_permission(t_shell *data, t_cmd_table *head, int *pipe_fd)
 {
 	DIR		*check;
 
@@ -41,7 +41,7 @@ static void	check_permission(t_shell *data, t_cmd_table *head)
 			exit_handler(data, check, head);
 		}
 	}
-	data->exit = is_builtin(data, head, NULL);
+	data->exit = is_builtin(data, head, pipe_fd);
 }
 
 static void	wait_for_children(t_shell *data)
@@ -79,7 +79,7 @@ static int	child2(t_cmd_table *head, t_shell *data)
 			exit_handler(data, NULL, head);
 		}	
 		checkcmds(head, data, NULL);
-		check_permission(data, head);
+		check_permission(data, head, NULL);
 		if (head->path && head->infile != HEREDOCINT && head->args && head->args[0])
 			execve(head->path, head->args, data->environment);
 		if (!data->exit)
@@ -99,7 +99,7 @@ void	child1(t_cmd_table *head, t_shell *data)
 	int		pipe_fd[2];
 
 	if (pipe(pipe_fd) == -1)
-		exit (1);
+		exit_handler(data, NULL, head);
 	head->pid = fork();
 	if (!head->pid)
 	{
@@ -111,7 +111,7 @@ void	child1(t_cmd_table *head, t_shell *data)
 			exit_handler(data, NULL, head);
 		else if (dup2(pipe_fd[1], 1) == -1)
 			exit_handler(data, NULL, head);
-		check_permission(data, head);
+		check_permission(data, head, pipe_fd);
 		if (head->path && head->infile != HEREDOCINT && head->args && head->args[0])
 			execve(head->path, head->args, data->environment);
 		close(pipe_fd[1]);
