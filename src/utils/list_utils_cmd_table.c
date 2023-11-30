@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:51:30 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/27 15:12:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 00:46:22 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	free_cmd_tables(t_cmd_table **cmd_tables)
 			free_array(head->args);
 		freeze(head->path);
 		freeze(head->heredoc);
-		if (head->infile > 0)
+		if (head->infile != NO_FD && head->infile != HEREDOCINT)
 			close(head->infile);
 		if (head->outfile > 0)
 			close(head->outfile);

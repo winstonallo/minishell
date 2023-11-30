@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 23:58:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 00:45:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exit_handler(t_shell *data, DIR *check, t_cmd_table *head)
 		ft_putstr_fd(head->args[0], 2);
 		ft_putendl_fd(": command not found", 2);
 	}
-	if (head->infile != NO_FD)
+	if (head->infile != NO_FD && head->infile != HEREDOCINT)
 		close(head->infile);
 	unlink(".temp_heredoc");
 	close(data->stdin_fd);

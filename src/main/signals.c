@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 15:24:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/29 23:49:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 01:03:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	sigint(int signo)
 		rl_redisplay();
 	}
 }
+
 void	heredox(int status)
 {
 	if (status == SIGINT)
