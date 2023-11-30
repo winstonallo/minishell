@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:39:11 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 01:04:54 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 01:31:32 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static int	do_heredoc(t_cmd_table *head, t_shell *data)
 
 void	heredoc(t_cmd_table *head, t_shell *data)
 {
+	if (!head->heredoc)
+		return ;
 	if (data && head->heredoc)
 	{
 		if (do_heredoc(head, data))
