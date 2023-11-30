@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:53:52 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 10:37:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 10:57:14 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,31 @@ void	free_environment(t_env **env)
 		freeze(temp);
 	}
 	freeze(env);
+}
+
+char	**get_env_array(t_shell *data)
+{
+	char	**arr;
+	t_env	*head;
+	int		i;
+	char	*temp;
+
+	i = -1;
+	arr = malloc((envsize(data->env_list) + 1) * sizeof(char *));
+	if (!arr)
+		return (NULL);
+	head = *data->env_list;
+	while (head)
+	{
+		temp = ft_strjoin(head->name, "=");
+		if (!temp)
+			return (free_array(arr), NULL);
+		arr[++i] = ft_strjoin(temp, head->line);
+		if (!arr[i])
+			return (free_array(arr), NULL);
+		free(temp);
+		head = head->next;
+	}
+	arr[++i] = NULL;
+	return (arr);
 }

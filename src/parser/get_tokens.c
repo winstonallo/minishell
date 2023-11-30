@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 23:11:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 07:45:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 10:58:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	add_tokens_to_list(t_quotes **list, t_shell *data)
 {
 	t_quotes	*head;
 
-	if (!list)
-		return (-1);
 	head = *list;
 	while (head)
 	{
@@ -35,6 +33,8 @@ int	add_tokens_to_list(t_quotes **list, t_shell *data)
 					quotenew(NULL, PUT_SPACE_HERE, 0)) == -1)
 				return (-1);
 		}
+		if (data->failure_status)
+			return (-1);
 		head = head->next;
 	}
 	return (0);
@@ -83,7 +83,9 @@ int	tokenize(t_shell *data)
 	if (check_quotes(data) == -1)
 		return (-1);
 	temp_list = get_token_list(data, -1, 0, 0);
-	add_tokens_to_list(temp_list, data);
+	if (temp_list)
+		if (add_tokens_to_list(temp_list, data) == -1)
+			return (free_sequences(temp_list), -1);
 	free_sequences(temp_list);
 	return (0);
 }

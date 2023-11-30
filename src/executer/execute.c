@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 09:38:24 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 10:55:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,9 @@ int	execute_command(t_shell *data)
 	int			pipes;
 	int			i;
 
+	data->environment = get_env_array(data);
+	if (!data->environment)
+		return (-1);
 	data->stdin_fd = dup(0);
 	i = -1;
 	head = *data->cmd_table;

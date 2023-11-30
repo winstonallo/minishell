@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:53:46 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 10:19:34 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 10:44:14 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_shell
 	int					validpath;
 	int					sig_mode;
 	int					builtin_executed;
+	int					failure_status;
 	int					pipe_fd[2];
 	struct s_dox		**dox;
 	struct s_quotes		**sequences;

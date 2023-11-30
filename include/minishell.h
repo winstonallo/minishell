@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:59:27 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 10:34:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 10:52:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int			get_command_table(t_shell *data);
 int			uquote(char *unquoted_sequence, t_shell *data);
 int			squotes(char *quoted_sequence, t_shell *data);
 int			dquotes(char *quoted_sequence, t_shell *data);
+char		**get_env_array(t_shell *data);
 
 /*Utils*/
 int			myisspace(char c);

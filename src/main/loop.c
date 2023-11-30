@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 08:43:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 10:54:35 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	read_input(t_shell *data)
 	checkcmd(data);
 	heredocs(data);
 	if (!data->builtin_executed)
-		execute_command(data);
+		if (execute_command(data) == -1)
+			return (-1);
 	return (0);
 }
 
