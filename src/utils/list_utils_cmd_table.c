@@ -6,14 +6,14 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:51:30 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 14:29:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 09:30:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /*List utils functions, just need different ones based on list name & content*/
-t_cmd_table	*cmdnew(int outfile, int infile, int pepi)
+t_cmd_table	*cmdnew(int outfile, int infile, int pepi, char	*eof)
 {
 	t_cmd_table	*new;
 
@@ -21,14 +21,15 @@ t_cmd_table	*cmdnew(int outfile, int infile, int pepi)
 	if (!new)
 		return (NULL);
 	new->args = NULL;
+	new->path = NULL;
 	new->outfile = outfile;
-	if (new->outfile == -1)
-		return (NULL);
 	new->infile = infile;
-	if (new->infile == -1)
-		return (close(new->outfile), NULL);
 	new->pipe = pepi;
 	new->next = NULL;
+	new->pid = NOTACHILD;
+	new->heredoc = eof;
+	new->isoutredir = 0;
+	new->isinredir = 0;
 	return (new);
 }
 
@@ -52,15 +53,21 @@ void	free_cmd_tables(t_cmd_table **cmd_tables)
 	t_cmd_table	*head;
 	t_cmd_table	*temp;
 
+	if (!cmd_tables)
+		return ;
+	else if (!*cmd_tables)
+		return (free(cmd_tables));
 	head = *cmd_tables;
 	while (head)
 	{
 		temp = head;
 		if (head->args)
 			free_array(head->args);
-		if (head->infile != NO_FD)
+		freeze(head->path);
+		freeze(head->heredoc);
+		if (head->infile != NO_FD && head->infile != HEREDOCINT)
 			close(head->infile);
-		if (head->outfile != NO_FD)
+		if (head->outfile > 0)
 			close(head->outfile);
 		head = head->next;
 		free(temp);

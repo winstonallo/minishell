@@ -1,42 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memory_management_arrays.c                         :+:      :+:    :+:   */
+/*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/21 19:19:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 11:55:52 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/11/21 23:17:40 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/11/30 04:41:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	free_array(char **arr)
+int	init_vars(t_shell *data, size_t words)
 {
-	size_t	i;
-
-	i = 0;
-	if (arr && *arr)
-	{
-		while (arr[i])
-		{
-			freeze(arr[i]);
-			i++;
-		}
-	}
-	freeze(arr);
+	data->tok.i = -1;
+	data->tok.j = 0;
+	data->tok.st = 0;
+	data->tok.words = words;
+	data->tok.tokens = malloc((words + 1) * sizeof(char *));
+	if (!data->tok.tokens)
+		return (-1);
+	return (0);
 }
 
-void	free_array_arrsize(char **arr, int arr_size)
+int	open_infile(char *path)
 {
-	int	i;
+	int	fd;
 
-	i = 0;
-	if (arr)
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
 	{
-		while (i < arr_size)
-			free(arr[i++]);
-		free(arr);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(path, 2);
+		perror(": ");
+		return (-1);
 	}
+	return (fd);
 }

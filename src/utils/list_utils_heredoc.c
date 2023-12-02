@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_utils_quote_parsing.c                         :+:      :+:    :+:   */
+/*   list_utils_heredoc.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 15:18:44 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 06:32:12 by abied-ch         ###   ########.fr       */
+/*   Created: 2023/11/30 08:25:49 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/11/30 08:42:13 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_quotes	*quotenew(char *content, int status, unsigned long len)
+t_dox	*doxnew(char *content)
 {
-	t_quotes	*new;
+	t_dox	*new;
 
 	new = malloc(sizeof(*new));
 	if (!new)
 		return (NULL);
-	if (content)
-	{
-		new->sequence = ft_strndup(content, len);
-		if (!new->sequence)
-			return (free(new), NULL);
-	}
-	else
-		new->sequence = NULL;
-	new->status = status;
+	new->name = content;
 	new->next = NULL;
 	return (new);
 }
 
-int	quoteadd_back(t_quotes **lst, t_quotes *new_node)
+int	doxadd_back(t_dox **lst, t_dox *new_node)
 {
-	t_quotes	*current;
+	t_dox	*current;
 
 	if (!new_node)
 		return (-1);
@@ -50,22 +42,26 @@ int	quoteadd_back(t_quotes **lst, t_quotes *new_node)
 	return (0);
 }
 
-void	free_sequences(t_quotes **sequences)
+void	free_dox(t_dox **stack_a)
 {
-	t_quotes	*current;
-	t_quotes	*next;
+	t_dox	*temp;
+	t_dox	*current;
 
-	if (sequences && *sequences)
+	if (!stack_a)
+		return ;
+	if (!*stack_a)
+		return (freeze(stack_a));
+	current = *stack_a;
+	while (current)
 	{
-		current = *sequences;
-		while (current)
+		temp = current->next;
+		if (current->name)
 		{
-			next = current->next;
-			free(current->sequence);
-			free(current);
-			current = next;
+			unlink(current->name);
+			freeze(current->name);
 		}
+		freeze(current);
+		current = temp;
 	}
-	if (sequences)
-		free(sequences);
+	freeze(stack_a);
 }

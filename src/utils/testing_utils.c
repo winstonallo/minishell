@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:16:38 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 11:03:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/28 13:19:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ void	print_quote_list(t_quotes **sequences)
 	head = *sequences;
 	while (head != NULL)
 	{
+		if (head->status == PUT_SPACE_HERE)
+			printf("Space:))\n");
 		if (head->status == IN_DOUBLE_QUOTES)
-			printf("Double Quoted Sequence: %s\n", head->sequence);
+			printf("Double Quoted Sequence: [%s]\n", head->sequence);
 		else if (head->status == IN_SINGLE_QUOTES)
-			printf("Single Quoted Sequence: %s\n", head->sequence);
+			printf("Single Quoted Sequence: [%s]\n", head->sequence);
 		else if (head->status == UNQUOTED)
-			printf("Unquoted Sequence: %s\n", head->sequence);
+			printf("Unquoted Sequence: [%s]\n", head->sequence);
 		head = head->next;
 	}
 }
@@ -41,16 +43,20 @@ void	print_op_list(t_op **opps)
 			printf("Double Quoted Sequence: %s\n", head->sequence);
 		else if (head->status == IN_SINGLE_QUOTES)
 			printf("Single Quoted Sequence: %s\n", head->sequence);
-		else if (head->special_character == 0)
-			printf("No special character: %s\n", head->sequence);
-		else if (head->special_character == PIPE)
-			printf("Pipe character: %d\n", head->special_character);
-		else if (head->special_character == OUTPUT_REDIRECTION)
-			printf("Output redirection character: %d\n",
-				head->special_character);
-		else if (head->special_character == INPUT_REDIRECTION)
-			printf("Input redirection character: %d\n",
-				head->special_character);
+		else if (head->status == UNQUOTED && !head->s_char)
+			printf("Unquoted sequence: %s\n", head->sequence);
+		else if (head->status == PUT_SPACE_HERE)
+			printf("SPACE\n");
+		else if (head->s_char == PIPE)
+			printf("Pipe character: %d\n", head->s_char);
+		else if (head->s_char == OUT_REDIR)
+			printf("Output redirection character\n");
+		else if (head->s_char == IN_REDIR)
+			printf("Input redirection character\n");
+		else if (head->s_char == APPEND)
+			printf("Append signal\n");
+		else if (head->s_char == HEREDOC)
+			printf("Heredoc signal\n");
 		head = head->next;
 	}
 }

@@ -6,12 +6,20 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:54:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/31 20:56:48 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 09:29:16 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LISTS_H
 # define LISTS_H
+
+# include <sys/types.h>
+
+typedef struct s_dox
+{
+	char			*name;
+	struct s_dox	*next;
+}	t_dox;
 
 typedef struct s_env
 {
@@ -36,7 +44,7 @@ typedef struct s_quotes
 typedef struct s_op
 {
 	char				*sequence;
-	int					special_character;
+	int					s_char;
 	int					status;
 	struct s_op			*next;
 }	t_op;
@@ -44,9 +52,14 @@ typedef struct s_op
 typedef struct s_cmd_table
 {
 	char				**args;
+	char				*path;
 	int					outfile;
 	int					infile;
+	int					isoutredir;
+	int					isinredir;
 	int					pipe;
+	pid_t				pid;
+	char				*heredoc;
 	struct s_cmd_table	*next;
 }	t_cmd_table;
 

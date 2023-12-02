@@ -6,39 +6,60 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:14:45 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/01 17:03:53 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 08:12:09 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*Here we rearrange the list one (hopefully last) time, we look for PIPE 
-characters or the end of the list as command table delimiters 
-(one command table is either until the end of the line or until the next pipe),
-and put them into char **arrays in order to be able to pass them to execve.
-We also look for input/output redirections, open the files into the list's
-file descriptor and remove them from the list.*/
-char	**get_command_array(t_op *data, int i, int j)
+static int	get_array_size(t_op *data)
 {
+	int		i;
 	t_op	*head;
-	char	**arr;
 
 	head = data;
-	while (++i && head && head->special_character != PIPE)
+	i = 0;
+	while (head && head->s_char != PIPE)
+	{
 		head = head->next;
-	arr = malloc((i + 1) * sizeof(char *));
+		i++;
+	}
+	return (i);
+}
+
+/**
+ * The function "get_command_array" takes a linked list of commands and 
+ * returns an array of strings containing the commands.
+ * 
+ * @param data A pointer to a linked list of type t_op. Each node in the 
+ * linked list represents a command or an operator (such as PIPE).
+ * @param i The parameter `i` is used as a counter to determine the size of the
+ * array `arr`. It is incremented in the first while loop until it reaches the 
+ * end of the linked list or encounters a node with the character `PIPE`.
+ * @param j The parameter `j` in the `get_command_array` function is used as an
+ * index to keep track of the current position in the `arr` array. 
+ * It is incremented each time a new command is added to the array.
+ * 
+ * @return a pointer to a character array (char **)
+ */
+char	**get_command_array(t_op *data, int j)
+{
+	char	**arr;
+
+	arr = malloc((get_array_size(data) + 1) * sizeof(char *));
 	if (!arr)
 		return (NULL);
-	while (data && data->special_character != PIPE)
+	while (data && data->s_char != PIPE)
 	{
-		if ((data->special_character == OUTPUT_REDIRECTION
-				|| data->special_character == INPUT_REDIRECTION))
+		if ((data->s_char))
 		{
 			if (!data->next->next)
 				break ;
 			data = data->next->next;
+			continue ;
 		}
-		arr[++j] = ft_strdup(data->sequence);
+		if (data->sequence && data->sequence[0])
+			arr[++j] = ft_strdup(data->sequence);
 		if (!arr[j])
 			return (free_array(arr), NULL);
 		data = data->next;
@@ -47,59 +68,78 @@ char	**get_command_array(t_op *data, int i, int j)
 	return (arr);
 }
 
-/*Look for redirections, open the according files, store FDs to the command
-table*/
-int	initialize_redirections(t_op *data, t_cmd_table **cmd_table)
+/**
+ * The function initializes file redirections for a command table.
+ * 
+ * @param data A pointer to a linked list of t_op structures. Each t_op 
+ * structure represents a command or operator in a shell command line.
+ * @param cmd_table A pointer to a pointer to a struct t_cmd_table. 
+ * This is a table that stores information about the commands and their 
+ * redirections.
+ * 
+ * @return an integer value. If the function is successful, it returns 0. 
+ * If there is an error, it returns -1.
+ */
+int	initialize_redirections(t_op *data, t_cmd_table **cmd_t, t_shell *d, int i)
 {
 	t_op		*h;
 	t_cmd_table	*new;
-	int			in;
-	int			out;
+	char		*temp;
+	int			o;
 
 	h = data;
-	in = NO_FD;
-	out = NO_FD;
-	while (h && h->special_character != PIPE)
+	o = 0;
+	temp = NULL;
+	while (h && h->s_char != PIPE)
 	{
-		if (h->special_character == OUTPUT_REDIRECTION)
-			out = open(h->next->sequence, O_CREAT | O_TRUNC | O_RDWR, 0000644);
-		else if (h->special_character == INPUT_REDIRECTION)
-			in = open(h->next->sequence, O_RDONLY);
+		if (h->s_char == OUT_REDIR && h->status == UNQUOTED)
+			o = open(h->next->sequence, O_CREAT | O_TRUNC | O_RDWR, 0000644);
+		else if (h->s_char == APPEND && h->status == UNQUOTED)
+			o = open(h->next->sequence, O_CREAT | O_APPEND | O_RDWR, 0000644);
+		else if (h->s_char == IN_REDIR && h->status == UNQUOTED)
+			i = open_infile(h->next->sequence);
+		else if (h->s_char == HEREDOC && h->status == UNQUOTED)
+			temp = get_unexpanded_value(h->next->sequence, d);
 		h = h->next;
 	}
-	new = cmdnew(out, in, 0);
+	new = cmdnew(o, i, 0, temp);
 	if (!new)
-		return (close(in), close(out), -1);
-	cmdadd_back(cmd_table, new);
+		return (close(i), close(o), -1);
+	cmdadd_back(cmd_t, new);
 	return (0);
 }
 
-/*Lines saving util function, creates a new delimiter node and
-adds it to the list*/
+/**
+ * The function "add_delimiter" adds a new command table entry with a 
+ * pipe delimiter to the given shell data structure.
+ * 
+ * @param data The parameter "data" is of type "t_shell*", which is a 
+ * pointer to a structure of type "t_shell".
+ * 
+ * @return an integer value. If the value is -1, it indicates an error 
+ * occurred. If the value is 0, it indicates that the function executed 
+ * successfully.
+ */
 int	add_delimiter(t_shell *data)
 {
 	t_cmd_table	*new;
 
-	new = cmdnew(NO_FD, NO_FD, PIPE);
+	new = cmdnew(NO_FD, NO_FD, PIPE, NULL);
 	if (!new)
 		return (-1);
 	cmdadd_back(data->cmd_table, new);
 	return (0);
 }
 
-/*
-1. Look for redirection characters, open the files and skip them so
-they are not stored in the arguments array
-2. Move the head of the list until we find either:
-EITHER a pipe (which signalizes the start of another command table)
-OR the end of the list, which means we are either done or we need to
-get the next command table
-3. Make a new node out of the arguments that we found until the next
-delimiter
-4. If we found a pipe, add a delimiter to the command table list
-5. Repeat until the end of the list
-*/
-
+/**
+ * The function `get_command_table` initializes redirections and creates a 
+ * command table based on the given shell data.
+ * 
+ * @param data A pointer to a structure of type t_shell, which contains 
+ * various data related to the shell program.
+ * 
+ * @return the value of `data->exit`.
+ */
 int	get_command_table(t_shell *data)
 {
 	t_op	*op_head;
@@ -107,24 +147,24 @@ int	get_command_table(t_shell *data)
 	op_head = *data->operators;
 	while (op_head)
 	{
-		if (initialize_redirections(op_head, data->cmd_table) == -1)
-			return (-1);
+		if (initialize_redirections(op_head, data->cmd_table, data, 0) == -1)
+			return (data->exit = FAILURE, -1);
 		data->cmd_head = *data->cmd_table;
 		while (data->cmd_head->args || data->cmd_head->pipe == PIPE)
 			data->cmd_head = data->cmd_head->next;
-		data->cmd_head->args = get_command_array(op_head, 0, -1);
+		data->cmd_head->args = get_command_array(op_head, -1);
 		if (!data->cmd_head->args)
-			return (-1);
-		while (op_head && op_head->special_character != PIPE)
+			return (data->exit);
+		while (op_head && op_head->s_char != PIPE)
 			op_head = op_head->next;
-		if (op_head && op_head->special_character == PIPE)
+		if (op_head && op_head->s_char == PIPE)
 		{
 			if (add_delimiter(data) == -1)
-				return (-1);
+				return (data->exit);
 			op_head = op_head->next;
 		}
 		while (data->cmd_head)
 			data->cmd_head = data->cmd_head->next;
 	}
-	return (0);
+	return (data->exit);
 }

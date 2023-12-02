@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:53:35 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 10:08:08 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:54:34 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static size_t	ft_strnlen(const char *s, size_t maxlen)
 	size_t	len;
 
 	len = 0;
+	if (!s)
+		return (0);
 	while (len < maxlen && *s)
 		len++;
 	return (len);

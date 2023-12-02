@@ -6,11 +6,27 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:00:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 11:02:15 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 14:05:30 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	update_paths(t_shell *data, char *line)
+{
+	if (!line[0])
+		return (0);
+	if (!ft_strncmp(line, "PATH", ft_strlen("PATH") + 1))
+	{
+		free_paths(data->paths);
+		data->paths = malloc(sizeof(t_path **));
+		if (!data->paths)
+			return (-1);
+		*data->paths = NULL;
+		get_paths(data);
+	}
+	return (0);
+}
 
 t_path	*pathnew(char *content)
 {
@@ -48,7 +64,8 @@ void	free_paths(t_path **stack_a)
 	while (current)
 	{
 		temp = current->next;
-		free(current->path);
+		if (current->path)
+			free(current->path);
 		free(current);
 		current = temp;
 	}

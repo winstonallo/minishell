@@ -6,82 +6,152 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 18:35:55 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/01 17:04:00 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 07:45:50 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*Here we go through the whole list again and look for special characters like
-PIPE('|'), OUTPUT REDIRECTION('>') and INPUT REDIRECTION('<').
-This is tricky because they do not have to be separated by spaces from other
-command line arguments.
-We re-split the sequences, make extra nodes in the list for special
-characters and set the flags accordingly*/
-int	isop(char c)
+/**
+ * The function isop checks if a character is a special operator and 
+ * updates a variable in a data structure accordingly.
+ * 
+ * @param s A pointer to a character array (string) that is being checked 
+ * for specific characters.
+ * @param j The parameter `j` is a pointer to a `size_t` variable. It is used 
+ * to keep track of the
+ * current position in the string `s`. The value of `j` is 
+ * incremented when certain characters are
+ * encountered in the string.
+ * @param data The parameter `data` is of type `t_shell`, a struct that
+ * contains various data related to the shell.
+ * 
+ * @return 1 if a special character is found and assigned to the 
+ * `data->s_char_tmp` variable, and 0 otherwise.
+ */
+int	isop(char *s, size_t *j, t_shell *data)
 {
-	if (c == '|')
-		return (PIPE);
-	else if (c == '<')
-		return (INPUT_REDIRECTION);
-	else if (c == '>')
-		return (OUTPUT_REDIRECTION);
+	if (*s == '|' && !data->s_char_tmp)
+		data->s_char_tmp = PIPE;
+	else if (*s == '<' && *(s + 1) != '<' && !data->s_char_tmp)
+		data->s_char_tmp = IN_REDIR;
+	else if (*s == '>' && *(s + 1) != '>' && !data->s_char_tmp)
+		data->s_char_tmp = OUT_REDIR;
+	else if (*s == '>' && *(s + 1) == '>' && !data->s_char_tmp)
+	{
+		*j += 1;
+		data->s_char_tmp = APPEND;
+	}
+	else if (*s == '<' && *(s + 1) == '<' && !data->s_char_tmp)
+	{
+		*j += 1;
+		data->s_char_tmp = HEREDOC;
+	}
+	if (data->s_char_tmp)
+		return (1);
 	return (0);
 }
 
+/**
+ * The function adds a new node with a special character to a linked list.
+ * 
+ * @param seq A pointer to a character array representing a sequence of 
+ * characters.
+ * @param len The parameter "len" represents the length of the sequence "seq".
+ * @param data A pointer to a structure of type t_shell.
+ * @param status The "status" parameter is an integer value that represents
+ * the status of the node being added.
+ * @return an integer value. If the operation is successful, it returns 0. 
+ * If there is an error, it returns -1.
+ */
 int	add_node_special_char(char *seq, size_t len, t_shell *data, int status)
 {
 	t_op	*new;
+	char	*temp;
+	char	*temptemp;
 
-	new = opnew(seq, UNQUOTED, status, len);
-	if (!new)
+	if (len < 0)
 		return (-1);
+	temp = ft_strndup(seq, len);
+	if (!temp)
+		return (-1);
+	temptemp = ft_strtrim(temp, "<>|");
+	if (!temptemp && !status)
+		return (freeze(temp), -1);
+	freeze(temp);
+	new = opnew(temptemp, UNQUOTED, status, len);
+	if (!new)
+		return (freeze(temptemp), freeze(temp), -1);
 	opadd_back(data->operators, new);
+	freeze(temptemp);
 	return (0);
 }
 
-/*Look for special characters in the string, and split it
-accordingly, setting the special character flag.*/
-int	split_curr_sequence(char *seq, t_shell *data)
+/**
+ * The function "split_curr_sequence" splits a given sequence into smaller
+ * sequences based on certain conditions and adds them as nodes to a structure.
+ * 
+ * @param seq A pointer to a character array representing a sequence of 
+ * characters.
+ * @param d The parameter `d` is of type `t_shell*`, which is a pointer to a
+ * structure `t_shell`.
+ * 
+ * @return the value of `d->exit`.
+ */
+int	split_curr_sequence(char *seq, t_shell *d, size_t i, size_t j)
 {
-	size_t	i;
-	size_t	j;
-
-	i = -1;
-	j = 0;
-	while (seq[++i] && seq[j])
+	while (seq && seq[++i] && seq[j])
 	{
 		i = j;
-		while (!isop(seq[j]) && seq[j])
+		while (!isop(&seq[j], &j, d) && seq[j])
 		{
 			j++;
-			if (isop(seq[j]) || !seq[j])
+			if ((isop(&seq[j], &j, d) || !seq[j]))
 			{
-				if (add_node_special_char(&seq[i], j - i, data, 0) == -1)
-					return (free_opps(data->operators), -1);
+				if (add_node_special_char(&seq[i], j - i, d, 0) == -1)
+					return (-1);
 			}
 		}
-		if (isop(seq[j]))
+		if (d->s_char_tmp)
 		{
-			if (add_node_special_char(NULL, 0, data, isop(seq[j])) == -1)
-				return (free_opps(data->operators), -1);
+			if (add_node_special_char(NULL, 0, d, d->s_char_tmp) == -1)
+				return (-1);
+			d->s_char_tmp = 0;
 			j++;
 		}
 	}
-	return (0);
+	return (d->exit);
 }
 
-/*Go through the list and look for special characters in each sequence*/
+/**
+ * The function `parse_special_char` parses special characters in a shell
+ * command and adds them to the list of operators in the `data` structure.
+ * 
+ * @param data The parameter `data` is of type `t_shell*`, which is a pointer
+ * to a structure `t_shell`.
+ * @return the value of `data->exit`.
+ */
 int	parse_special_char(t_shell *data)
 {
-	t_quotes	*temp;
+	t_quotes	*t;
+	t_op		*new;
 
-	temp = *data->sequences;
-	while (temp)
+	t = *data->sequences;
+	while (t)
 	{
-		if (split_curr_sequence(temp->sequence, data) == -1)
-			return (-1);
-		temp = temp->next;
+		if (t->status == UNQUOTED)
+		{
+			if (split_curr_sequence(t->sequence, data, -1, 0) == -1)
+				return (data->exit);
+		}
+		else
+		{
+			new = opnew(t->sequence, t->status, 0, ft_strlen(t->sequence));
+			if (!new)
+				return (-1);
+			opadd_back(data->operators, new);
+		}
+		t = t->next;
 	}
-	return (0);
+	return (data->exit);
 }

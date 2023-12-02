@@ -6,28 +6,51 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:38:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 10:28:01 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/30 13:06:00 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	echo(t_shell *data)
+int	check_n(char *arg)
 {
 	int	i;
-	int	newline;
 
 	i = 0;
-	newline = 1;
-	if ((*data->cmd_table)->args[1]
-		&& ft_strncmp((*data->cmd_table)->args[1], "-n", 3) == 0)
+	while (arg[++i])
 	{
-		newline = 0;
+		if (arg[i] != 'n')
+			return (0);
+	}
+	return (1);
+}
+
+/**
+ * The function "echo" prints out the sequences stored in a linked list,
+ * with the option to omit a newline character at the end.
+ */
+int	echo(t_cmd_table *head, int newline, int i)
+{
+	if (!head->args[1])
+		return (printf("\n"), SUCCESS);
+	while (!ft_strncmp(head->args[i], "-n", 2))
+	{
+		if (check_n(head->args[i]))
+		{
+			newline = 0;
+			i++;
+		}
+		else
+			break ;
+	}
+	while (head->args[i])
+	{
+		printf("%s", head->args[i]);
+		if (head->args[i + 1])
+			printf(" ");
 		i++;
 	}
-	while ((*data->cmd_table)->args[++i])
-		printf("%s", (*data->cmd_table)->args[i]);
 	if (newline)
 		printf("\n");
-	return (0);
+	return (SUCCESS);
 }

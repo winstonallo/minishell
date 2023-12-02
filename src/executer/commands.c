@@ -12,37 +12,52 @@
 
 #include "../../include/minishell.h"
 
-/*🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
-Here we look for the commands that we do not execute using execve (the 7
-specified in the subject) and execute them if found, otherwise we pass the 
-command line to the executing part*/
-void	env(t_shell *data)
+int	checkcmd(t_shell *data)
 {
-	t_env	*head;
-
-	head = *data->env_list;
-	while (head)
+	if (!data->cmd_table || !*data->cmd_table || !(*data->cmd_table)->args
+		|| !(*data->cmd_table)->args[0])
+		return (SUCCESS);
+	if (ft_strncmp((*data->cmd_table)->args[0], "exit", 5) == 0)
 	{
-		printf("%s=%s\n", head->name, head->line);
-		head = head->next;
+		data->builtin_executed = 1;
+		return (myexit(data));
 	}
+	else if (ft_strncmp((*data->cmd_table)->args[0], "export", 6) == 0)
+	{
+		data->builtin_executed = 1;
+		return (export(data));
+	}
+	else if (!ft_strncmp((*data->cmd_table)->args[0], "unset", 6))
+	{
+		data->builtin_executed = 1;
+		return (unset(data), 0);
+	}
+	else if (!ft_strncmp((*data->cmd_table)->args[0], "cd", 3))
+	{
+		data->builtin_executed = 1;
+		return (cd(data, 0), update_pwd(data), data->exit);
+	}
+	data->exit = COMMAND_NOT_FOUND;
+	return (0);
 }
 
-int	find_command(t_shell *data)
+/**
+ * The function `find_command` checks the first argument of the command table 
+ * and executes the corresponding command or returns an error if
+ * the command is not found.
+ * @return either SUCCESS or FAILURE.
+ */
+int	find_command(t_shell *data, t_cmd_table *head)
 {
-	if (ft_strncmp((*data->cmd_table)->args[0], "env", 4) == 0)
-		return (env(data), 0);
-	else if (ft_strncmp((*data->cmd_table)->args[0], "exit", 5) == 0)
-		return (EXIT);
-	else if (ft_strncmp((*data->cmd_table)->args[0], "export", 6) == 0)
-		return (export(data), 0);
-	else if (ft_strncmp((*data->cmd_table)->args[0], "cd", 3) == 0)
-		return (cd(data));
-	else if (ft_strncmp((*data->cmd_table)->args[0], "pwd", 4) == 0)
-		return (pwd(data));
-	else if (ft_strncmp((*data->cmd_table)->args[0], "echo", 5) == 0)
-		return (echo(data));
-	else if (execute_command(data) == 0)
+	if (!head || !head->args || !head->args[0])
 		return (0);
-	return (COMMAND_NOT_FOUND);
+	if (!ft_strncmp(head->args[0], "env", 4))
+		return (env(data));
+	else if (!ft_strncmp(head->args[0], "pwd", 4))
+		return (pwd(data));
+	else if (!ft_strncmp(head->args[0], "echo", 5))
+		return (echo(head, 1, 1));
+	else
+		return (COMMAND_NOT_FOUND);
+	return (FAILURE);
 }

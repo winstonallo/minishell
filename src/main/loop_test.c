@@ -1,47 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop.c                                             :+:      :+:    :+:   */
+/*   loop_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/19 15:00:43 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/05 14:42:56 by sstanfel         ###   ########.fr       */
+/*   Created: 2023/11/22 08:42:24 by abied-ch          #+#    #+#             */
+/*   Updated: 2023/11/26 19:01:55 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	heredocs(t_shell *data)
-{
-	t_cmd_table	*head;
-	int			id;
-
-	free_dox(data->dox);
-	data->dox = malloc(sizeof(t_dox **));
-	if (!data->dox)
-		return (-1);
-	*data->dox = NULL;
-	head = *data->cmd_table;
-	id = 0;
-	while (head)
-	{
-		if (head->heredoc)
-			heredoc(head, data, id);
-		head = head->next;
-		id++;
-	}
-	return (0);
-}
+#include "../../include/minishell.h"
 
 /**
  * The function reads user input, processes it for quotes, expands sequences, 
  * parses special characters, creates a command table, 
  * and finds the command to execute.
  */
-int	read_input(t_shell *data)
+static int	read_input_test(t_shell *data)
 {
-	add_history(data->raw_input);
 	if (tokenize(data) == -1)
 		return (-1);
 	if (expand(data) == -1)
@@ -54,11 +33,8 @@ int	read_input(t_shell *data)
 		return (-1);
 	if (get_command_table(data) == -1)
 		return (-1);
-	checkcmd(data);
-	heredocs(data);
-	if (!data->builtin_executed)
-		if (execute_command(data) == -1)
-			return (-1);
+	if (checkcmd(data) != COMMAND_NOT_FOUND)
+		return (SUCCESS);
 	return (0);
 }
 
@@ -67,9 +43,15 @@ int	read_input(t_shell *data)
  * and returns the appropriate value.
  * @return the value of `data->exit`.
  */
-int	check_status(t_shell *data)
+static int	check_status_test(t_shell *data)
 {
-	if (data->exit == EXIT)
+	if (data->exit == COMMAND_NOT_FOUND)
+	{
+		ft_putstr_fd(data->raw_input, 2);
+		ft_putstr_fd(": command not found\n", 2);
+		return (COMMAND_NOT_FOUND);
+	}
+	else if (data->exit == EXIT)
 		return (EXIT);
 	return (data->exit);
 }
@@ -87,24 +69,18 @@ int	check_status(t_shell *data)
  * the value of `data->exit`. If none of the conditions are true, the function
  * will return 0.
  */
-int	loop(t_shell *data)
+int	loop_test(t_shell *data, char *input)
 {
-	while (1)
-	{
-		if (initialize_sequences(data) == -1)
-			return (data->exit);
-		listen(data, INTERACTIVE);
-		data->raw_input = readline(data->prompt);
-		listen(data, NON_INTERACTIVE);
-		if (g_sig == CTRL_C)
-			data->exit = 130;
-		if (!data->raw_input)
-			return (myexit(data));
-		if (!data->raw_input[0] && wipe(data))
-			continue ;
-		if (read_input(data) == -1 && wipe(data))
-			continue ;
-		wipe(data);
-	}
+	if (initialize_sequences(data) == -1)
+		return (EXIT);
+	data->raw_input = ft_strdup(input);
+	if (!data->raw_input)
+		return (myexit(data));
+	if (!data->raw_input[0])
+		return (wipe(data), 0);
+	if (read_input_test(data) == -1)
+		return (EXIT);
+	if (check_status_test(data) == EXIT)
+		return (EXIT);
 	return (0);
 }

@@ -6,20 +6,20 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:36:03 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/03 10:40:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:34:51 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/*Get the current working directory's path, trim off everything that comes
-before the actual name, and use the new string as a prompt to have cwd
-information in prompt*/
-int	get_prompt(t_shell *data)
+/**
+ * The function `get_prompt` retrieves the current working directory 
+ * and sets it as the prompt for the
+ * shell, using the last directory name as the prompt.
+ */
+int	get_prompt(t_shell *data, size_t i)
 {
 	char	*cwd;
-	char	*temp;
-	size_t	i;
 
 	if (data->prompt)
 		free(data->prompt);
@@ -31,19 +31,20 @@ int	get_prompt(t_shell *data)
 	{
 		if (cwd[i] == '/')
 		{
-			data->prompt = ft_strdup(&cwd[i + 1]);
-			free(cwd);
-			temp = ft_strjoin("\033[0;36m\033[1m", data->prompt);
-			free(data->prompt);
-			data->prompt = ft_strjoin(temp, " \x1b[0m🏩 ");
-			free(temp);
-			return (0);
+			data->prompt = ft_strjoin(&cwd[i + 1], "$ ");
+			if (!data->prompt)
+				return (-1);
+			return (free(cwd), 0);
 		}
 	}
 	data->prompt = cwd;
 	return (0);
 }
 
+/**
+ * The function `get_environment` parses an array of strings representing 
+ * environment variables and adds them to a linked list.
+ */
 int	get_environment(t_shell *data, size_t i, size_t j)
 {
 	char	**t;
@@ -67,5 +68,8 @@ int	get_environment(t_shell *data, size_t i, size_t j)
 		}
 		i++;
 	}
+	if (!TEST_MODE)
+		if (get_prompt(data, 0) == -1)
+			return (-1);
 	return (0);
 }

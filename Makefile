@@ -1,5 +1,7 @@
 NAME = minishell
 
+TEST_NAME = minishell_test
+
 OBJ_DIR = obj
 
 SRC_DIR = src/
@@ -12,28 +14,63 @@ UTILS_DIR = utils/
 
 EXEC_DIR = executer/
 
-SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
+BUILT_INS = built_ins/
+
+INIT_DIR = initialize/
+
+LEXER_DIR = lexer/
+
+SRCS = 	
+    ${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${MAIN_DIR}loop.c \
-		${SRC_DIR}${PARSER_DIR}paths.c \
-		${SRC_DIR}${PARSER_DIR}parse_for_quotes.c \
-		${SRC_DIR}${PARSER_DIR}parsing_utils.c \
-		${SRC_DIR}${UTILS_DIR}list_utils.c \
-		${SRC_DIR}${UTILS_DIR}testing_utils.c \
-		${SRC_DIR}${UTILS_DIR}memory_management_utils.c \
-		${SRC_DIR}${UTILS_DIR}memory.c \
-		${SRC_DIR}${EXEC_DIR}commands.c \
-		${SRC_DIR}${PARSER_DIR}expand_dquotes.c \
-		${SRC_DIR}${PARSER_DIR}expand.c \
-		${SRC_DIR}${UTILS_DIR}initialize.c \
-		${SRC_DIR}${EXEC_DIR}execute.c \
+		${SRC_DIR}${MAIN_DIR}loop_test.c \
+		${SRC_DIR}${MAIN_DIR}signals.c \
+\
+		${SRC_DIR}${PARSER_DIR}parse_quotes.c \
 		${SRC_DIR}${PARSER_DIR}parse_special_characters.c \
-		${SRC_DIR}${PARSER_DIR}escape.c \
+		${SRC_DIR}${PARSER_DIR}expand2.c \
+		${SRC_DIR}${PARSER_DIR}expand.c \
 		${SRC_DIR}${PARSER_DIR}get_command_table.c \
-		${SRC_DIR}${UTILS_DIR}store_cmd_tables.c \
-		${SRC_DIR}${PARSER_DIR}expand_uquotes.c \
+		${SRC_DIR}${PARSER_DIR}merge_args.c \
+		${SRC_DIR}${PARSER_DIR}get_tokens.c \
+		${SRC_DIR}${PARSER_DIR}expand_heredoc.c \
+\
+		${SRC_DIR}${UTILS_DIR}list_utils_quote_parsing.c \
+		${SRC_DIR}${UTILS_DIR}list_utils_special_char.c \
+		${SRC_DIR}${UTILS_DIR}list_utils_environment.c \
+		${SRC_DIR}${UTILS_DIR}list_utils_cmd_table.c \
+		${SRC_DIR}${UTILS_DIR}list_utils_paths.c \
+		${SRC_DIR}${UTILS_DIR}memory_management_arrays.c \
+		${SRC_DIR}${UTILS_DIR}memory_management_cleanup.c \
+		${SRC_DIR}${UTILS_DIR}parsing_utils.c \
+		${SRC_DIR}${UTILS_DIR}parsing_utils2.c \
+		${SRC_DIR}${UTILS_DIR}testing_utils.c \
+		${SRC_DIR}${UTILS_DIR}list_utils_heredoc.c \
+\
+		${SRC_DIR}${EXEC_DIR}commands.c \
+		${SRC_DIR}${EXEC_DIR}execute.c \
 		${SRC_DIR}${EXEC_DIR}pipe_utils.c \
-		${SRC_DIR}${UTILS_DIR}store_environment.c \
-		${SRC_DIR}${EXEC_DIR}built_ins.c \
+		${SRC_DIR}${EXEC_DIR}pipe.c \
+		${SRC_DIR}${EXEC_DIR}exec_utils.c \
+		${SRC_DIR}${EXEC_DIR}heredoc.c \
+		${SRC_DIR}${EXEC_DIR}randomassshit.c \
+\
+		${SRC_DIR}${BUILT_INS}export_utils.c \
+		${SRC_DIR}${BUILT_INS}export_error.c \
+		${SRC_DIR}${BUILT_INS}export.c \
+		${SRC_DIR}${BUILT_INS}unset.c \
+		${SRC_DIR}${BUILT_INS}echo.c \
+		${SRC_DIR}${BUILT_INS}pwd.c \
+		${SRC_DIR}${BUILT_INS}cd.c \
+		${SRC_DIR}${BUILT_INS}env.c \
+		${SRC_DIR}${BUILT_INS}exit.c \
+\
+		${SRC_DIR}${INIT_DIR}initialize_paths.c \
+		${SRC_DIR}${INIT_DIR}initialize_lists.c \
+		${SRC_DIR}${INIT_DIR}environment.c \
+\
+		${SRC_DIR}${LEXER_DIR}errors.c \
+		${SRC_DIR}${LEXER_DIR}lexer_utils.c \
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
@@ -50,11 +87,11 @@ RM = rm -rf
 all: $(OBJ_DIR) $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT_OBJS)
-	printf "Compiling libft..."
-	$(MAKE) -C ./libft --no-print-directory
-	printf "\r\rCompiling minishell.."
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_OBJS) -o $(NAME) $(LDFLAGS)
-	printf "\rCompiling completed.\n"
+	@printf "Compiling libft..."
+	@$(MAKE) -C ./libft --no-print-directory
+	@printf "\r\rCompiling minishell.."
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_OBJS) -o $(NAME) $(LDFLAGS)
+	@printf "\rCompiling completed.\n"
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
@@ -70,16 +107,8 @@ clean:
 	$(RM) $(OBJ_DIR)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(TEST_NAME)
 
 re: fclean all
 
-generate_test:
-	valgrind --leak-check=full --show-reachable=yes --error-limit=no --gen-suppressions=all --log-file=$(NAME).log ./$(NAME)
-
-test: all
-	clear; valgrind --leak-check=full --track-origins=yes --track-fds=yes --show-reachable=yes --show-leak-kinds=all --error-limit=no --suppressions=./$(NAME).supp ./$(NAME)
-
-child_test: all
-	clear; valgrind --trace-children=yes --leak-check=full --track-origins=yes --track-fds=yes --show-reachable=yes --show-leak-kinds=all --error-limit=no --suppressions=./$(NAME).supp ./$(NAME)
 .PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:50:32 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/02 14:39:25 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/11/15 15:16:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ char	*ft_strjoin(char *s1, char *s2)
 			return (NULL);
 		s1[0] = '\0';
 	}
-	if (!s1 || !s2)
-		return (NULL);
 	dest = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!dest)
 		return (free(s1), NULL);
