@@ -20,7 +20,8 @@ INIT_DIR = initialize/
 
 LEXER_DIR = lexer/
 
-SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
+SRCS = 	
+    ${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${MAIN_DIR}loop.c \
 		${SRC_DIR}${MAIN_DIR}loop_test.c \
 		${SRC_DIR}${MAIN_DIR}signals.c \

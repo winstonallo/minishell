@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sstanfel <sstanfel@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:52:25 by arthur            #+#    #+#             */
 /*   Updated: 2023/11/30 10:37:16 by abied-ch         ###   ########.fr       */
@@ -12,24 +12,6 @@
 
 #include "../../include/minishell.h"
 
-//env nicht nach alphabehet sortiert == BAUSTELLE
-// static int	print_env_sorted(t_shell *data)
-// {
-// 	env(data);
-// 	return (0);
-// }
-/**
- * The function "export" is used to update the environment list with the 
- * given arguments and returns a success or failure status.
- * 
- * @return either SUCCESS or FAILURE.
- */
-// void	alpha_sort(t_shell *data)
-// {
-// 	t_env *head;
-
-// 	t_ if (*head == NULL || (*head)->next == NULL) return ;
-// }
 void	print_sorted_env(t_env **head)
 {
 	t_env	*temp;
