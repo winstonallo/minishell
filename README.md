@@ -1,6 +1,6 @@
 # minishell
 
-## 42 uni project
+42 uni project
 
 This project is about writing a simple shell.
 
@@ -56,6 +56,6 @@ src/builtins
 
 ### grade
 
-99/100 - program exits with wrong exit code (127) when limiting max resources
+99/100 - program exits with wrong code (127 instead of 1)when limiting max resources
 
 gonna sleep for a while now
