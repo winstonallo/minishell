@@ -20,8 +20,7 @@ INIT_DIR = initialize/
 
 LEXER_DIR = lexer/
 
-SRCS = 	
-    ${SRC_DIR}${MAIN_DIR}minishell.c \
+SRCS = 	${SRC_DIR}${MAIN_DIR}minishell.c \
 		${SRC_DIR}${MAIN_DIR}loop.c \
 		${SRC_DIR}${MAIN_DIR}loop_test.c \
 		${SRC_DIR}${MAIN_DIR}signals.c \
@@ -78,7 +77,9 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -Iincludes -g
 
-LDFLAGS = -L ./libft -lm -lft -lreadline
+LDFLAGS = -L  ./libft -lm -lft -lreadline
+
+CPPFLAGS = "-I/Users/arthur/.brew/opt/readline/include"
 
 RM = rm -rf
 

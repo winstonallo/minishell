@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 15:24:37 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 13:22:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/20 11:50:08 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	sigint(int signo)
 		g_sig = CTRL_C;
 		write(STDERR_FILENO, "\n", 1);
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
@@ -34,7 +34,7 @@ void	heredox(int status)
 	{
 		g_sig = CTRL_C;
 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_on_new_line();
 	}
 }
@@ -43,6 +43,7 @@ void	listen(t_shell *data, int sig_mode)
 {
 	if (!data)
 		return ;
+	g_sig = 0;
 	if (sig_mode == INTERACTIVE)
 	{
 		signal(SIGINT, &sigint);
