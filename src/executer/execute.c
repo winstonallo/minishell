@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:33:12 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 12:11:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 06:43:51 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ void	child1(t_cmd_table *head, t_shell *data)
 	int		pipe_fd[2];
 
 	if (pipe(pipe_fd) == -1)
+	{
+		data->exit = 1;
 		exit_handler(data, NULL, head);
+	}
 	head->pid = fork();
 	if (!head->pid)
 	{

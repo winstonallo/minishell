@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:20:09 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/11/30 09:28:28 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/12/21 06:47:03 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	exit_handler(t_shell *data, DIR *check, t_cmd_table *head)
 		else
 			data->exit = 0;
 	}
+	perror("minishell: error");
 	if (head->infile >= 0 && head->infile != HEREDOCINT)
 		close(head->infile);
 	unlink(".temp_heredoc");
@@ -32,6 +33,7 @@ void	exit_handler(t_shell *data, DIR *check, t_cmd_table *head)
 	wipe4real(data);
 	if (check)
 		closedir(check);
+	printf("exit\n");
 	exit(data->exit);
 }
 
